@@ -1,50 +1,99 @@
-<!doctype html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script src="https://yuneg11.github.io/template.js"></script></head><body><n-header></n-header><n-title><h1>Distill Example</h1><p>An example project using Webpack, Babel, and Svelte.</p></n-title><n-article><p>Welcome to a Distill example article: meant to get you writing up your research quickly. Let's demo some features:</p><h4>Hot reloading</h4><p>Your browser can automatically refresh when your editor saves. This should work by default, and you can disable it in <code>index.js</code>. Sometimes hot reloading isn't fully compatible with all types of code, so you may need to try manually reloading if you're seeing inconsistent behavior.</p><h4>Inlined SVGs</h4><p>SVGs are so small that it can be nice to save an extra request and simply inline them intop your HTML:</p><style>#arrow-2 #arrow-head {
-        fill: steelblue;
-      }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EungGu Yun's Blog</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+  <header class="container-lg navbar navbar-expand-md navbar-dark bg-dark shadow rounded-bottom" style="max-width: 1140px">
+    <a class="navbar-brand mx-md-2" href="/">EungGu Yun</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="/projects">Projects</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown1" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown1">
+            <li>
+              <a class="dropdown-item" href="#">Action</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Another action</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </li>
+          </ul>
+        </li> -->
+      </ul>
+      <!-- <form>
+        <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+      </form> -->
+    </div>
+  </header>
 
-      #arrow-2 #arrow-line {
-        stroke: steelblue;
-      }</style><p>Let's use some CSS to style an inlined SVG. Here's an arrow <svg width="27px" height="9px" viewBox="0 0 27 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Group" transform="translate(-0.195652, 0.0)"><path d="M10.5,4.5 L26.8913043,4.5" id="arrow-line" stroke="#FF6600" stroke-width="2" stroke-linecap="square" stroke-dasharray="6,4"></path><g id="arrow-head" transform="translate(5.0, 4.5) scale(-1, 1) translate(-5.0, -4.5) translate(0.5, 0.0)" fill="#FF6600" fill-rule="nonzero"><path d="M4.5,0 C5.67007294,3.25202425 6.85281213,6.29180565 9,9 L4.5,7.3125 L0,9 C2.13530145,6.28972675 3.34126793,3.24998975 4.5,0 Z" id="Shape" transform="translate(4.5, 4.5) rotate(-270.0) translate(-4.5, -4.5) "></path></g></g></g></svg> that we can make inline. If you'd like to change the color in CSS, we can do so. Let's put the second arrow (<span id="arrow-2"><svg width="27px" height="9px" viewBox="0 0 27 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Group" transform="translate(-0.195652, 0.0)"><path d="M10.5,4.5 L26.8913043,4.5" id="arrow-line" stroke="#FF6600" stroke-width="2" stroke-linecap="square" stroke-dasharray="6,4"></path><g id="arrow-head" transform="translate(5.0, 4.5) scale(-1, 1) translate(-5.0, -4.5) translate(0.5, 0.0)" fill="#FF6600" fill-rule="nonzero"><path d="M4.5,0 C5.67007294,3.25202425 6.85281213,6.29180565 9,9 L4.5,7.3125 L0,9 C2.13530145,6.28972675 3.34126793,3.24998975 4.5,0 Z" id="Shape" transform="translate(4.5, 4.5) rotate(-270.0) translate(-4.5, -4.5) "></path></g></g></g></svg></span>) in a tag with an ID, so we can target it in CSS.<d-code block="" language="css">#arrow-2 #arrow-head { fill: steelblue; } #arrow-2 #arrow-line { stroke: steelblue; }</d-code></p><h4>Formulas</h4><p>Here's a test of an inline equation<d-math>c = a^2 + b^2</d-math>. Can also be used with configurable katex settings, for example by using inline <code>$</code> signs:<d-math>x^2</d-math>. There are also block equations:</p><d-math block="">c = \pm \sqrt{ \sum_{i=0}^{n}{a^{222} + b^2}}</d-math><p>Math can also be quite involved:</p><d-math block="">\frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}} {1+\frac{e^{-8\pi}} {1+\cdots} } } }</d-math><p>We've also been experimenting with <a href="https://github.com/distillpub/template/wiki/Annotated-Formulas">annotated formulas</a>:</p><style>.eq-grid {
-        display: grid;
-        justify-content: start;
-        grid-row-gap: 10px;
-      }
+  <main class="container-lg p-0 p-md-2 mb-2 mb-md-0" style="max-width: 1140px">
 
-      .eq-grid figcaption d-math {
-        font-size: 100%;
-      }
 
-      .eq-grid .expansion-marker {
-        border: 1px solid #CCC;
-        border-bottom: none;
-        height: .5em;
-        width: 100%;
-      }</style><figure class="eq-grid"><div style="grid-row: 1; grid-column: 1;"><d-math>C ~~~=~~~~</d-math></div><div style="grid-row: 1; grid-column: 2;"><d-math>H^E_D(X, Z)</d-math></div><div style="grid-row: 1; grid-column: 3;"><d-math>~~~-~~~</d-math></div><div style="grid-row: 1; grid-column: 4;"><d-math>H^E_E(X, Z)</d-math></div><div class="expansion-marker" style="grid-row: 2; grid-column: 4 / 7;"></div><div style="grid-row: 3; grid-column: 1;"><d-math>~~~~~~~=~~~~</d-math></div><div style="grid-row: 3; grid-column: 2;"><d-math>H^E_D(X, Z)</d-math></div><div style="grid-row: 3; grid-column: 3;"><d-math>~~~-~~~</d-math></div><div style="grid-row: 3; grid-column: 4;"><d-math>H^E_E(Z | X)</d-math></div><div style="grid-row: 3; grid-column: 5;"><d-math>~~~-~~~</d-math></div><div style="grid-row: 3; grid-column: 6;"><d-math>H^E_E(X)</d-math></div><figcaption style="grid-row: 4; grid-column: 4; max-width:135px;">Bits to represent<d-math>z</d-math><br>if you already know<d-math>x</d-math>.</figcaption><figcaption style="grid-row: 4; grid-column: 6; max-width:120px;">Bits to represent<br><d-math>x</d-math>by itself.</figcaption></figure><h4>Citations</h4><p>We can<d-cite key="mercier2011humans"></d-cite>also cite<d-cite key="gregor2015draw,mercier2011humans,openai2018charter"></d-cite>external publications.<d-cite key="dong2014image,dumoulin2016guide,mordvintsev2015inceptionism"></d-cite>. We should also be testing footnotes<n-footnote id="n-footnote-1">This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote.</n-footnote>. There are multiple footnotes, and they appear in the appendix<n-footnote id="n-footnote-2">Given I have coded them right. Also, here's math in a footnote:<d-math>c = \sum_0^i{x}</d-math>. Also, a citation. Box-ception<d-cite key="gregor2015draw"></d-cite>!</n-footnote>as well.</p><h4>Displaying code</h4><p>Some inline javascript:<d-code language="javascript">var x = 25;</d-code>. And here's a javascript code block.</p><d-code block="" language="javascript">var x = 25; function(x){ return x * x; }</d-code><p>We also support some highlighting.</p><d-code block="" language="python"># Python 3: Fibonacci series up to n def fib(n): a, b = 0, 1 while a &lt; n: print(a, end=' ' ) a, b=b, a+b</d-code><h4>Tables</h4><p>We have simple tables that try to stay readable at most screen sizes:</p><style>#example-table {
-        overflow-x: scroll;
-      }
 
-      #example-table th {
-        white-space: nowrap;
-      }
 
-      #example-table tbody th {
-        font-weight: initial;
-        border-bottom: 1px solid rgb(242, 242, 242);
-      }
+    <div class="row m-0 gy-2 gy-md-0">
+      <div class="col col-md-4 col-lg-3 me-md-1 p-2 shadow border rounded bg-white">
+        <div class="row m-0">
+          <div class="col-12 col-sm-4 col-md-12 p-0 d-flex align-items-center justify-content-center">
+            <img class="img-fluid rounded" width="100%" height="100%"
+              src="https://avatars.githubusercontent.com/u/2123763?s=460&u=1b26b224301d9400941d187603a2f14c871f26c2&v=4"
+              style="max-height: 300px; max-width: 300px">
+          </div>
+          <div class="col-12 col-sm-8 col-md-12 mt-2 mt-sm-0 mt-md-2 p-1">
+            <h3 class="m-0">EungGu Yun</h5>
+            <p>M.S. student @ KAIST</p>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">An item</li>
+              <li class="list-group-item">A second item</li>
+              <li class="list-group-item">A third item</li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
-      #example-table tbody tr:last-of-type th {
-        border-bottom: inherit;
-      }
+      <section class="col-md ms-md-1 p-2 border shadow rounded bg-white">
+        <h3>Work in progress</h3>
+      </section>
+    </div>
 
-      #example-table td,
-      #example-table thead th {
-        text-align: center;
-      }
 
-      #example-table td {
-        border-color: rgb(242, 242, 242);
-      }
 
-      #example-table td.no {
-        background-color: #f6f6f6;
-      }</style><table id="example-table"><thead><tr><th></th><th scope="col">Parallel</th><th scope="col">Efficient</th><th scope="col">Reversible</th></tr></thead><tbody><tr><th scope="row">GANs</th><td>Yes</td><td>Yes</td><td class="no">No</td></tr><tr><th scope="row">Flow Models</th><td>Yes</td><td class="no">No</td><td>Yes</td></tr><tr><th scope="row">Autoregressive Models</th><td class="no">No</td><td>Yes</td><td>Yes</td></tr></tbody></table><h4>Interactive Figures</h4><p>Here's a dynamically instantiated "figure". We use Intersection Observers to allow loading resource-heavy figures only when readers scroll close to them. The code for this is in <code>src/index.js</code>.</p><d-figure id="svelte-example-dfigure"><figure><div id="svelte-example-target"></div><figcaption>And a static figcaption. You can use citations<d-cite key="mercier2011humans"></d-cite>in this figcaption, but not in text added by javascript.</figcaption></figure></d-figure><p>You can't use citation tags (<code>d-cite</code>) in figures that are dynamically loaded using Javascript. Distill statically analyzes your submission for its citations, because they need to be uploaded to indexers and organizations like <a href="https://www.crossref.org/">CrossRef</a> and <a href="https://scholar.google.com">Google Scholar</a>.</p><p>That's it for the example article! Feel free to look at <a href="https://github.com/distillpub?utf8=%E2%9C%93&q=n--&type=public">implementations of existing Distill articles</a>, or ask for help in the <a href="http://slack.distill.pub">Distill Slack Community</a>.</p></n-article><n-appendix><h3>Acknowledgments</h3><p>We are deeply grateful to...</p><p>Many of our diagrams are based on...</p><h3>Author Contributions</h3><p><b>Research:</b> Alex developed ...</p><p><b>Writing & Diagrams:</b> The text was initially drafted by...</p><n-footnote-list></n-footnote-list><d-citation-list></d-citation-list></n-appendix><n-footer></n-footer></body>
+
+
+  </main>
+
+  <footer class="container-lg text-light bg-dark shadow rounded-top mt-auto" style="max-width: 1140px">
+    <div class="row py-2 mx-lg-0">
+      <div class="col-sm py-2">
+        <span class="text-muted">© EungGu Yun 2021</span>
+      </div>
+      <div class="col-sm text-sm-end py-2">
+        <a class="text-light" href="https://github.com/yuneg11" style="text-decoration: none">
+          <i class="bi bi-github"></i>
+          <span>yuneg11</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+</body>
+</html>
