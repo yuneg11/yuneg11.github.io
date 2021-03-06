@@ -8,6 +8,86 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <!-- <link rel="stylesheet" href="style.css"> -->
+  <style>
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 26px;
+    }
+
+    /* Hide default HTML checkbox */
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    /* The slider */
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgb(198, 219, 11);
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX(18px);
+      -ms-transform: translateX(18px);
+      transform: translateX(18px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+    [data-theme="dark"] .bg-white {
+      background-color: #212529 !important;
+      color: #f8f9fa !important;
+    }
+
+    [data-theme="dark"] .bg-dark {
+      background-color: #121314 !important;
+    }
+
+    [data-theme="dark"] {
+      background-color: #343a40 !important;
+    }
+
+    [data-theme="dark"] .border {
+      border-color: #212529 !important;
+    }
+  </style>
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
   <header class="container-lg navbar navbar-expand-md navbar-dark bg-dark shadow rounded-bottom" style="max-width: 1140px">
@@ -20,28 +100,28 @@
         <li class="nav-item">
           <a class="nav-link" href="/about">About</a>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="/projects">Projects</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown1" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-          <ul class="dropdown-menu" aria-labelledby="dropdown1">
-            <li>
-              <a class="dropdown-item" href="#">Action</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Another action</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </li>
-          </ul>
-        </li> -->
+
       </ul>
       <!-- <form>
         <input class="form-control" type="text" placeholder="Search" aria-label="Search">
       </form> -->
+      <div>
+        <i class="bi bi-sun-fill text-light"></i>
+        <div class="switch">
+          <input type="checkbox" class="" id="darkSwitch">
+          <label class="slider round" for="darkSwitch"></label>
+        </div>
+        <i class="bi bi-moon-fill text-light"></i>
+      </div>
     </div>
+    <!-- <div class="ms-2">
+      <span>🇺🇸</span>
+      <div class="switch">
+        <input type="checkbox" class="" id="langSwitch">
+        <label class="slider round" for="langSwitch"></label>
+      </div>
+      <span>🇰🇷</span>
+    </div> -->
   </header>
 
   <main class="container-lg p-0 p-md-2 mb-2 mb-md-0" style="max-width: 1140px">
@@ -57,14 +137,9 @@
               src="https://avatars.githubusercontent.com/u/2123763?s=460&u=1b26b224301d9400941d187603a2f14c871f26c2&v=4"
               style="max-height: 300px; max-width: 300px">
           </div>
-          <div class="col-12 col-sm-8 col-md-12 mt-2 mt-sm-0 mt-md-2 p-1">
+          <div class="col-12 col-sm-8 col-md-12 mt-2 mt-sm-0 mt-md-2 p-1 ps-sm-2 ps-md-1">
             <h3 class="m-0">EungGu Yun</h5>
             <p>M.S. student @ KAIST</p>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">An item</li>
-              <li class="list-group-item">A second item</li>
-              <li class="list-group-item">A third item</li>
-            </ul>
           </div>
         </div>
       </div>
@@ -95,5 +170,6 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+  <script src="index.js"></script>
 </body>
 </html>
