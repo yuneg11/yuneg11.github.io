@@ -94,7 +94,7 @@
   </style>
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
-  <header class="container-lg navbar navbar-expand-md navbar-dark bg-dark shadow rounded-bottom" style="max-width: 1140px">
+  <!-- <header class="container-lg navbar navbar-expand-md navbar-dark bg-dark shadow rounded-bottom" style="max-width: 1140px">
     <a class="navbar-brand mx-md-2" href="/">EungGu Yun</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
       <span class="navbar-toggler-icon"></span>
@@ -104,12 +104,8 @@
         <li class="nav-item">
           <a class="nav-link" href="/about">About</a>
         </li>
-
       </ul>
-      <!-- <form>
-        <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-      </form> -->
-      <div>
+      <div class="navbar-text">
         <i class="bi bi-sun-fill text-light"></i>
         <div class="switch">
           <input type="checkbox" id="darkSwitch">
@@ -118,14 +114,17 @@
         <i class="bi bi-moon-fill text-light"></i>
       </div>
     </div>
-    <!-- <div class="ms-2">
-      <span>🇺🇸</span>
+  </header> -->
+  <header class="container-lg navbar navbar-dark bg-dark shadow rounded-bottom" style="max-width: 1140px">
+    <a class="navbar-brand mx-md-2" href="/">EungGu Yun</a>
+    <div class="navbar-text">
+      <i class="bi bi-sun-fill text-light"></i>
       <div class="switch">
-        <input type="checkbox" id="langSwitch">
-        <label class="slider round" for="langSwitch"></label>
+        <input type="checkbox" id="darkSwitch">
+        <label class="slider round" for="darkSwitch"></label>
       </div>
-      <span>🇰🇷</span>
-    </div> -->
+      <i class="bi bi-moon-fill text-light"></i>
+    </div>
   </header>
 
   <main class="container-lg p-0 p-md-2 mb-2 mb-md-0" style="max-width: 1140px">
@@ -138,7 +137,7 @@
               src="https://avatars.githubusercontent.com/u/2123763?s=460&u=1b26b224301d9400941d187603a2f14c871f26c2&v=4"
               style="max-height: 300px; max-width: 300px">
           </div>
-          <div class="col-12 col-sm-8 col-md-12 mt-2 mt-sm-0 mt-md-2 py-1 px-3">
+          <div class="col-12 col-sm-8 col-md-12 mt-2 mt-sm-0 mt-md-2 py-1 px-1 px-lg-3">
             <h3 class="m-0">EungGu Yun</h5>
             <p>M.S. student @ KAIST</p>
             <ul class="list-group list-group-flush p-0">
@@ -163,17 +162,18 @@
         </div>
       </div>
 
-      <secton class="col-md ms-md-1 p-2 border shadow rounded bg-white">
-        <article class="row px-3">
+      <secton class="col-md ms-md-1 px-1 py-0 p-lg-2 border shadow rounded bg-white">
+        <article class="row px-2 px-lg-3">
 
           <div class="col-12 my-3">
             <h3 class="border-bottom">Education</h3>
             <div class="row px-3">
 
-              <div class="col-12 px-2 my-2">
+              <div class="col-12 px-0 px-md-1 px-lg-2 my-2">
                 <div class="row align-items-baseline">
                   <div class="col-12 col-lg-9 order-lg-0">
-                    <h5 class="mb-0 mb-lg-1">Korea Advanced Institute of Science and Technology</h5>
+                    <h5 class="mb-0 mb-lg-1 d-none d-sm-block">Korea Advanced Institute of Science and Technology</h5>
+                    <h6 class="mb-0 mb-lg-1 d-sm-none">Korea Advanced Institute of Science and Technology</h6>
                   </div>
                   <div class="col-12 col-lg-8 order-lg-2 mb-1 mb-lg-0">
                     <span>Graduate School of AI</span>
@@ -199,10 +199,11 @@
                 </div>
               </div>
 
-              <div class="col-12 px-2 my-2">
+              <div class="col-12 px-0 px-md-1 px-lg-2 my-2">
                 <div class="row align-items-baseline">
                   <div class="col-12 col-lg-9 order-lg-0">
-                    <h5 class="mb-0 mb-lg-1">Sungkyunkwan University</h5>
+                    <h5 class="mb-0 mb-lg-1 d-none d-sm-block">Sungkyunkwan University</h5>
+                    <h6 class="mb-0 mb-lg-1 d-sm-none">Sungkyunkwan University</h6>
                   </div>
                   <div class="col-12 col-lg-8 order-lg-2 mb-1 mb-lg-0">
                     <span>Department of Computer Science and Engineering</span>
@@ -238,10 +239,11 @@
             <h3 class="border-bottom">Awards and Honors</h3>
             <div class="row px-3">
 
-              <div class="col-12 px-2 my-2">
+              <div class="col-12 px-0 px-md-1 px-lg-2 my-2">
                 <div class="row align-items-baseline">
                   <div class="col-12 col-lg-8 order-lg-0">
-                    <h5 class="mb-0 mb-lg-1">The National Scholarship for Science and Engineering</h5>
+                    <h5 class="mb-0 mb-lg-1 d-none d-sm-block">The National Scholarship for Science and Engineering</h5>
+                    <h6 class="mb-0 mb-lg-1 d-sm-none">The National Scholarship for Science and Engineering</h6>
                   </div>
                   <div class="col-12 col-lg-8 order-lg-2 mb-1 mb-lg-0">
                     <span>Korea Student Aid Foundation</span>
@@ -260,10 +262,11 @@
                 </div>
               </div>
 
-              <div class="col-12 px-2 my-2">
+              <div class="col-12 px-0 px-md-1 px-lg-2 my-2">
                 <div class="row align-items-baseline">
                   <div class="col-12 col-lg-8 order-lg-0">
-                    <h5 class="mb-0 mb-lg-1">Sungkyun Software Scholarship</h5>
+                    <h5 class="mb-0 mb-lg-1 d-none d-sm-block">Sungkyun Software Scholarship</h5>
+                    <h6 class="mb-0 mb-lg-1 d-sm-none">Sungkyun Software Scholarship</h6>
                   </div>
                   <div class="col-12 col-lg-8 order-lg-2 mb-1 mb-lg-0">
                     <span>Sungkyunkwan University</span>
@@ -282,10 +285,11 @@
                 </div>
               </div>
 
-              <div class="col-12 px-2 my-2">
+              <div class="col-12 px-0 px-md-1 px-lg-2 my-2">
                 <div class="row align-items-baseline">
                   <div class="col-12 col-lg-8 order-lg-0">
-                    <h5 class="mb-0 mb-lg-1">Dean's List Award</h5>
+                    <h5 class="mb-0 mb-lg-1 d-none d-sm-block">Dean's List Award</h5>
+                    <h6 class="mb-0 mb-lg-1 d-sm-none">Dean's List Award</h6>
                   </div>
                   <div class="col-12 col-lg-8 order-lg-2 mb-1 mb-lg-0">
                     <span>College of Computing, Sungkyunkwan University</span>
@@ -311,10 +315,11 @@
             <h3 class="border-bottom">Work Experience</h3>
             <div class="row px-3">
 
-              <div class="col-12 px-2 my-2">
+              <div class="col-12 px-0 px-md-1 px-lg-2 my-2">
                 <div class="row align-items-baseline">
                   <div class="col-12 col-lg-9 order-lg-0">
-                    <h5 class="mb-0 mb-lg-1">Artificial Intelligence Institute of Seoul National University</h5>
+                    <h5 class="mb-0 mb-lg-1 d-none d-sm-block">Artificial Intelligence Institute of Seoul National University</h5>
+                    <h6 class="mb-0 mb-lg-1 d-sm-none">Artificial Intelligence Institute of Seoul National University</h6>
                   </div>
                   <div class="col-12 col-lg-8 order-lg-2 mb-1 mb-lg-0">
                     <span>Applied Data Science Laboratory</span>
@@ -343,10 +348,11 @@
                 </div>
               </div>
 
-              <div class="col-12 px-2 my-2">
+              <div class="col-12 px-0 px-md-1 px-lg-2 my-2">
                 <div class="row align-items-baseline">
                   <div class="col-12 col-lg-9 order-lg-0">
-                    <h5 class="mb-0 mb-lg-1">Electronics and Telecommunications Research Institute</h5>
+                    <h5 class="mb-0 mb-lg-1 d-none d-sm-block">Electronics and Telecommunications Research Institute</h5>
+                    <h6 class="mb-0 mb-lg-1 d-sm-none">Electronics and Telecommunications Research Institute</h6>
                   </div>
                   <div class="col-12 col-lg-8 order-lg-2 mb-1 mb-lg-0">
                     <span>Artificial Intelligence Research Laboratory</span>
