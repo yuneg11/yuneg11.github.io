@@ -16180,7 +16180,7 @@ main.about .content .category .item-list .item .item-location {
 }
 main.about .content .category .item-list .item .item-detail {
   grid-area: item-detail;
-  padding-left: 1rem;
+  padding-left: 1.4rem;
 }
 main.about .content .category .item-list .item .item-detail li {
   list-style: square;
