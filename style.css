@@ -16105,8 +16105,8 @@ main.about .profile {
 main.about .profile .profile-image {
   grid-area: image;
   justify-self: center;
-  object-fit: contain;
-  height: 100%;
+  object-fit: scale-down;
+  height: auto;
   width: 100%;
   max-height: max(200px, 60vh);
   max-width: max(200px, 100%);
