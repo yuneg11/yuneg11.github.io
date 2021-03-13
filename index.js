@@ -25,8 +25,8 @@ function initTheme() {
     localStorage.getItem('darkSwitch') === 'dark';
     darkSwitch.checked = darkThemeSelected;
     darkThemeSelected
-        ? document.body.setAttribute('data-theme', 'dark')
-        : document.body.removeAttribute('data-theme');
+        ? document.body.classList.add('dark-mode')
+        : document.body.classList.remove('dark-mode');
 }
 
 /**
@@ -37,10 +37,10 @@ function initTheme() {
  */
 function resetTheme() {
     if (darkSwitch.checked) {
-        document.body.setAttribute('data-theme', 'dark');
+        document.body.classList.add('dark-mode');
         localStorage.setItem('darkSwitch', 'dark');
     } else {
-        document.body.removeAttribute('data-theme');
+        document.body.classList.remove('dark-mode');
         localStorage.removeItem('darkSwitch');
     }
 }
