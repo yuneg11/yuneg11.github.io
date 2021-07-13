@@ -1,0 +1,90 @@
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/utilities";
+
+@import "../../node_modules/bootstrap/scss/helpers";
+
+@import "../../node_modules/bootstrap/scss/utilities/api";
+
+
+/* Variables */
+
+$max-content-width: 1140px;
+
+$slate-space: .5rem;
+$blank: .5rem;
+
+$dark-gray: #121314;
+
+$page-grid-template-columns: [screen-start] auto [content-start] min(96%, #{$max-content-width}) [content-end] auto [screen-end];
+
+
+/* Mixins */
+
+// margin
+
+@mixin margin($value) {
+    margin: $value;
+}
+
+@mixin margin-x($value) {
+    margin-left: $value;
+    margin-right: $value;
+}
+
+@mixin margin-y($value) {
+    margin-top: $value;
+    margin-bottom: $value;
+}
+
+@mixin margin-top($value) {
+    margin-top: $value;
+}
+
+@mixin margin-bottom($value) {
+    margin-bottom: $value;
+}
+
+@mixin margin-left($value) {
+    margin-left: $value;
+}
+
+@mixin margin-right($value) {
+    margin-right: $value;
+}
+
+// padding
+
+@mixin padding($value) {
+    padding: $value;
+}
+
+@mixin padding-x($value) {
+    padding-left: $value;
+    padding-right: $value;
+}
+
+@mixin padding-y($value) {
+    padding-top: $value;
+    padding-bottom: $value;
+}
+
+@mixin padding-top($value) {
+    padding-top: $value;
+}
+
+@mixin padding-bottom($value) {
+    padding-bottom: $value;
+}
+
+@mixin padding-left($value) {
+    padding-left: $value;
+}
+
+@mixin padding-right($value) {
+    padding-right: $value;
+}
+
+
+/* media */

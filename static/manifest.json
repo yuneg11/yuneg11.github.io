@@ -1,0 +1,15 @@
+{
+    "background_color": "#f8f9fa",
+    "theme_color": "#212529",
+    "name": "EungGu Yun",
+    "short_name": "EungGu Yun",
+    "display": "minimal-ui",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "favicon.png",
+            "sizes": "460x460",
+            "type": "image/png"
+        }
+    ]
+}
