@@ -7,23 +7,23 @@
 
     /* Custom styles */
 
-    $max-image-widths: (
-        "xs": max(200px, 100%),
-        "sm": 200px,
+    $image-widths: (
+        "xs": min(100vw - 220px, 200px),
+        "sm": min(100%, 200px),
     );
 
-    $max-image-heights: (
-        "xs": max(200px, 60vh),
-        "sm": 200px,
-    );
+    // $image-heights: (
+    //     "xs": 100px,
+    //     "sm": min(100%, 200px),
+    // );
 
 
     aside {
         grid-area: profile;
 
         display: grid;
-        grid-template-rows: [image-start] auto [image-end content-start] 1fr [content-end];
-        grid-template-columns: [image-start content-start] 1fr [image-end content-end];
+        grid-template-rows: [image-start content-start] 1fr [image-end content-end];
+        grid-template-columns: [image-start] max-content [image-end content-start] 220px [content-end];
         gap: $blank;
 
         img {
@@ -35,12 +35,13 @@
             height: auto;
             width: 100%;
 
-            max-height: map-get($max-image-heights, "xs");
-            max-width: map-get($max-image-widths, "xs");
+            // max-height: map-get($image-heights, "xs");
+            max-width: map-get($image-widths, "xs");
         }
 
         section {
             grid-area: content;
+            align-self: center;
 
             @include padding-x($blank);
 
@@ -72,26 +73,31 @@
 
     /* media-breakpoint-up */
 
-    @include media-breakpoint-up(xs) {
-        aside {
-            grid-template-rows: [image-start content-start] 1fr [image-end content-end];
-            grid-template-columns: [image-start] auto [image-end content-start] 1fr [content-end];
+    // @include media-breakpoint-up(xs) {
+    //     aside {
+    //         grid-template-rows: [image-start content-start] 1fr [image-end content-end];
+    //         grid-template-columns: [image-start] auto [image-end content-start] 1fr [content-end];
 
-            img {
-                max-height: map-get($max-image-heights, "sm");
-                max-width: map-get($max-image-widths, "sm");
-            }
+    //         img {
+    //             max-height: map-get($image-heights, "xs");
+    //             max-width: map-get($image-widths, "xs");
+    //         }
 
-            section {
-                align-self: center;
-            }
-        }
-    }
+    //         section {
+    //             align-self: center;
+    //         }
+    //     }
+    // }
 
     @include media-breakpoint-up(md) {
         aside {
             grid-template-rows: [image-start] auto [image-end content-start] 1fr [content-end];
-            grid-template-columns: [image-start content-start] 1fr [image-end content-end];
+            grid-template-columns: [image-start content-start] 200px [image-end content-end];
+
+            img {
+                // max-height: map-get($image-heights, "sm");
+                max-width: map-get($image-widths, "sm");
+            }
 
             section {
                 align-self: start;

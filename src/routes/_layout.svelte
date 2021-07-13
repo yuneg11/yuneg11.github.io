@@ -5,7 +5,7 @@
     export let segment;
 
     /* Inner link hack */
-    import { onMount } from 'svelte'
+    import { onMount } from 'svelte';
 
     onMount(() => {
         const pathname = window.location.pathname.replace(/\/$/, '');
@@ -14,7 +14,7 @@
                 a.href = pathname + a.hash;
             }
         });
-    })
+    });
 </script>
 
 <style lang="scss" global>
