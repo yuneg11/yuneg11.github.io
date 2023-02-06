@@ -2,24 +2,40 @@
     export let category;
     export let title;
     export let subtitle;
+    export let position;
     export let date;
+    export let author;
+    export let venue;
     export let location = null;
     export let detail = [];
 
-    const attributeMap = {
-        bold: 'fw-bold',
-        italic: 'fst-italic',
-    };
+    function safeApply(value, func) {
+        if (value) {
+            return func(value);
+        } else {
+            return null;
+        }
+    }
 
-    const detailClass = attribute => attribute.map(x => attributeMap[x]).join(' ');
+    $: dateFrom = safeApply(date.from, v => v.split(' ').join('\u00A0'));
+    $: dateTo = safeApply(date.to, v => v.split(' ').join('\u00A0'));
 
-    $: dateFrom = date.from.split(' ').join('\u00A0');
-    $: dateTo = date.to.split(' ').join('\u00A0');
+    function classMap(attr) {
+        if ((category == "publication" || category == "project") && attr == "title") {
+            return "title-small";
+        } else if ((category == "education" || category == "experience") && attr == "position") {
+            return "fst-italic fw-bold";
+        } else if ((category == "award" || category == "project") && attr == "subtitle") {
+            return "fw-bold";
+        } else {
+            return "";
+        }
+    }
 </script>
 
 <style lang="scss">
     @import "styles/util";
-    
+
     article {
         grid-column: item;
 
@@ -38,12 +54,24 @@
             grid-area: subtitle;
         }
 
+        .position {
+            grid-area: position;
+        }
+
         .date {
             grid-area: date;
         }
 
         .location {
             grid-area: location;
+        }
+
+        .author {
+            grid-area: author;
+        }
+
+        .venue {
+            grid-area: venue;
         }
 
         .detail {
@@ -53,20 +81,20 @@
             li {
                 list-style: square;
             }
-
         }
 
-        &.education, &.work {
+        &.education, &.experience {
             grid-template-areas:
                 "title"
                 "subtitle"
+                "position"
                 "."
                 "date"
                 "location"
                 "."
                 "detail";
         }
-    
+
         &.award {
             grid-template-areas:
                 "title"
@@ -76,10 +104,55 @@
                 "."
                 "detail";
         }
+
+        &.publication {
+            grid-template-areas:
+                "title"
+                "author"
+                "detail"
+                "."
+                "venue"
+                "date";
+        }
+
+        &.project {
+            grid-template-areas:
+                "title"
+                "subtitle"
+                "."
+                "date"
+                "."
+                "detail";
+        }
+
+        .title-small {
+            font-size: 1.15rem;
+        }
     }
 
     @include media-breakpoint-up(md) {
-        .education, .work {
+        .education, .experience {
+            grid-auto-columns: 1fr 1fr;
+            grid-template-areas:
+                "title title"
+                "subtitle subtitle"
+                "position position"
+                ". ."
+                "date location"
+                ". ."
+                "detail detail";
+        }
+
+        .publication {
+            grid-auto-columns: 1fr 1fr;
+            grid-template-areas:
+                "title title"
+                "author author"
+                "venue date"
+                "detail detail";
+        }
+
+        .project {
             grid-auto-columns: 1fr 1fr;
             grid-template-areas:
                 "title title"
@@ -93,7 +166,7 @@
 
     @include media-breakpoint-up(lg) {
         article {
-            .location, .date {
+            .location, .date, .venue {
                 justify-self: end;
                 text-align: right;
             }
@@ -102,11 +175,12 @@
                 @include padding-left(2rem);
             }
 
-            &.education, &.work {
+            &.education, &.experience {
                 grid-template-columns: 1fr max-content;
                 grid-template-areas:
                     "title location"
                     "subtitle date"
+                    "position position"
                     ". ."
                     "detail detail";
                 column-gap: $blank;
@@ -121,6 +195,25 @@
                     "detail detail";
                 column-gap: $blank;
             }
+
+            &.publication {
+                grid-template-columns: max-content 1fr;
+                grid-template-areas:
+                    "title venue"
+                    "author date"
+                    "detail detail";
+                column-gap: $blank;
+            }
+
+            &.project {
+                grid-template-columns: 1fr max-content;
+                grid-template-areas:
+                    "title title"
+                    "subtitle date"
+                    ". ."
+                    "detail detail";
+                column-gap: $blank;
+            }
         }
     }
 
@@ -130,11 +223,19 @@
         article .title {
             font-size: 1.1rem;
         }
+
+        article .title-small {
+            font-size: 1rem;
+        }
     }
 
     @include media-breakpoint-only(sm) {
         article .title {
             font-size: 1.2rem;
+        }
+
+        article .title-small {
+            font-size: 1.1rem;
         }
     }
 
@@ -142,31 +243,46 @@
         article .title {
             font-size: 1.1rem;
         }
+
+        article .title-small {
+            font-size: 1.0rem;
+        }
     }
 </style>
 
 <article class={category}>
-    <h5 class="title">{title.name}</h5>
-    <p class="subtitle">{subtitle.name}</p>
-    <p class="date">
-        <i class="bi bi-calendar-range"></i>
-        <span>{dateFrom} -&nbsp;{dateTo}</span>
-    </p>
-    {#if location}
-        <p class="location">
-            <i class="bi bi-geo-alt"></i>
-            <span>{location.name}</span>
+    <h5 class="title {classMap('title')}">{@html title.name}</h5>
+    {#if subtitle}
+        <p class="subtitle {classMap('subtitle')}">{@html subtitle.name}</p>
+    {/if}
+    {#if position}
+        <p class="position {classMap('position')}">{@html position.name}</p>
+    {/if}
+    {#if date}
+        <p class="date">
+            {#if date.year}
+                {date.year}
+            {:else}
+                {dateFrom} -&nbsp;{dateTo}
+            {/if}
         </p>
     {/if}
-    <ul class="detail">
-        {#each detail as d}
-            <li>
-                {#if d.attribute}
-                    <span class="{detailClass(d.attribute)}">{d.content}</span>
-                {:else}
-                    <span>{d.content}</span>
-                {/if}
-            </li>
-        {/each}
-    </ul>
+    {#if author}
+        <p class="author">{@html author.name}</p>
+    {/if}
+    {#if venue}
+        <p class="venue">{@html venue.name}</p>
+    {/if}
+    {#if location}
+        <p class="location">{@html location.name}</p>
+    {/if}
+    {#if detail}
+        <ul class="detail">
+            {#each detail as d}
+                <li>
+                    <span>{@html d}</span>
+                </li>
+            {/each}
+        </ul>
+    {/if}
 </article>

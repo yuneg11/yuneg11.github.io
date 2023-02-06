@@ -33,7 +33,9 @@
     <Profile profile={about.profile} />
     <Content
         education={about.education}
+        experience={about.experience}
         awardsAndHonors={about.awards_and_honors}
-        workExperience={about.work_experience}
+        publications={about.publications}
+        projects={about.projects}
     />
 </main>
