@@ -63,7 +63,7 @@
 
 <footer class="rounded-top shadow-sm">
     <p class="justify-left">
-        <span class="text-muted">© EungGu Yun 2021</span>
+        <span class="text-muted">© EungGu Yun 2023</span>
     </p>
     <p class="justify-right">
         <a href="https://github.com/yuneg11">
