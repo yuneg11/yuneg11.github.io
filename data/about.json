@@ -4,15 +4,15 @@
   },
   "profile": {
     "name": "EungGu Yun",
-    "bio": "M.S. Student @ KAIST",
+    "bio": "Machine Learning Researcher",
     "image_url": "/profile-image.jpeg",
     "company": {
-      "name": "KAIST AI",
-      "link": "http://gsai.kaist.ac.kr"
+      "name": "Saige Research",
+      "link": "https://saige.ai"
     },
     "location": {
-      "name": "Daejeon, South Korea",
-      "link": "https://goo.gl/maps/Ggc2BCAiiosaGqrS8"
+      "name": "Seoul, South Korea",
+      "link": "https://goo.gl/maps/EWp8CgorJpX85RPX8"
     },
     "email": {
       "name": "yuneg11@gmail.com",
@@ -87,6 +87,31 @@
   "experience": {
     "title": "Experience",
     "list": [
+      {
+        "title": {
+          "name": "Saige Research",
+          "link": ""
+        },
+        "subtitle": {
+          "name": "Research Team",
+          "link": ""
+        },
+        "position": {
+          "name": "Machine Learning Researcher",
+          "link": ""
+        },
+        "date": {
+          "from": "2023. 04",
+          "to": "Now"
+        },
+        "location": {
+          "name": "Seoul, Korea",
+          "link": ""
+        },
+        "detail": [
+          "Research on Image Anomaly Detection for industrial inspection."
+        ]
+      },
       {
         "title": {
           "name": "Artificial Intelligence Institute of Seoul National University (AIIS)",

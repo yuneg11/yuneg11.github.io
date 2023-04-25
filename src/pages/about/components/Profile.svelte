@@ -120,15 +120,15 @@
     >
     <section>
         <h3>EungGu Yun</h3>
-        <p>M.S. student @ KAIST</p>
+        <p>Machine Learning Researcher</p>
         <ul>
             <li>
                 <i class="bi bi-building"></i>
-                <a href="http://gsai.kaist.ac.kr">KAIST AI</a>
+                <a href="https://saige.ai">Saige Research</a>
             </li>
             <li>
                 <i class="bi bi-geo-alt"></i>
-                <a href="https://goo.gl/maps/Ggc2BCAiiosaGqrS8">Daejeon, South Korea</a>
+                <a href="https://goo.gl/maps/EWp8CgorJpX85RPX8">Seoul, South Korea</a>
             </li>
             <li>
                 <i class="bi bi-envelope"></i>
