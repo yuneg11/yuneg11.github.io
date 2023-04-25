@@ -205,7 +205,7 @@
     "title": "Publications",
     "subsection": [
       {
-        "title": "Preprint",
+        "title": "Conference",
         "list": [
           {
             "title": {
@@ -214,6 +214,9 @@
             },
             "author": {
               "name": "SeungHyun Kim*, Hyunsu Kim*, <strong>Eunggu Yun*</strong>, Hwangrae Lee, Jaehun Lee, Juho Lee"
+            },
+            "venue": {
+              "name": "ICML (To appear)"
             },
             "date": {
               "year": "2023"
@@ -230,18 +233,16 @@
             "author": {
               "name": "<strong>Eunggu Yun*</strong>, Hyungi Lee*, Giung Nam*, Juho Lee"
             },
+            "venue": {
+              "name": "ICML (To appear)"
+            },
             "date": {
               "year": "2023"
             },
             "detail": [
               "*: Equal contribution"
             ]
-          }
-        ]
-      },
-      {
-        "title": "Conference",
-        "list": [
+          },
           {
             "title": {
               "name": "Martingale Posterior Neural Processes",
@@ -279,8 +280,23 @@
         "list": [
           {
             "title": {
+              "name": "Recent advances of radiative transfer emulator in WRF model",
+              "link": "https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE11162111"
+            },
+            "author": {
+              "name": "Hwan-Jin Song, Soonyoung Roh, Park Sa Kim, Juho Lee, Giung Nam, <strong>Eunggu Yun</strong>, Jongmin Yoon"
+            },
+            "venue": {
+              "name": "KOMES"
+            },
+            "date": {
+              "year": "2022"
+            }
+          },
+          {
+            "title": {
               "name": "Benefits of stochastic weight averaging in developing neural network<br>radiation scheme for numerical weather prediction",
-              "link": ""
+              "link": "https://doi.org/10.1029/2021MS002921"
             },
             "author": {
               "name": "Hwan-Jin Song, Soonyoung Roh, Juho Lee, Giung Nam, <strong>Eunggu Yun</strong>, Jongmin Yoon, Park Sa Kim"
