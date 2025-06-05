@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EungGu Yun
 
-## Getting Started
+A modern, responsive CV website built with **Next.js**, **TypeScript**, and **shadcn/ui**. The content is data-driven and uses static site generation for GitHub Pages deployment.
 
-First, run the development server:
+## 🔧 Development
+
+### Getting Started
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yuneg11/yuneg11.github.io.git
+   cd yuneg11.github.io
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Run development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open [http://localhost:3000](http://localhost:3000)**
+
+### Building for Production
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This generates a static site in the `out/` directory ready for deployment.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📝 Updating CV
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All CV content is stored in `data/cv.yaml`. Simply edit this file to update:
 
-## Learn More
+- Personal information and contact details
+- Education history
+- Work experience
+- Publications
+- Projects
+- Awards and honors
 
-To learn more about Next.js, take a look at the following resources:
+The website will automatically rebuild and deploy when you push changes to the main branch.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Adding Profile Image
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Add profile image as `public/profile-image.jpeg`
+2. The image will automatically appear in the profile header
+3. If no image is provided, initials will be shown as fallback
 
-## Deploy on Vercel
+## 🚀 Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### GitHub Pages (Automatic)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The site automatically deploys to GitHub Pages when you push to the main branch. Make sure to:
+
+1. Enable GitHub Pages in repository settings
+2. Set the source to "GitHub Actions"
+3. The deploy workflow will handle the rest
+
+### Manual Deployment
+
+```bash
+npm run build
+# Deploy the contents of the `out/` directory to your hosting provider
+```
+
+## 🛠 Customization
+
+### Styling
+- The site uses Tailwind CSS with shadcn/ui components
+- Custom styles can be added to `app/globals.css`
+- Theme colors can be customized in the shadcn/ui configuration
+
+### Adding New Sections
+1. Add the new section to the YAML data structure
+2. Update the TypeScript interfaces in `lib/cv-data.ts`
+3. Create a new component or use the existing `Section` component
+4. Add the section to `app/page.tsx`
+
+### Adding New Components
+```bash
+npx shadcn@latest add [component-name]
+```
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).

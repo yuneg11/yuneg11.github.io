@@ -1,0 +1,183 @@
+personal:
+  name: "EungGu Yun"
+  title: "AI Researcher & Engineer"
+  email: "yuneg11@gmail.com"
+  github: "yuneg11"
+  google_scholar: "https://scholar.google.com/citations?user=r7-847MAAAAJ"
+  linkedin: "https://www.linkedin.com/in/yuneg"
+  location: "Seoul, South Korea"
+  company: "SAIGE"
+  company_url: "https://saige.ai/"
+  location_url: "https://goo.gl/maps/EWp8CgorJpX85RPX8"
+  profile_image: "/profile-image.jpeg"
+
+education:
+  - institution: "Korea Advanced Institute of Science and Technology (KAIST)"
+    school: "Graduate School of AI"
+    degree: "M.S. in Artificial Intelligence"
+    period: "2021. 03 - 2023. 02"
+    location: "Daejeon, South Korea"
+    details:
+      - "Supervisor: Prof. **Juho Lee**"
+      - "Lab: Statistical Inference and Machine Learning Lab (SIML)"
+      - "Thesis: *Traversing Between Modes in Function Space for Fast Ensembling*"
+      - "Research interests: Loss landscape, Neural processes"
+      - "GPA: 4.08 / 4.3"
+
+  - institution: "SungKyunKwan University (SKKU)"
+    school: "Department of Computer Science and Engineering"
+    degree: "B.S. in Computer Science and Engineering"
+    period: "2017. 03 - 2020. 08"
+    location: "Seoul, South Korea"
+    details:
+      - "Total GPA: 4.33 / 4.5"
+      - "Major GPA: 4.47 / 4.5"
+
+experience:
+  - title: "AI Researcher"
+    company: "[SAIGE](https://saige.ai/)"
+    department: "AI Lab"
+    period: "2023. 03 - Present"
+    location: "Seoul, South Korea"
+    details:
+      - "Research on Image Anomaly Detection for industrial inspection."
+
+  - title: "Research Intern"
+    company: "Artificial Intelligence Institute of Seoul National University (AIIS)"
+    department: "Deep Representation Learning Research Group (DRL)"
+    period: "2020. 07 - 2020. 09"
+    location: "Seoul, South Korea"
+    details:
+      - "Supervisor: Prof. **Wonjong Rhee**"
+      - "Research on model interpretability and activation on-off patterns."
+      - "Reproduce CNN visualization methods, including Grad-CAM, (C)LRP, etc."
+
+  - title: "Research Intern"
+    company: "Electronics and Telecommunications Research Institute (ETRI)"
+    department: "Artificial Intelligence Research Laboratory"
+    period: "2020. 01 - 2020. 02"
+    location: "Daejeon, South Korea"
+    details:
+      - "Supervisor: **Yoo-mi Park**"
+      - "Test and debug ETRI Deep Learning HPC Platform Dashboard."
+      - "Implement AlexNet and ResNet models with DL-MDL to serve as example deep learning models."
+
+awards:
+  - title: "The National Scholarship for Science and Engineering"
+    organization: "Korea Student Aid Foundation (KOSAF)"
+    period: "2019 Spring - 2020 Spring"
+    details:
+      - "Supports undergraduates with strong academic performance in science and engineering."
+
+  - title: "SungKyun Software Scholarship"
+    organization: "SungKyunKwan University (SKKU)"
+    period: "2017 Spring - 2018 Fall"
+    details:
+      - "Supports students with an outstanding GPA."
+
+  - title: "Dean's List Award"
+    organization: "College of Computing, SungKyunKwan University (SKKU)"
+    period: "2017 Spring - 2019 Fall"
+    details:
+      - "In recognition of high scholastic achievement. (6 times)"
+
+publications:
+  conference:
+    - title: "Language-Assisted Feature Transformation for Anomaly Detection"
+      authors: "**EungGu Yun**, Heonjin Ha, Yeongwoo Nam, Bryan Dongik Lee"
+      venue: "ICLR"
+      year: 2025
+      url: "https://arxiv.org/abs/2503.01184"
+
+    - title: "A simple early exiting framework for accelerated sampling in diffusion models"
+      authors: "Taehong Moon, Moonseok Choi, **EungGu Yun**, Jongmin Yoon, Gayoung Lee, Jaewoong Cho, Juho Lee"
+      venue: "ICML"
+      year: 2024
+      url: "https://arxiv.org/abs/2408.05927"
+
+    - title: "Learning Dynamic Brain Connectome with Graph Transformers for Psychiatric Diagnosis Classification"
+      authors: "Byung-Hoon Kim, Jungwon Choi, **EungGu Yun**, Kyungsang Kim, Xiang Li, Juho Lee"
+      venue: "IEEE ISBI"
+      year: 2024
+      url: "https://ieeexplore.ieee.org/abstract/document/10635508/"
+
+    - title: "Probabilistic Imputation for Time-series Classification with Missing Data"
+      authors: "SeungHyun Kim*, Hyunsu Kim*, **EungGu Yun***, Hwangrae Lee, Jaehun Lee, Juho Lee"
+      venue: "ICML"
+      year: 2023
+      url: "https://arxiv.org/abs/2308.06738"
+      note: "*: Equal contribution"
+
+    - title: "Traversing Between Modes in Function Space for Fast Ensembling"
+      authors: "**EungGu Yun***, Hyungi Lee*, Giung Nam*, Juho Lee"
+      venue: "ICML"
+      year: 2023
+      url: "https://arxiv.org/abs/2306.11304"
+      note: "*: Equal contribution"
+
+    - title: "Martingale Posterior Neural Processes"
+      authors: "Hyungi Lee, **EungGu Yun**, Giung Nam, Edwin Fong, Juho Lee"
+      venue: "ICLR"
+      year: 2023
+      note: "Spotlight"
+      url: "https://arxiv.org/abs/2304.09431"
+
+    - title: "Scale Mixtures of Neural Network Gaussian Processes"
+      authors: "Hyungi Lee, **EungGu Yun**, Hongseok Yang, Juho Lee"
+      venue: "ICLR"
+      year: 2022
+      url: "https://arxiv.org/abs/2107.01408"
+
+  workshop:
+    - title: "A generative self-supervised framework using functional connectivity in fmri data"
+      authors: "Jungwon Choi, Seongho Keum, **EungGu Yun**, Byung-Hoon Kim, Juho Lee"
+      venue: "NeurIPS Workshop on TGL"
+      year: 2023
+      url: "https://arxiv.org/abs/2312.01994"
+
+    - title: "Large-scale graph representation learning of dynamic brain connectome with transformers"
+      authors: "Byung-Hoon Kim, Jungwon Choi, **EungGu Yun**, Kyungsang Kim, Xiang Li, Juho Lee"
+      venue: "NeurIPS Workshop on TGL"
+      year: 2023
+      url: "https://arxiv.org/abs/2312.14939"
+
+    - title: "Early exiting for accelerated inference in diffusion models"
+      authors: "Taehong Moon, Moonseok Choi, **EungGu Yun**, Jongmin Yoon, Gayoung Lee, Juho Lee"
+      venue: "ICML Workshop on SPIGM"
+      year: 2023
+      url: "https://openreview.net/forum?id=nhGdjo9Xed"
+
+  journal:
+    - title: "Recent advances of radiative transfer emulator in WRF model"
+      authors: "Hwan-Jin Song, Soonyoung Roh, Park Sa Kim, Juho Lee, Giung Nam, **EungGu Yun**, Jongmin Yoon"
+      venue: "KOMES"
+      year: 2022
+      url: "https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE11162111"
+
+    - title: "Benefits of stochastic weight averaging in developing neural network radiation scheme for numerical weather prediction"
+      authors: "Hwan-Jin Song, Soonyoung Roh, Juho Lee, Giung Nam, **EungGu Yun**, Jongmin Yoon, Park Sa Kim"
+      venue: "JAMES"
+      year: 2022
+      url: "https://doi.org/10.1029/2021MS002921"
+
+  preprint:
+    - title: "On-Off Pattern Encoding and Path-Count Encoding as Deep Neural Network Representations"
+      authors: "Euna Jung, Jaekeol Choi, **EungGu Yun**, Wonjong Rhee"
+      venue: "arXiv"
+      year: 2020
+      url: "https://arxiv.org/abs/2401.09518"
+
+projects:
+  - title: "Bayesian inference for time-series data with missing values"
+    organization: "Samsung Research"
+    period: "2022. 08 - 2023. 02"
+    details:
+      - "Developing a Bayesian deep learning method that can quantify uncertainty within missing values."
+      - "Propose multivariate time-series classification model using a regularization method called ObsDropout."
+      - "Validate proposed method on PhysioNet 2012, MIMIC-III, and UCI human activity datasets."
+
+  - title: "Developing artificial intelligence based emulator for physics processes in numerical models"
+    organization: "National Institute of Meteorological Sciences (NIMS)"
+    period: "2021. 05 - 2022. 07"
+    details:
+      - "Research on the developing alternative techniques of physical processes in the numerical weather prediction (NWP) model based on AI to reduce computational costs and to improve the accuracy of NWP."
