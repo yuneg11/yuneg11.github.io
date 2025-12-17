@@ -83,6 +83,12 @@ awards:
 
 publications:
   conference:
+    - title: "ELDET: Early-Learning Distillation with Noisy Labels for Object Detection"
+      authors: "Dongmin Choi, Sangbin Lee, **EungGu Yun**, onghyuk Baek, Frank Chongwoo Park"
+      venue: "NeurIPS"
+      year: 2025
+      url: "https://openreview.net/forum?id=IWEc6kpy8O"
+  
     - title: "Language-Assisted Feature Transformation for Anomaly Detection"
       authors: "**EungGu Yun**, Heonjin Ha, Yeongwoo Nam, Bryan Dongik Lee"
       venue: "ICLR"
