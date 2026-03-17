@@ -1,0 +1,230 @@
+#:schema ./schema.json
+
+[personal]
+name = "EungGu Yun"
+title = "AI 연구원 및 엔지니어"
+email = "yuneg11@gmail.com"
+github = "yuneg11"
+google_scholar = "https://scholar.google.com/citations?user=r7-847MAAAAJ"
+linkedin = "https://www.linkedin.com/in/yuneg"
+location = "서울, 대한민국"
+company = "SAIGE"
+company_url = "https://saige.ai/"
+location_url = "https://goo.gl/maps/EWp8CgorJpX85RPX8"
+profile_image = "/profile.jpg"
+
+[[education]]
+institution = "한국과학기술원 (KAIST)"
+school = "AI대학원"
+degree = "인공지능 석사"
+period = { start = 2021-03-01, end = 2023-02-01 }
+location = "대전, 대한민국"
+details = [
+  "지도교수: **이주호** 교수",
+  "연구실: Statistical Inference and Machine Learning Lab (SIML)",
+  "학위논문: *Traversing Between Modes in Function Space for Fast Ensembling*",
+  "연구 분야: 손실 지형, 신경 프로세스",
+  "평점: 4.08 / 4.3",
+]
+
+[[education]]
+institution = "성균관대학교 (SKKU)"
+school = "소프트웨어학과"
+degree = "컴퓨터공학 학사"
+period = { start = 2017-03-01, end = 2020-08-01 }
+location = "서울, 대한민국"
+details = [
+  "전체 평점: 4.33 / 4.5",
+  "전공 평점: 4.47 / 4.5",
+]
+
+[[experience]]
+title = "AI 연구원"
+company = "[SAIGE](https://saige.ai/)"
+department = "AI Lab"
+period = { start = 2023-03-01 }
+location = "서울, 대한민국"
+details = [
+  "산업 검사를 위한 이미지 이상 탐지 연구.",
+]
+
+[[experience]]
+title = "연구 인턴"
+company = "서울대학교 인공지능연구원 (AIIS)"
+department = "딥 표현 학습 연구 그룹 (DRL)"
+period = { start = 2020-07-01, end = 2020-09-01 }
+location = "서울, 대한민국"
+details = [
+  "지도교수: **이원종** 교수",
+  "모델 해석 가능성 및 활성화 패턴 연구.",
+  "Grad-CAM, (C)LRP 등 CNN 시각화 방법 재현.",
+]
+
+[[experience]]
+title = "연구 인턴"
+company = "한국전자통신연구원 (ETRI)"
+department = "인공지능연구실"
+period = { start = 2020-01-01, end = 2020-02-01 }
+location = "대전, 대한민국"
+details = [
+  "지도: **박유미**",
+  "ETRI 딥러닝 HPC 플랫폼 대시보드 테스트 및 디버그.",
+  "DL-MDL을 활용한 AlexNet 및 ResNet 예제 모델 구현.",
+]
+
+[[awards]]
+title = "이공계 국가장학금"
+organization = "한국장학재단 (KOSAF)"
+period = "2019 봄 - 2020 봄"
+details = [
+  "이공계 우수 학부생을 지원하는 장학금.",
+]
+
+[[awards]]
+title = "성균소프트웨어 장학금"
+organization = "성균관대학교 (SKKU)"
+period = "2017 봄 - 2018 가을"
+details = [
+  "우수 학점 학생을 지원하는 장학금.",
+]
+
+[[awards]]
+title = "학장상"
+organization = "성균관대학교 소프트웨어대학 (SKKU)"
+period = "2017 봄 - 2019 가을"
+details = [
+  "우수한 학업 성취를 인정하여 수여. (6회)",
+]
+
+[[publications]]
+type = "conference"
+title = "ELDET: Early-Learning Distillation with Noisy Labels for Object Detection"
+authors = "Dongmin Choi, Sangbin Lee, **EungGu Yun**, onghyuk Baek, Frank Chongwoo Park"
+venue = "NeurIPS"
+year = 2025
+url = "https://openreview.net/forum?id=IWEc6kpy8O"
+
+[[publications]]
+type = "conference"
+title = "Language-Assisted Feature Transformation for Anomaly Detection"
+authors = "**EungGu Yun**, Heonjin Ha, Yeongwoo Nam, Bryan Dongik Lee"
+venue = "ICLR"
+year = 2025
+url = "https://arxiv.org/abs/2503.01184"
+
+[[publications]]
+type = "conference"
+title = "A simple early exiting framework for accelerated sampling in diffusion models"
+authors = "Taehong Moon, Moonseok Choi, **EungGu Yun**, Jongmin Yoon, Gayoung Lee, Jaewoong Cho, Juho Lee"
+venue = "ICML"
+year = 2024
+url = "https://arxiv.org/abs/2408.05927"
+
+[[publications]]
+type = "conference"
+title = "Learning Dynamic Brain Connectome with Graph Transformers for Psychiatric Diagnosis Classification"
+authors = "Byung-Hoon Kim, Jungwon Choi, **EungGu Yun**, Kyungsang Kim, Xiang Li, Juho Lee"
+venue = "IEEE ISBI"
+year = 2024
+url = "https://ieeexplore.ieee.org/abstract/document/10635508/"
+
+[[publications]]
+type = "conference"
+title = "Probabilistic Imputation for Time-series Classification with Missing Data"
+authors = "SeungHyun Kim*, Hyunsu Kim*, **EungGu Yun***, Hwangrae Lee, Jaehun Lee, Juho Lee"
+venue = "ICML"
+year = 2023
+url = "https://arxiv.org/abs/2308.06738"
+note = "*: 동등 기여"
+
+[[publications]]
+type = "conference"
+title = "Traversing Between Modes in Function Space for Fast Ensembling"
+authors = "**EungGu Yun***, Hyungi Lee*, Giung Nam*, Juho Lee"
+venue = "ICML"
+year = 2023
+url = "https://arxiv.org/abs/2306.11304"
+note = "*: 동등 기여"
+
+[[publications]]
+type = "conference"
+title = "Martingale Posterior Neural Processes"
+authors = "Hyungi Lee, **EungGu Yun**, Giung Nam, Edwin Fong, Juho Lee"
+venue = "ICLR"
+year = 2023
+note = "Spotlight"
+url = "https://arxiv.org/abs/2304.09431"
+
+[[publications]]
+type = "conference"
+title = "Scale Mixtures of Neural Network Gaussian Processes"
+authors = "Hyungi Lee, **EungGu Yun**, Hongseok Yang, Juho Lee"
+venue = "ICLR"
+year = 2022
+url = "https://arxiv.org/abs/2107.01408"
+
+[[publications]]
+type = "workshop"
+title = "A generative self-supervised framework using functional connectivity in fmri data"
+authors = "Jungwon Choi, Seongho Keum, **EungGu Yun**, Byung-Hoon Kim, Juho Lee"
+venue = "NeurIPS Workshop on TGL"
+year = 2023
+url = "https://arxiv.org/abs/2312.01994"
+
+[[publications]]
+type = "workshop"
+title = "Large-scale graph representation learning of dynamic brain connectome with transformers"
+authors = "Byung-Hoon Kim, Jungwon Choi, **EungGu Yun**, Kyungsang Kim, Xiang Li, Juho Lee"
+venue = "NeurIPS Workshop on TGL"
+year = 2023
+url = "https://arxiv.org/abs/2312.14939"
+
+[[publications]]
+type = "workshop"
+title = "Early exiting for accelerated inference in diffusion models"
+authors = "Taehong Moon, Moonseok Choi, **EungGu Yun**, Jongmin Yoon, Gayoung Lee, Juho Lee"
+venue = "ICML Workshop on SPIGM"
+year = 2023
+url = "https://openreview.net/forum?id=nhGdjo9Xed"
+
+[[publications]]
+type = "journal"
+title = "Recent advances of radiative transfer emulator in WRF model"
+authors = "Hwan-Jin Song, Soonyoung Roh, Park Sa Kim, Juho Lee, Giung Nam, **EungGu Yun**, Jongmin Yoon"
+venue = "KOMES"
+year = 2022
+url = "https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE11162111"
+
+[[publications]]
+type = "journal"
+title = "Benefits of stochastic weight averaging in developing neural network radiation scheme for numerical weather prediction"
+authors = "Hwan-Jin Song, Soonyoung Roh, Juho Lee, Giung Nam, **EungGu Yun**, Jongmin Yoon, Park Sa Kim"
+venue = "JAMES"
+year = 2022
+url = "https://doi.org/10.1029/2021MS002921"
+
+[[publications]]
+type = "preprint"
+title = "On-Off Pattern Encoding and Path-Count Encoding as Deep Neural Network Representations"
+authors = "Euna Jung, Jaekeol Choi, **EungGu Yun**, Wonjong Rhee"
+venue = "arXiv"
+year = 2020
+url = "https://arxiv.org/abs/2401.09518"
+
+[[projects]]
+title = "결측값이 있는 시계열 데이터를 위한 베이즈 추론"
+organization = "Samsung Research"
+period = "2022. 08 - 2023. 02"
+details = [
+  "결측값 내 불확실성을 정량화할 수 있는 베이즈 딥러닝 방법 개발.",
+  "ObsDropout 정규화 기법을 활용한 다변량 시계열 분류 모델 제안.",
+  "PhysioNet 2012, MIMIC-III, UCI 인간 활동 데이터셋으로 제안 방법 검증.",
+]
+
+[[projects]]
+title = "수치 모델에서 물리 과정의 인공지능 기반 에뮬레이터 개발"
+organization = "국립기상과학원 (NIMS)"
+period = "2021. 05 - 2022. 07"
+details = [
+  "수치 기상 예측(NWP) 모델의 물리 과정을 AI로 대체하여 계산 비용을 절감하고 예측 정확도를 향상시키는 기술 연구.",
+]

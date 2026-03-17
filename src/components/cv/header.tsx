@@ -1,6 +1,7 @@
 import { Github, Linkedin, Mail, MapPin, BookOpen } from "lucide-react";
 
 import type { Personal } from "@/types/data";
+import { LanguageSelector } from "@/components/language/selector";
 import { ThemeSelector } from "@/components/theme/selector";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -17,7 +18,8 @@ export function Header({ personal }: HeaderProps) {
   return (
     <header className="relative">
       {/* Theme selector - top right */}
-      <div className="absolute right-0 top-0">
+      <div className="absolute right-0 top-0 flex items-center">
+        <LanguageSelector />
         <ThemeSelector />
       </div>
 

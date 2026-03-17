@@ -1,16 +1,25 @@
 import type { Award } from "@/types/data";
+import { useLanguage } from "@/components/language/provider";
 import { MarkdownText } from "@/components/cv/markdown-text";
 import { SectionHeading } from "@/components/cv/sections/section-heading";
 import { Card, CardContent } from "@/components/ui/card";
+
+const translations = {
+  en: { title: "Awards & Honors" },
+  ko: { title: "수상 및 장학" },
+};
 
 interface AwardsSectionProps {
   awards: Award[];
 }
 
 export function AwardsSection({ awards }: AwardsSectionProps) {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   return (
     <section>
-      <SectionHeading title="Awards & Honors" />
+      <SectionHeading title={t.title} />
       <div className="space-y-3">
         {awards.map((award, i) => (
           <Card key={i} className="transition-shadow hover:shadow-md">

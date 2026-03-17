@@ -1,15 +1,18 @@
 import type { ResumeData } from "@/types/data";
+import { useLanguage } from "@/components/language/provider";
 import { Header } from "@/components/cv/header";
 import { AwardsSection } from "@/components/cv/sections/awards";
 import { EducationSection } from "@/components/cv/sections/education";
 import { ExperienceSection } from "@/components/cv/sections/experience";
 import { ProjectsSection } from "@/components/cv/sections/projects";
 import { PublicationsSection } from "@/components/cv/sections/publications";
-import resume from "../data/resume.toml";
-
-const data = resume as ResumeData;
+import resumeEn from "../data/resume.toml";
+import resumeKo from "../data/resume.ko.toml";
 
 export function App() {
+  const { language } = useLanguage();
+  const data = (language === "ko" ? resumeKo : resumeEn) as ResumeData;
+
   return (
     <div className="min-h-svh bg-background">
       <div className="mx-auto max-w-3xl px-6 py-12">

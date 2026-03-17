@@ -1,33 +1,45 @@
 import type { Publication } from "@/types/data";
+import { useLanguage } from "@/components/language/provider";
 import { MarkdownText } from "@/components/cv/markdown-text";
 import { SectionHeading } from "@/components/cv/sections/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
+const translations = {
+  en: {
+    title: "Publications",
+    typeLabel: {
+      conference: "Conference",
+      journal: "Journal",
+      workshop: "Workshop",
+      preprint: "Preprint",
+    },
+  },
+  ko: {
+    title: "논문",
+    typeLabel: { conference: "학회", journal: "저널", workshop: "워크샵", preprint: "프리프린트" },
+  },
+};
+
 interface PublicationsSectionProps {
   publications: Publication[];
 }
 
-const typeLabel: Record<Publication["type"], string> = {
-  conference: "Conference",
-  journal: "Journal",
-  workshop: "Workshop",
-  preprint: "Preprint",
-};
-
 export function PublicationsSection({ publications }: PublicationsSectionProps) {
+  const { language } = useLanguage();
+  const t = translations[language];
   const sorted = [...publications].sort((a, b) => b.year - a.year);
 
   return (
     <section>
-      <SectionHeading title="Publications" />
+      <SectionHeading title={t.title} />
       <div className="space-y-3">
         {sorted.map((pub, i) => (
           <Card key={i} className="transition-shadow hover:shadow-md">
             <CardContent className="p-4">
               <div className="flex items-center gap-1.5">
                 <Badge variant="outline" className="text-xs">
-                  {typeLabel[pub.type]}
+                  {t.typeLabel[pub.type]}
                 </Badge>
                 <Badge variant="secondary" className="text-xs">
                   {pub.venue} {pub.year}

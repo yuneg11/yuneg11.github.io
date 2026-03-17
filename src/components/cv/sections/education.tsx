@@ -1,23 +1,32 @@
 import { Calendar, GraduationCap } from "lucide-react";
 
 import type { Education } from "@/types/data";
+import { useLanguage } from "@/components/language/provider";
+import { MarkdownText } from "@/components/cv/markdown-text";
+import { SectionHeading } from "@/components/cv/sections/section-heading";
 
-function formatDate(iso: string | undefined): string {
-  if (!iso) return "Present";
+const translations = {
+  en: { title: "Education", present: "Present" },
+  ko: { title: "학력", present: "현재" },
+};
+
+function formatDate(iso: string | undefined, presentLabel: string): string {
+  if (!iso) return presentLabel;
   const [year, month] = iso.split("-");
   return `${year}. ${month}`;
 }
-import { MarkdownText } from "@/components/cv/markdown-text";
-import { SectionHeading } from "@/components/cv/sections/section-heading";
 
 interface EducationSectionProps {
   education: Education[];
 }
 
 export function EducationSection({ education }: EducationSectionProps) {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   return (
     <section>
-      <SectionHeading title="Education" />
+      <SectionHeading title={t.title} />
       <div className="relative ml-4">
         {/* Timeline line */}
         <div className="absolute inset-y-0 left-0 border-l-2" />
@@ -40,7 +49,8 @@ export function EducationSection({ education }: EducationSectionProps) {
                 <div className="mt-2 flex items-center gap-2 text-sm">
                   <Calendar className="h-4 w-4" aria-hidden="true" />
                   <span>
-                    {formatDate(entry.period.start)} – {formatDate(entry.period.end)}
+                    {formatDate(entry.period.start, t.present)} –{" "}
+                    {formatDate(entry.period.end, t.present)}
                   </span>
                   <span className="text-muted-foreground">· {entry.location}</span>
                 </div>

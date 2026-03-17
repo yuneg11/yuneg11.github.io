@@ -1,16 +1,25 @@
 import type { Project } from "@/types/data";
+import { useLanguage } from "@/components/language/provider";
 import { MarkdownText } from "@/components/cv/markdown-text";
 import { SectionHeading } from "@/components/cv/sections/section-heading";
 import { Card, CardContent } from "@/components/ui/card";
+
+const translations = {
+  en: { title: "Projects" },
+  ko: { title: "프로젝트" },
+};
 
 interface ProjectsSectionProps {
   projects: Project[];
 }
 
 export function ProjectsSection({ projects }: ProjectsSectionProps) {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   return (
     <section>
-      <SectionHeading title="Projects" />
+      <SectionHeading title={t.title} />
       <div className="space-y-3">
         {projects.map((project, i) => (
           <Card key={i} className="transition-shadow hover:shadow-md">
