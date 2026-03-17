@@ -11,13 +11,13 @@ location = "Seoul, South Korea"
 company = "SAIGE"
 company_url = "https://saige.ai/"
 location_url = "https://goo.gl/maps/EWp8CgorJpX85RPX8"
-profile_image = "/profile-image.jpeg"
+profile_image = "/profile.jpg"
 
 [[education]]
 institution = "Korea Advanced Institute of Science and Technology (KAIST)"
 school = "Graduate School of AI"
 degree = "M.S. in Artificial Intelligence"
-period = "2021. 03 - 2023. 02"
+period = { start = 2021-03-01, end = 2023-02-01 }
 location = "Daejeon, South Korea"
 details = [
   "Supervisor: Prof. **Juho Lee**",
@@ -31,7 +31,7 @@ details = [
 institution = "SungKyunKwan University (SKKU)"
 school = "Department of Computer Science and Engineering"
 degree = "B.S. in Computer Science and Engineering"
-period = "2017. 03 - 2020. 08"
+period = { start = 2017-03-01, end = 2020-08-01 }
 location = "Seoul, South Korea"
 details = [
   "Total GPA: 4.33 / 4.5",
@@ -42,7 +42,7 @@ details = [
 title = "AI Researcher"
 company = "[SAIGE](https://saige.ai/)"
 department = "AI Lab"
-period = "2023. 03 - Present"
+period = { start = 2023-03-01 }
 location = "Seoul, South Korea"
 details = [
   "Research on Image Anomaly Detection for industrial inspection.",
@@ -52,7 +52,7 @@ details = [
 title = "Research Intern"
 company = "Artificial Intelligence Institute of Seoul National University (AIIS)"
 department = "Deep Representation Learning Research Group (DRL)"
-period = "2020. 07 - 2020. 09"
+period = { start = 2020-07-01, end = 2020-09-01 }
 location = "Seoul, South Korea"
 details = [
   "Supervisor: Prof. **Wonjong Rhee**",
@@ -64,7 +64,7 @@ details = [
 title = "Research Intern"
 company = "Electronics and Telecommunications Research Institute (ETRI)"
 department = "Artificial Intelligence Research Laboratory"
-period = "2020. 01 - 2020. 02"
+period = { start = 2020-01-01, end = 2020-02-01 }
 location = "Daejeon, South Korea"
 details = [
   "Supervisor: **Yoo-mi Park**",
