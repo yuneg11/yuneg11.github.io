@@ -1,0 +1,89 @@
+# Configuration file for `prek`. See https://prek.j178.dev for more information.
+#:schema https://www.schemastore.org/prek.json
+
+
+# Prek built-in hooks (https://prek.j178.dev/builtin)
+
+[[repos]]
+repo = "builtin"
+
+## General text file checks
+[[repos.hooks]]
+id = "trailing-whitespace" # Trim trailing whitespace
+args = ["--markdown-linebreak-ext=md"] # Allow markdown hard line breaks
+
+[[repos.hooks]]
+id = "end-of-file-fixer" # Ensure newline at EOF
+
+[[repos.hooks]]
+id = "mixed-line-ending" # Normalize or check line endings
+args = ["--fix=lf"] # Fix line endings to LF
+
+## Binary file checks
+[[repos.hooks]]
+id = "fix-byte-order-marker" # Remove UTF-8 byte order marker
+
+[[repos.hooks]]
+id = "check-added-large-files" # Prevent committing large files
+args = ["--maxkb=500"] # More than 500KB is considered large
+
+## File type specific checks
+[[repos.hooks]]
+id = "check-json" # Validate JSON files
+exclude = '^(tsconfig.*\.json|\.vscode/.*\.json|\.oxlintrc\.json|\.oxfmtrc\.json)$' # Exclude JSONC config files
+
+[[repos.hooks]]
+id = "check-toml" # Validate TOML files
+
+[[repos.hooks]]
+id = "check-yaml" # Validate YAML files
+
+## File system checks
+[[repos.hooks]]
+id = "check-case-conflict" # Check for files that would conflict in case-insensitive filesystems
+
+[[repos.hooks]]
+id = "check-symlinks" # Check for broken symlinks
+
+## Git checks
+[[repos.hooks]]
+id = "check-merge-conflict" # Check for merge conflicts
+
+# [[repos.hooks]]
+# id = "no-commit-to-branch"              # Prevent committing to protected branches (e.g. main)
+
+## Security checks
+[[repos.hooks]]
+id = "detect-private-key" # Detect private keys
+
+
+# Local hooks
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "format"
+name = "format"
+entry = "bun run format:fix --no-error-on-unmatched-pattern"
+language = "system"
+stages = ["pre-commit"]
+files = '\.(js|ts|jsx|tsx|json|html|css)$'
+exclude = '^(\.agents/|\.vscode/.*\.json)$'
+
+[[repos.hooks]]
+id = "lint"
+name = "lint"
+entry = "bun run lint:fix"
+language = "system"
+stages = ["pre-commit"]
+files = '\.(js|ts|jsx|tsx|json|html|css)$'
+exclude = '^\.agents/'
+
+[[repos.hooks]]
+id = "build"
+name = "build"
+entry = "bun run build"
+language = "system"
+stages = ["pre-push"]
+pass_filenames = false
