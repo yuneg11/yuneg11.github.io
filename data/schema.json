@@ -1,0 +1,120 @@
+{
+  "$id": "https://yuneg11.github.io/data/schema.json",
+  "$schema": "https://json-schema.org/draft-04/schema",
+  "title": "Data",
+  "type": "object",
+  "required": ["personal", "education", "experience", "awards", "publications", "projects"],
+  "additionalProperties": false,
+  "properties": {
+    "personal": {
+      "type": "object",
+      "required": [
+        "name",
+        "title",
+        "email",
+        "github",
+        "google_scholar",
+        "linkedin",
+        "location",
+        "company",
+        "company_url",
+        "location_url",
+        "profile_image"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "title": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "github": { "type": "string" },
+        "google_scholar": { "type": "string", "format": "uri" },
+        "linkedin": { "type": "string", "format": "uri" },
+        "location": { "type": "string" },
+        "company": { "type": "string" },
+        "company_url": { "type": "string", "format": "uri" },
+        "location_url": { "type": "string", "format": "uri" },
+        "profile_image": { "type": "string" }
+      }
+    },
+    "education": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["institution", "school", "degree", "period", "location", "details"],
+        "additionalProperties": false,
+        "properties": {
+          "institution": { "type": "string" },
+          "school": { "type": "string" },
+          "degree": { "type": "string" },
+          "period": { "type": "string" },
+          "location": { "type": "string" },
+          "details": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "experience": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "company", "department", "period", "location", "details"],
+        "additionalProperties": false,
+        "properties": {
+          "title": { "type": "string" },
+          "company": { "type": "string" },
+          "department": { "type": "string" },
+          "period": { "type": "string" },
+          "location": { "type": "string" },
+          "details": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "awards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "organization", "period", "details"],
+        "additionalProperties": false,
+        "properties": {
+          "title": { "type": "string" },
+          "organization": { "type": "string" },
+          "period": { "type": "string" },
+          "details": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "publications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "title", "authors", "venue", "year", "url"],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["conference", "workshop", "journal", "preprint"]
+          },
+          "title": { "type": "string" },
+          "authors": { "type": "string" },
+          "venue": { "type": "string" },
+          "year": { "type": "integer" },
+          "url": { "type": "string", "format": "uri" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "organization", "period", "details"],
+        "additionalProperties": false,
+        "properties": {
+          "title": { "type": "string" },
+          "organization": { "type": "string" },
+          "period": { "type": "string" },
+          "details": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}
