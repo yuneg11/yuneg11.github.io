@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -9,29 +9,49 @@ const personal = {
   github: 'https://github.com/yuneg11',
   scholar: 'https://scholar.google.com/citations?user=r7-847MAAAAJ',
   linkedin: 'https://www.linkedin.com/in/yuneg',
+  website: 'https://yuneg11.github.io',
   location: 'Seoul, South Korea',
   company: 'SAIGE',
   companyUrl: 'https://saige.ai/',
   profileImage: '/profile.jpg',
 }
 
-const experiences = [
+type Detail = string | { text: string; url: string }
+
+const experiences: {
+  title: string
+  company: string
+  companyUrl?: string
+  dept: string
+  deptUrl?: string
+  period: string
+  location: string
+  details: Detail[]
+}[] = [
   {
     title: 'AI Researcher',
     company: 'SAIGE',
+    companyUrl: 'https://saige.ai/en/',
     dept: 'AI Lab',
     period: 'Mar 2023 – Present',
     location: 'Seoul, South Korea',
-    details: ['Research on Image Anomaly Detection for industrial inspection.'],
+    details: [
+      'Research on image anomaly detection (IAD) systems for industrial inspection.',
+      'Research language-assisted vision models for data-efficient training.',
+      'Conduct TensorRT-based optimization for real-time inference in object detection and tracking.',
+      'Fine-tune VLMs for context-aware industrial safety monitoring.',
+    ],
   },
   {
     title: 'Research Intern',
     company: 'Artificial Intelligence Institute of Seoul National University (AIIS)',
+    companyUrl: 'https://aiis.snu.ac.kr/eng/',
     dept: 'Deep Representation Learning Research Group (DRL)',
+    deptUrl: 'http://drl.snu.ac.kr',
     period: 'Jul 2020 – Sep 2020',
     location: 'Seoul, South Korea',
     details: [
-      'Supervisor: Prof. Wonjong Rhee',
+      { text: 'Supervisor: Prof. Wonjong Rhee', url: 'http://drl.snu.ac.kr/?p=13209' },
       'Research on model interpretability and activation on-off patterns.',
       'Reproduced CNN visualization methods including Grad-CAM, (C)LRP, etc.',
     ],
@@ -39,34 +59,49 @@ const experiences = [
   {
     title: 'Research Intern',
     company: 'Electronics and Telecommunications Research Institute (ETRI)',
+    companyUrl: 'https://etri.re.kr/eng/main/main.etri',
     dept: 'Artificial Intelligence Research Laboratory',
+    deptUrl: 'https://etri.re.kr/eng/sub6/sub6_0101.etri?departCode=10',
     period: 'Jan 2020 – Feb 2020',
     location: 'Daejeon, South Korea',
     details: [
-      'Supervisor: Yoo-mi Park',
+      { text: 'Supervisor: Yoo-mi Park', url: 'https://kr.linkedin.com/in/yoomipark-etri' },
       'Tested and debugged ETRI Deep Learning HPC Platform Dashboard.',
       'Implemented AlexNet and ResNet models with DL-MDL.',
     ],
   },
 ]
 
-const education = [
+const education: {
+  institution: string
+  institutionUrl?: string
+  school: string
+  schoolUrl?: string
+  degree: string
+  period: string
+  location: string
+  details: Detail[]
+}[] = [
   {
     institution: 'Korea Advanced Institute of Science and Technology (KAIST)',
+    institutionUrl: 'https://www.kaist.ac.kr/en/',
     school: 'Graduate School of AI',
+    schoolUrl: 'https://gsai.kaist.ac.kr',
     degree: 'M.S. in Artificial Intelligence',
     period: 'Mar 2021 – Feb 2023',
     location: 'Daejeon, South Korea',
     details: [
-      'Supervisor: Prof. Juho Lee',
-      'Lab: Statistical Inference and Machine Learning Lab (SIML)',
+      { text: 'Supervisor: Prof. Juho Lee', url: 'https://juho-lee.github.io' },
+      { text: 'Lab: Statistical Inference and Machine Learning Lab (SIML)', url: 'https://siml.kaist.ac.kr' },
       'Thesis: Traversing Between Modes in Function Space for Fast Ensembling',
-      'GPA: 4.08 / 4.3',
+      'Research interests: Loss landscape, Neural processes',
     ],
   },
   {
     institution: 'SungKyunKwan University (SKKU)',
+    institutionUrl: 'https://www.skku.edu/eng/',
     school: 'Department of Computer Science and Engineering',
+    schoolUrl: 'https://cs.skku.edu/en/college/department/cse_intro',
     degree: 'B.S. in Computer Science and Engineering',
     period: 'Mar 2017 – Aug 2020',
     location: 'Seoul, South Korea',
@@ -88,7 +123,7 @@ const publications: {
   {
     type: 'conference',
     title: 'ELDET: Early-Learning Distillation with Noisy Labels for Object Detection',
-    authors: 'Dongmin Choi, Sangbin Lee, **EungGu Yun**, Jonghyuk Baek, Frank Chongwoo Park',
+    authors: 'Dongmin Choi, Sangbin Lee, **EungGu Yun**, Jonghyuk Baek, Frank C. Park',
     venue: 'NeurIPS',
     year: 2025,
     url: 'https://openreview.net/forum?id=IWEc6kpy8O',
@@ -154,25 +189,25 @@ const publications: {
   },
   {
     type: 'workshop',
-    title: 'A Generative Self-Supervised Framework Using Functional Connectivity in fMRI Data',
-    authors: 'Jungwon Choi, Seongho Keum, **EungGu Yun**, Byung-Hoon Kim, Juho Lee',
-    venue: 'NeurIPS Workshop on TGL',
-    year: 2023,
-    url: 'https://arxiv.org/abs/2312.01994',
-  },
-  {
-    type: 'workshop',
     title: 'Large-scale Graph Representation Learning of Dynamic Brain Connectome with Transformers',
     authors: 'Byung-Hoon Kim, Jungwon Choi, **EungGu Yun**, Kyungsang Kim, Xiang Li, Juho Lee',
-    venue: 'NeurIPS Workshop on TGL',
+    venue: 'TGL @ NeurIPS',
     year: 2023,
     url: 'https://arxiv.org/abs/2312.14939',
   },
   {
     type: 'workshop',
+    title: 'A Generative Self-Supervised Framework using Functional Connectivity in fMRI Data',
+    authors: 'Jungwon Choi, Seongho Keum, **EungGu Yun**, Byung-Hoon Kim, Juho Lee',
+    venue: 'TGL @ NeurIPS',
+    year: 2023,
+    url: 'https://arxiv.org/abs/2312.01994',
+  },
+  {
+    type: 'workshop',
     title: 'Early Exiting for Accelerated Inference in Diffusion Models',
     authors: 'Taehong Moon, Moonseok Choi, **EungGu Yun**, Jongmin Yoon, Gayoung Lee, Juho Lee',
-    venue: 'ICML Workshop on SPIGM',
+    venue: 'SPIGM @ ICML',
     year: 2023,
     url: 'https://openreview.net/forum?id=nhGdjo9Xed',
   },
@@ -202,11 +237,12 @@ const publications: {
   },
 ]
 
-const projects = [
+const projects: { title: string; org: string; orgUrl?: string; period: string; details: string[] }[] = [
   {
     title: 'Bayesian Inference for Time-series Data with Missing Values',
     org: 'Samsung Research',
-    period: '2022. 08 – 2023. 02',
+    orgUrl: 'https://research.samsung.com',
+    period: 'Aug 2022 – Feb 2023',
     details: [
       'Developing a Bayesian deep learning method to quantify uncertainty within missing values.',
       'Proposed multivariate time-series classification model using ObsDropout regularization.',
@@ -216,7 +252,8 @@ const projects = [
   {
     title: 'Developing AI-based Emulator for Physics Processes in Numerical Models',
     org: 'National Institute of Meteorological Sciences (NIMS)',
-    period: '2021. 05 – 2022. 07',
+    orgUrl: 'http://www.nims.go.kr/AE/MA/main.jsp',
+    period: 'May 2021 – Jul 2022',
     details: [
       'Research on alternative techniques of physical processes in numerical weather prediction (NWP) based on AI.',
       'Goal: reduce computational costs and improve accuracy of NWP.',
@@ -224,25 +261,62 @@ const projects = [
   },
 ]
 
-const awards = [
+const awards: { title: string; org: string; orgUrl?: string; period: string; detail: string }[] = [
   {
     title: 'The National Scholarship for Science and Engineering',
     org: 'Korea Student Aid Foundation (KOSAF)',
-    period: '2019 – 2020',
+    orgUrl: 'https://www.kosaf.go.kr/eng/jsp/aid/aid02_01_01.jsp',
+    period: '2019 Spring – 2020 Spring',
     detail: 'Supports undergraduates with strong academic performance in science and engineering.',
   },
   {
     title: 'SungKyun Software Scholarship',
     org: 'SungKyunKwan University (SKKU)',
-    period: '2017 – 2018',
+    orgUrl: 'https://cs.skku.edu/en/edures/education/view/4137',
+    period: '2017 Spring – 2018 Fall',
     detail: 'Supports students with an outstanding GPA.',
   },
   {
     title: "Dean's List Award",
     org: 'College of Computing, SungKyunKwan University (SKKU)',
-    period: '2017 – 2019',
+    orgUrl: 'https://cs.skku.edu/en',
+    period: '2017 Spring – 2019 Fall',
     detail: 'In recognition of high scholastic achievement. (6 times)',
   },
+]
+
+const services: { venue: string; years: { year: number; note?: string; url?: string }[] }[] = [
+  {
+    venue: 'NeurIPS',
+    years: [
+      { year: 2025, note: 'Top 8%', url: 'https://neurips.cc/Conferences/2025/ProgramCommittee#:~:text=EungGu%20Yun' },
+      { year: 2024, url: 'https://neurips.cc/Conferences/2024/ProgramCommittee#:~:text=EungGu%20Yun' },
+      { year: 2023, url: 'https://neurips.cc/Conferences/2023/ProgramCommittee#:~:text=EungGu%20Yun' },
+    ],
+  },
+  { venue: 'ICML', years: [{ year: 2025, url: 'https://icml.cc/Conferences/2025/ProgramCommittee#:~:text=EungGu%20Yun' }] },
+  {
+    venue: 'ICLR',
+    years: [
+      { year: 2025, url: 'https://iclr.cc/Conferences/2025/ProgramCommittee#:~:text=EungGu%20Yun' },
+      { year: 2024, url: 'https://iclr.cc/Conferences/2024/Reviewers#:~:text=EungGu%20Yun' },
+    ],
+  },
+  {
+    venue: 'AAAI',
+    years: [
+      { year: 2026, url: 'https://aaai.org/conference/aaai/aaai-26/2026-program-committee#:~:text=EungGu%20Yun' },
+      { year: 2025 },
+    ],
+  },
+  { venue: 'Pattern Recognition', years: [{ year: 2026 }] },
+]
+
+const skills: { category: string; items: string[] }[] = [
+  { category: 'Programming', items: ['Python', 'JavaScript', 'C', 'C++', 'LaTeX'] },
+  { category: 'Deep Learning', items: ['PyTorch', 'JAX', 'TPU'] },
+  { category: 'Systems', items: ['Linux', 'Docker', 'Google Cloud'] },
+  { category: 'Languages', items: ['Korean (native)', 'English (intermediate)'] },
 ]
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -261,10 +335,10 @@ function renderAuthors(raw: string) {
 }
 
 const venueColors: Record<string, string> = {
-  NeurIPS: 'bg-blue-50 text-blue-700 border-blue-200',
-  ICLR: 'bg-sky-50 text-sky-700 border-sky-200',
-  ICML: 'bg-indigo-50 text-indigo-700 border-indigo-200',
-  'IEEE ISBI': 'bg-slate-50 text-slate-600 border-slate-200',
+  NeurIPS: 'bg-gray-100 text-gray-700 border-gray-200',
+  ICLR: 'bg-gray-100 text-gray-700 border-gray-200',
+  ICML: 'bg-gray-100 text-gray-700 border-gray-200',
+  'IEEE ISBI': 'bg-gray-100 text-gray-700 border-gray-200',
 }
 
 function VenueBadge({ venue }: { venue: string }) {
@@ -273,107 +347,6 @@ function VenueBadge({ venue }: { venue: string }) {
     <span className={`inline-block px-2 py-0.5 text-xs font-semibold rounded border ${base}`}>
       {venue}
     </span>
-  )
-}
-
-const pubTypeShortLabels: Record<PubType, string> = {
-  conference: 'Conference',
-  workshop: 'Workshop',
-  journal: 'Journal',
-  preprint: 'Preprint',
-}
-
-const pubTypeColors: Record<PubType, string> = {
-  conference: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-  workshop: 'bg-amber-50 text-amber-700 border-amber-200',
-  journal: 'bg-purple-50 text-purple-700 border-purple-200',
-  preprint: 'bg-gray-100 text-gray-500 border-gray-200',
-}
-
-function TypeBadge({ type }: { type: PubType }) {
-  return (
-    <span className={`inline-block px-2 py-0.5 text-xs font-semibold rounded border ${pubTypeColors[type]}`}>
-      {pubTypeShortLabels[type]}
-    </span>
-  )
-}
-
-// ── Nav ───────────────────────────────────────────────────────────────────────
-
-const navLinks = [
-  { href: '#experience', label: 'Experience' },
-  { href: '#education', label: 'Education' },
-  { href: '#publications', label: 'Publications' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#awards', label: 'Awards' },
-]
-
-function Nav() {
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
-
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', handler)
-    return () => window.removeEventListener('scroll', handler)
-  }, [])
-
-  return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm' : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-        <a href="#hero" className="font-serif text-lg text-gray-900 hover:text-blue-600 transition-colors">
-          EY
-        </a>
-        <nav className="hidden md:flex items-center gap-7">
-          {navLinks.map(l => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="text-sm text-gray-500 hover:text-blue-600 transition-colors font-medium"
-            >
-              {l.label}
-            </a>
-          ))}
-        </nav>
-        <button
-          className="md:hidden p-1 text-gray-600"
-          onClick={() => setMenuOpen(o => !o)}
-          aria-label="Toggle menu"
-        >
-          <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
-            {menuOpen ? (
-              <>
-                <line x1="4" y1="4" x2="18" y2="18" />
-                <line x1="18" y1="4" x2="4" y2="18" />
-              </>
-            ) : (
-              <>
-                <line x1="3" y1="7" x2="19" y2="7" />
-                <line x1="3" y1="13" x2="19" y2="13" />
-              </>
-            )}
-          </svg>
-        </button>
-      </div>
-      {menuOpen && (
-        <nav className="md:hidden bg-white border-b border-gray-200 px-6 py-3 flex flex-col gap-3">
-          {navLinks.map(l => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={() => setMenuOpen(false)}
-              className="text-sm text-gray-600 hover:text-blue-600 font-medium transition-colors"
-            >
-              {l.label}
-            </a>
-          ))}
-        </nav>
-      )}
-    </header>
   )
 }
 
@@ -386,7 +359,7 @@ function SocialLink({ href, label, children }: { href: string; label: string; ch
       target={href.startsWith('mailto') ? undefined : '_blank'}
       rel="noreferrer"
       aria-label={label}
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-gray-200 text-gray-600 text-sm font-medium hover:border-blue-300 hover:text-blue-600 transition-all shadow-sm"
+      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-gray-200 text-gray-600 text-sm font-medium hover:border-gray-400 hover:text-gray-900 transition-all shadow-sm"
     >
       {children}
     </a>
@@ -399,22 +372,22 @@ function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex flex-col justify-center pt-20 pb-16 px-6 max-w-5xl mx-auto w-full"
+      className="flex flex-col justify-center pt-20 pb-20 px-6 max-w-5xl mx-auto w-full"
     >
       <div className="flex flex-col-reverse md:flex-row items-start md:items-end justify-between gap-10">
         <div className="flex-1">
-          <p className="text-sm font-medium text-blue-600 tracking-widest uppercase mb-4">
+          <p className="text-sm font-medium text-gray-900 tracking-widest uppercase mb-4">
             AI Researcher & Engineer
           </p>
           <h1 className="font-serif text-5xl md:text-7xl text-gray-900 leading-tight mb-6 whitespace-nowrap">
             EungGu Yun
           </h1>
           <p className="text-gray-500 text-base max-w-md leading-relaxed mb-8">
-            Researcher at{' '}
-            <a href={personal.companyUrl} target="_blank" rel="noreferrer" className="text-blue-600 hover:underline font-medium">
+            AI Researcher at{' '}
+            <a href={personal.companyUrl} target="_blank" rel="noreferrer" className="text-gray-900 hover:underline font-medium">
               SAIGE
             </a>{' '}
-            working on industrial image anomaly detection. Previously at KAIST Graduate School of AI.
+            working on industrial computer vision — image anomaly detection, efficient inference, and language-assisted vision systems. Previously studied loss landscapes at KAIST Graduate School of AI.
           </p>
           <div className="flex flex-wrap gap-3">
             <SocialLink href={`mailto:${personal.email}`} label="Email">
@@ -444,7 +417,7 @@ function Hero() {
           </div>
         </div>
         <div className="shrink-0">
-          <div className="w-36 h-36 md:w-52 md:h-52 rounded-2xl overflow-hidden ring-1 ring-gray-200 shadow-lg">
+          <div className="w-44 h-44 md:w-72 md:h-72 rounded-2xl overflow-hidden ring-1 ring-gray-200 shadow-lg">
             <img
               src={personal.profileImage}
               alt="EungGu Yun"
@@ -454,6 +427,25 @@ function Hero() {
         </div>
       </div>
     </section>
+  )
+}
+
+// ── Link helper ───────────────────────────────────────────────────────────────
+
+function MaybeLink({
+  href,
+  className,
+  children,
+}: {
+  href?: string
+  className?: string
+  children: React.ReactNode
+}) {
+  if (!href) return <span className={className}>{children}</span>
+  return (
+    <a href={href} target="_blank" rel="noreferrer" className={`${className ?? ''} hover:underline`}>
+      {children}
+    </a>
   )
 }
 
@@ -486,21 +478,29 @@ function Experience() {
             </div>
             {/* spine + dot */}
             <div className="relative flex flex-col items-center w-5 shrink-0">
-              <div className={`absolute top-0 w-px bg-gray-200 ${i === 0 ? 'top-2' : 'top-0'} ${i === experiences.length - 1 ? 'bottom-[calc(100%-2rem)]' : 'bottom-0'}`} />
-              <div className="relative z-10 mt-1.5 w-2.5 h-2.5 rounded-full bg-blue-500 ring-2 ring-white shrink-0" />
+              <div className={`absolute w-px bg-gray-200 bottom-0 ${i === 0 ? 'top-2' : 'top-0'}`} />
+              <div className="relative z-10 mt-1.5 w-2.5 h-2.5 rounded-full bg-gray-900 ring-2 ring-white shrink-0" />
             </div>
             {/* content */}
             <div className="flex-1 pl-4 pb-8">
               <h3 className="text-base font-semibold text-gray-900 leading-tight">{e.title}</h3>
-              <p className="text-sm text-blue-600 font-medium mt-0.5">{e.company}</p>
-              <p className="text-xs text-gray-400 mt-0.5">{e.dept}</p>
+              <p className="text-sm mt-0.5">
+                <MaybeLink href={e.companyUrl} className="text-gray-900 font-medium">{e.company}</MaybeLink>
+              </p>
+              <p className="text-xs mt-0.5">
+                <MaybeLink href={e.deptUrl} className="text-gray-400">{e.dept}</MaybeLink>
+              </p>
               <ul className="mt-2 space-y-1.5">
-                {e.details.map((d, j) => (
-                  <li key={j} className="text-sm text-gray-600 flex gap-2">
-                    <span className="text-blue-400 mt-0.5 shrink-0">›</span>
-                    <span>{d}</span>
-                  </li>
-                ))}
+                {e.details.map((d, j) => {
+                  const text = typeof d === 'string' ? d : d.text
+                  const url = typeof d === 'string' ? undefined : d.url
+                  return (
+                    <li key={j} className="text-sm text-gray-600 flex gap-2">
+                      <span className="text-gray-400 mt-0.5 shrink-0">›</span>
+                      <MaybeLink href={url}>{text}</MaybeLink>
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           </div>
@@ -525,21 +525,29 @@ function Education() {
             </div>
             {/* spine + dot */}
             <div className="relative flex flex-col items-center w-5 shrink-0">
-              <div className={`absolute top-0 w-px bg-gray-200 ${i === 0 ? 'top-2' : 'top-0'} ${i === education.length - 1 ? 'bottom-[calc(100%-2rem)]' : 'bottom-0'}`} />
-              <div className="relative z-10 mt-1.5 w-2.5 h-2.5 rounded-full bg-blue-500 ring-2 ring-white shrink-0" />
+              <div className={`absolute w-px bg-gray-200 bottom-0 ${i === 0 ? 'top-2' : 'top-0'}`} />
+              <div className="relative z-10 mt-1.5 w-2.5 h-2.5 rounded-full bg-gray-900 ring-2 ring-white shrink-0" />
             </div>
             {/* content */}
             <div className="flex-1 pl-4 pb-8">
               <h3 className="text-base font-semibold text-gray-900 leading-tight">{e.degree}</h3>
-              <p className="text-sm text-blue-600 font-medium mt-0.5">{e.institution}</p>
-              <p className="text-xs text-gray-400 mt-0.5">{e.school}</p>
+              <p className="text-sm mt-0.5">
+                <MaybeLink href={e.institutionUrl} className="text-gray-900 font-medium">{e.institution}</MaybeLink>
+              </p>
+              <p className="text-xs mt-0.5">
+                <MaybeLink href={e.schoolUrl} className="text-gray-400">{e.school}</MaybeLink>
+              </p>
               <ul className="mt-2 space-y-1.5">
-                {e.details.map((d, j) => (
-                  <li key={j} className="text-sm text-gray-600 flex gap-2">
-                    <span className="text-blue-400 mt-0.5 shrink-0">›</span>
-                    <span>{d}</span>
-                  </li>
-                ))}
+                {e.details.map((d, j) => {
+                  const text = typeof d === 'string' ? d : d.text
+                  const url = typeof d === 'string' ? undefined : d.url
+                  return (
+                    <li key={j} className="text-sm text-gray-600 flex gap-2">
+                      <span className="text-gray-400 mt-0.5 shrink-0">›</span>
+                      <MaybeLink href={url}>{text}</MaybeLink>
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           </div>
@@ -553,43 +561,86 @@ function Education() {
 
 const pubTypeOrder: PubType[] = ['conference', 'workshop', 'journal', 'preprint']
 
+type PubFilter = 'all' | PubType
+
 function Publications() {
-  const sortedPubs = [...publications].sort(
+  const [filter, setFilter] = useState<PubFilter>('all')
+
+  const byType = [...publications].sort(
     (a, b) => pubTypeOrder.indexOf(a.type) - pubTypeOrder.indexOf(b.type)
   )
+  const byYearDesc = [...publications].sort((a, b) => b.year - a.year)
+
+  const counts: Record<PubFilter, number> = {
+    all: publications.length,
+    conference: 0,
+    workshop: 0,
+    journal: 0,
+    preprint: 0,
+  }
+  for (const p of publications) counts[p.type]++
+
+  const filters: { key: PubFilter; label: string }[] = [
+    { key: 'all', label: 'All' },
+    { key: 'conference', label: 'Conference' },
+    { key: 'workshop', label: 'Workshop' },
+    { key: 'journal', label: 'Journal' },
+    { key: 'preprint', label: 'Preprint' },
+  ]
+
+  const visiblePubs = filter === 'all' ? byYearDesc : byType.filter(p => p.type === filter)
 
   return (
     <Section id="publications" title="Publications">
-      <div className="space-y-4">
-        {sortedPubs.map((p, i) => (
-          <article
-            key={i}
-            className="bg-white rounded-xl border border-gray-200 p-5 hover:border-blue-200 hover:shadow-sm transition-all duration-200 group"
-          >
-            <div className="flex items-center gap-1.5 flex-wrap mb-2">
-              <TypeBadge type={p.type} />
-              <VenueBadge venue={p.venue} />
-              <span className="inline-block px-2 py-0.5 text-xs font-semibold rounded border bg-gray-100 text-gray-500 border-gray-200">
-                {p.year}
-              </span>
-            </div>
-            <a
-              href={p.url}
-              target="_blank"
-              rel="noreferrer"
-              className="block text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors leading-snug mb-1.5"
+      <div className="mb-6 flex flex-wrap items-center gap-2">
+        {filters.map(f => {
+          const active = filter === f.key
+          return (
+            <button
+              key={f.key}
+              onClick={() => setFilter(f.key)}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold tracking-wider uppercase transition-all shadow-sm ${
+                active
+                  ? 'bg-gray-900 border-gray-900 text-white'
+                  : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:text-gray-900'
+              }`}
             >
-              {p.title}
-            </a>
-            <p className="text-xs text-gray-500 leading-relaxed">
-              {renderAuthors(p.authors)}
-            </p>
-            {p.note && (
-              <p className="text-xs text-amber-600 font-medium mt-1">{p.note}</p>
-            )}
-          </article>
-        ))}
+              <span>{f.label}</span>
+              <span className={active ? 'text-gray-400' : 'text-gray-400'}>{counts[f.key]}</span>
+            </button>
+          )
+        })}
       </div>
+      <ul className="flex flex-col divide-y divide-gray-200">
+        {visiblePubs.map((p, i) => (
+          <li key={i} className="group flex gap-4 sm:gap-6 py-5 first:pt-0 last:pb-0">
+            <div className="w-12 sm:w-14 shrink-0 pt-0.5">
+              <p className="text-base sm:text-lg font-semibold text-gray-500 leading-none tabular-nums">{p.year}</p>
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-start justify-between gap-3">
+                <a
+                  href={p.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block text-base font-semibold text-gray-900 hover:underline leading-snug"
+                >
+                  {p.title}
+                </a>
+                <div className="shrink-0 pt-0.5">
+                  <VenueBadge venue={p.venue} />
+                </div>
+              </div>
+              <p className="text-xs text-gray-500 leading-relaxed mt-1">
+                {renderAuthors(p.authors)}
+              </p>
+              {p.note && (
+                <p className="text-xs text-amber-600 font-medium mt-1">{p.note}</p>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
     </Section>
   )
 }
@@ -599,27 +650,36 @@ function Publications() {
 function Projects() {
   return (
     <Section id="projects" title="Projects">
-      <div className="grid md:grid-cols-2 gap-6">
+      <ul className="flex flex-col divide-y divide-gray-200">
         {projects.map((p, i) => (
-          <article key={i} className="bg-white rounded-xl border border-gray-200 p-6 hover:border-blue-200 hover:shadow-md transition-all duration-200 flex flex-col">
-            <div className="flex items-start justify-between gap-3 mb-3">
-              <div>
-                <h3 className="text-sm font-semibold text-gray-900 leading-snug mb-1">{p.title}</h3>
-                <span className="text-xs text-blue-600 font-medium">{p.org}</span>
-              </div>
-              <span className="text-xs text-gray-400 shrink-0 font-medium">{p.period}</span>
+          <li key={i} className="flex gap-4 sm:gap-6 py-6 first:pt-0 last:pb-0">
+            <div className="w-fit pt-1">
+              <p className="text-xs font-medium text-gray-500 leading-tight flex flex-col sm:flex-row sm:gap-1">
+                {p.period.split(/\s*–\s*/).map((part, idx, arr) => (
+                  <span key={idx} className="whitespace-nowrap">
+                    {part}
+                    {idx < arr.length - 1 && ' –'}
+                  </span>
+                ))}
+              </p>
             </div>
-            <ul className="mt-2 space-y-1.5 flex-1">
-              {p.details.map((d, j) => (
-                <li key={j} className="text-sm text-gray-600 flex gap-2">
-                  <span className="text-blue-400 mt-0.5 shrink-0">›</span>
-                  <span>{d}</span>
-                </li>
-              ))}
-            </ul>
-          </article>
+            <div className="flex-1 min-w-0">
+              <h3 className="text-base font-semibold text-gray-900 leading-snug">{p.title}</h3>
+              <p className="text-sm mt-0.5">
+                <MaybeLink href={p.orgUrl} className="text-gray-900 font-medium">{p.org}</MaybeLink>
+              </p>
+              <ul className="mt-2 space-y-1.5">
+                {p.details.map((d, j) => (
+                  <li key={j} className="text-sm text-gray-600 flex gap-2">
+                    <span className="text-gray-400 mt-0.5 shrink-0">›</span>
+                    <span>{d}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </Section>
   )
 }
@@ -629,48 +689,101 @@ function Projects() {
 function Awards() {
   return (
     <Section id="awards" title="Awards">
-      <div className="flex flex-col gap-4">
+      <ul className="flex flex-col divide-y divide-gray-200">
         {awards.map((a, i) => (
-          <article key={i} className="bg-white rounded-xl border border-gray-200 p-5 hover:border-blue-200 hover:shadow-sm transition-all duration-200">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-1">
-              <h3 className="text-sm font-semibold text-gray-900">{a.title}</h3>
-              <span className="text-xs text-gray-400 font-medium shrink-0">{a.period}</span>
+          <li key={i} className="flex gap-4 sm:gap-6 py-6 first:pt-0 last:pb-0">
+            <div className="w-18 sm:w-34 pt-1">
+              <p className="text-xs font-medium text-gray-500 leading-tight flex flex-col sm:flex-row sm:gap-1">
+                {a.period.split(/\s*–\s*/).map((part, idx, arr) => (
+                  <span key={idx} className="whitespace-nowrap">
+                    {part}
+                    {idx < arr.length - 1 && ' –'}
+                  </span>
+                ))}
+              </p>
             </div>
-            <p className="text-xs text-blue-600 font-medium mb-1.5">{a.org}</p>
-            <p className="text-sm text-gray-500">{a.detail}</p>
-          </article>
+            <div className="flex-1 min-w-0">
+              <h3 className="text-base font-semibold text-gray-900 leading-snug">{a.title}</h3>
+              <p className="text-sm mt-0.5">
+                <MaybeLink href={a.orgUrl} className="text-gray-900 font-medium">{a.org}</MaybeLink>
+              </p>
+              <p className="text-sm text-gray-600 mt-2">{a.detail}</p>
+            </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </Section>
   )
 }
 
-// ── Footer ────────────────────────────────────────────────────────────────────
+// ── Academic Services ─────────────────────────────────────────────────────────
 
-function Footer() {
+function Services() {
   return (
-    <footer className="border-t border-gray-200 bg-white mt-10">
-      <div className="max-w-5xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-400">
-        <span className="font-serif text-xl text-gray-900">EungGu Yun</span>
-        <div className="flex items-center gap-4 flex-wrap justify-center">
-          <a href={`mailto:${personal.email}`} className="hover:text-blue-600 transition-colors">
-            {personal.email}
-          </a>
-          <span aria-hidden>·</span>
-          <a href={personal.github} target="_blank" rel="noreferrer" className="hover:text-blue-600 transition-colors">
-            GitHub
-          </a>
-          <span aria-hidden>·</span>
-          <a href={personal.scholar} target="_blank" rel="noreferrer" className="hover:text-blue-600 transition-colors">
-            Scholar
-          </a>
-          <span aria-hidden>·</span>
-          <a href={personal.linkedin} target="_blank" rel="noreferrer" className="hover:text-blue-600 transition-colors">
-            LinkedIn
-          </a>
-        </div>
+    <Section id="services" title="Academic Services">
+      <ul className="flex flex-col divide-y divide-gray-200">
+        {services.map((s, i) => (
+          <li key={i} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 py-4 first:pt-0 last:pb-0">
+            <div className="flex items-baseline gap-2 shrink-0 sm:w-64">
+              <span className="text-sm text-gray-500">Reviewer for</span>
+              <span className="text-base font-semibold text-gray-900">{s.venue}</span>
+            </div>
+            <div className="flex-1 flex flex-wrap items-center gap-2">
+              {s.years.map((y, j) => {
+                const baseClass = `inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border text-xs font-semibold tabular-nums transition-colors ${
+                  y.note
+                    ? 'bg-amber-50 border-amber-200 text-amber-800'
+                    : 'bg-white border-gray-200 text-gray-700'
+                } ${y.url ? (y.note ? 'hover:border-amber-300' : 'hover:border-gray-300') : ''}`
+                const content = (
+                  <>
+                    <span>{y.year}</span>
+                    {y.note && <span className="font-medium">· {y.note}</span>}
+                  </>
+                )
+                return y.url ? (
+                  <a key={j} href={y.url} target="_blank" rel="noreferrer" className={baseClass}>
+                    {content}
+                  </a>
+                ) : (
+                  <span key={j} className={baseClass}>
+                    {content}
+                  </span>
+                )
+              })}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </Section>
+  )
+}
+
+// ── Skills ────────────────────────────────────────────────────────────────────
+
+function Skills() {
+  return (
+    <Section id="skills" title="Skills">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8">
+        {skills.map((s, i) => (
+          <div key={i}>
+            <p className="text-xs font-medium tracking-[0.18em] text-gray-400 uppercase mb-3">
+              {s.category}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {s.items.map((item, j) => (
+                <span
+                  key={j}
+                  className="inline-flex items-center px-2.5 py-1 rounded-md border border-gray-200 bg-white font-mono text-xs text-gray-700"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
-    </footer>
+    </Section>
   )
 }
 
@@ -679,7 +792,6 @@ function Footer() {
 export default function App() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Nav />
       <main className="flex flex-col items-center">
         <Hero />
         <div className="w-full bg-white border-y border-gray-100">
@@ -693,14 +805,19 @@ export default function App() {
             <Publications />
           </div>
         </div>
-        <Projects />
+        <Services />
         <div className="w-full bg-white border-y border-gray-100">
           <div className="max-w-5xl mx-auto">
-            <Awards />
+            <Projects />
+          </div>
+        </div>
+        <Awards />
+        <div className="w-full bg-white border-y border-gray-100">
+          <div className="max-w-5xl mx-auto">
+            <Skills />
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   )
 }
