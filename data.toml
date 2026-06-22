@@ -68,10 +68,11 @@ details = [ "Total GPA: 4.33 / 4.5", "Major GPA: 4.47 / 4.5" ]
 [[publications]]
 type = "conference"
 title = "ELDET: Early-Learning Distillation with Noisy Labels for Object Detection"
-authors = "Dongmin Choi, Sangbin Lee, **EungGu Yun**, Jonghyuk Baek, Frank C. Park"
+authors = "Dongmin Choi*, Sangbin Lee*, **EungGu Yun**, Jonghyuk Baek, Frank C. Park"
 venue = "NeurIPS"
 year = 2025
 url = "https://openreview.net/forum?id=IWEc6kpy8O"
+note = "*: Equal contribution"
 
 [[publications]]
 type = "conference"
