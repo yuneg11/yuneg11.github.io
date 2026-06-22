@@ -14,22 +14,24 @@ Live at <https://yuneg11.github.io/>.
 
 ## Editing content
 
-All content lives in plain data modules under [`src/data/`](src/data/) — edit these, not the components:
+All site content lives in [`src/data.toml`](src/data.toml) — edit it directly, no
+code changes needed. It has one table/array per section:
 
-| File | Section |
-|------|---------|
-| `personal.ts` | name, title, links, profile image |
-| `experiences.ts` | Experience timeline |
-| `education.ts` | Education timeline |
-| `publications.ts` | Publications (filterable) |
-| `projects.ts` | Projects |
-| `awards.ts` | Awards |
-| `services.ts` | Academic services (reviewing) |
-| `skills.ts` | Skills |
+| TOML key | Section |
+|----------|---------|
+| `[personal]` | name, title, links, profile image |
+| `[[experiences]]` | Experience timeline |
+| `[[education]]` | Education timeline |
+| `[[publications]]` | Publications (filterable) |
+| `[[projects]]` | Projects |
+| `[[awards]]` | Awards |
+| `[[services]]` | Academic services (reviewing) |
+| `[[skills]]` | Skills |
 
-Shared content/view types are in [`src/types.ts`](src/types.ts). Presentational
-components are in [`src/components/`](src/components/) and pure helpers in
-[`src/lib/`](src/lib/); `src/App.tsx` is only the composition tree.
+`src/content.ts` loads and validates the TOML against the interfaces in
+[`src/types.ts`](src/types.ts). Presentational components are in
+[`src/components/`](src/components/) and pure helpers in [`src/lib/`](src/lib/);
+`src/App.tsx` is only the composition tree.
 
 In author strings, wrap a name in `**double asterisks**` to bold it (used to
 highlight the site owner in publication author lists).
