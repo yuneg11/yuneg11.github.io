@@ -8,9 +8,9 @@ import type {
   Service,
   SkillGroup,
 } from './types.ts'
-import data from './data.toml'
+import data from '../data.toml'
 
-// All site content lives in `src/data.toml`; this module gives it a typed,
+// All site content lives in `data.toml` (project root); this module gives it a typed,
 // validated view that the components import. Edit content in data.toml, not here.
 interface Content {
   personal: Personal

@@ -14,7 +14,7 @@ Live at <https://yuneg11.github.io/>.
 
 ## Editing content
 
-All site content lives in [`src/data.toml`](src/data.toml) — edit it directly, no
+All site content lives in [`data.toml`](data.toml) — edit it directly, no
 code changes needed. It has one table/array per section:
 
 | TOML key | Section |
