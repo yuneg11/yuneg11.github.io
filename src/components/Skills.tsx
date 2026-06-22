@@ -7,7 +7,7 @@ export function Skills() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8">
         {skills.map((s, i) => (
           <div key={i}>
-            <p className="text-xs font-medium tracking-[0.18em] text-gray-500 uppercase mb-3">
+            <p className="text-xs font-medium tracking-widest text-gray-500 uppercase mb-3">
               {s.category}
             </p>
             <div className="flex flex-wrap gap-2">

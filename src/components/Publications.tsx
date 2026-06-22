@@ -46,7 +46,7 @@ export function Publications() {
               key={f.key}
               onClick={() => setFilter(f.key)}
               aria-pressed={active}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold tracking-wider uppercase transition-all shadow-sm ${
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold tracking-widest uppercase transition-all shadow-sm ${
                 active
                   ? 'bg-gray-900 border-gray-900 text-white'
                   : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:text-gray-900'
@@ -60,7 +60,7 @@ export function Publications() {
       </div>
       <ul className="flex flex-col divide-y divide-gray-200">
         {visiblePubs.map((p) => (
-          <li key={p.url} className="group flex gap-4 sm:gap-6 py-5 first:pt-0 last:pb-0">
+          <li key={p.url} className="group flex gap-4 sm:gap-6 py-6 first:pt-0 last:pb-0">
             <div className="w-12 sm:w-14 shrink-0 pt-0.5">
               <p className="text-base sm:text-lg font-semibold text-gray-500 leading-none tabular-nums">{p.year}</p>
             </div>
