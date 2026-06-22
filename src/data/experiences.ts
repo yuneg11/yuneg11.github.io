@@ -4,7 +4,7 @@ export const experiences: Experience[] = [
   {
     title: 'AI Researcher',
     company: 'SAIGE',
-    companyUrl: 'https://saige.ai/en/',
+    companyUrl: 'https://saige.ai/',
     dept: 'AI Lab',
     period: 'Mar 2023 – Present',
     location: 'Seoul, South Korea',
