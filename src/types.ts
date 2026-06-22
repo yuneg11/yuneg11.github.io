@@ -7,7 +7,6 @@ export type PubType = 'conference' | 'workshop' | 'journal' | 'preprint'
 
 export interface Personal {
   name: string
-  title: string
   email: string
   github: string
   scholar: string
