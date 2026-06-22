@@ -10,6 +10,12 @@ company = "SAIGE"
 companyUrl = "https://saige.ai/"
 profileImage = "/profile.jpg"
 
+# Page metadata — used by the html-meta plugin (vite.config.ts) to generate the
+# document title, description, Open Graph/Twitter tags, and JSON-LD at build time.
+[meta]
+jobTitle = "AI Researcher"
+description = "EungGu Yun is an AI Researcher at SAIGE working on industrial computer vision — image anomaly detection, efficient inference, and language-assisted vision systems. Previously at KAIST Graduate School of AI."
+
 [[experiences]]
 title = "AI Researcher"
 company = "SAIGE"
