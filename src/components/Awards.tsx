@@ -8,7 +8,7 @@ export function Awards() {
     <Section id="awards" title="Awards">
       <ul className="flex flex-col divide-y divide-gray-200">
         {awards.map((a, i) => (
-          <li key={i} className="flex gap-4 sm:gap-6 py-6 first:pt-0 last:pb-0">
+          <li key={i} className="flex gap-4 sm:gap-6 py-5 first:pt-0 last:pb-0">
             <div className="w-18 sm:w-34 pt-1">
               <PeriodLabel period={a.period} />
             </div>

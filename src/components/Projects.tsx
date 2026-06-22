@@ -9,7 +9,7 @@ export function Projects() {
     <Section id="projects" title="Projects">
       <ul className="flex flex-col divide-y divide-gray-200">
         {projects.map((p, i) => (
-          <li key={i} className="flex gap-4 sm:gap-6 py-6 first:pt-0 last:pb-0">
+          <li key={i} className="flex gap-4 sm:gap-6 py-5 first:pt-0 last:pb-0">
             <div className="w-fit pt-1">
               <PeriodLabel period={p.period} />
             </div>
