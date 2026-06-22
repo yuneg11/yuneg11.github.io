@@ -9,9 +9,6 @@ export function Hero() {
     >
       <div className="flex flex-col-reverse md:flex-row items-start md:items-end justify-between gap-10">
         <div className="flex-1">
-          <p className="text-sm font-medium text-indigo-600 tracking-widest uppercase mb-4">
-            {personal.title}
-          </p>
           <h1 className="font-serif text-5xl md:text-7xl text-gray-900 leading-tight mb-6">
             EungGu Yun
           </h1>
@@ -21,6 +18,12 @@ export function Hero() {
               {personal.company}
             </a>{' '}
             working on industrial computer vision — image anomaly detection, efficient inference, and language-assisted vision systems. Previously studied loss landscapes at KAIST Graduate School of AI.
+          </p>
+          <p className="mb-4 flex items-center gap-1.5 text-sm text-gray-500">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
+            </svg>
+            {personal.location}
           </p>
           <div className="flex flex-wrap gap-3">
             <SocialLink href={`mailto:${personal.email}`} label="Email">
@@ -48,12 +51,6 @@ export function Hero() {
               LinkedIn
             </SocialLink>
           </div>
-          <p className="mt-5 flex items-center gap-1.5 text-sm text-gray-500">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
-            </svg>
-            {personal.location}
-          </p>
         </div>
         <div className="shrink-0">
           <div className="w-44 h-44 md:w-72 md:h-72 rounded-2xl overflow-hidden ring-1 ring-gray-200 shadow-lg">
