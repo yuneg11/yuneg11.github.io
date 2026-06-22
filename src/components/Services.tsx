@@ -1,4 +1,4 @@
-import { services } from '../data/services.ts'
+import { services } from '../content.ts'
 import { Section } from './Section.tsx'
 
 export function Services() {

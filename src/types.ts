@@ -5,6 +5,20 @@ export type Detail = string | { text: string; url: string }
 
 export type PubType = 'conference' | 'workshop' | 'journal' | 'preprint'
 
+export interface Personal {
+  name: string
+  title: string
+  email: string
+  github: string
+  scholar: string
+  linkedin: string
+  website: string
+  location: string
+  company: string
+  companyUrl: string
+  profileImage: string
+}
+
 export interface Experience {
   title: string
   company: string

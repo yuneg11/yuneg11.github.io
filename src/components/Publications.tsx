@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { PubType } from '../types.ts'
-import { publications } from '../data/publications.ts'
+import { publications } from '../content.ts'
 import { renderAuthors } from '../lib/authors.tsx'
 import { Section } from './Section.tsx'
 import { VenueBadge } from './VenueBadge.tsx'

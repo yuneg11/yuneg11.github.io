@@ -1,4 +1,4 @@
-import { personal } from '../data/personal.ts'
+import { personal } from '../content.ts'
 import { SocialLink } from './SocialLink.tsx'
 
 export function Hero() {

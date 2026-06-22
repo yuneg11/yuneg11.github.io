@@ -1,4 +1,4 @@
-import { projects } from '../data/projects.ts'
+import { projects } from '../content.ts'
 import { Section } from './Section.tsx'
 import { MaybeLink } from './MaybeLink.tsx'
 import { PeriodLabel } from './PeriodLabel.tsx'

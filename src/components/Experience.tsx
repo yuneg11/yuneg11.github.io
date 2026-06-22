@@ -1,4 +1,4 @@
-import { experiences } from '../data/experiences.ts'
+import { experiences } from '../content.ts'
 import { Section } from './Section.tsx'
 import { Timeline } from './Timeline.tsx'
 

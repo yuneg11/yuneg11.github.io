@@ -1,0 +1,278 @@
+[personal]
+name = "EungGu Yun"
+title = "AI Researcher"
+email = "yuneg11@gmail.com"
+github = "https://github.com/yuneg11"
+scholar = "https://scholar.google.com/citations?user=r7-847MAAAAJ"
+linkedin = "https://www.linkedin.com/in/yuneg"
+website = "https://yuneg11.github.io"
+location = "Seoul, South Korea"
+company = "SAIGE"
+companyUrl = "https://saige.ai/"
+profileImage = "/profile.jpg"
+
+[[experiences]]
+title = "AI Researcher"
+company = "SAIGE"
+companyUrl = "https://saige.ai/"
+dept = "AI Lab"
+period = "Mar 2023 – Present"
+location = "Seoul, South Korea"
+details = [ "Research on image anomaly detection (IAD) systems for industrial inspection.", "Research language-assisted vision models for data-efficient training.", "Conduct TensorRT-based optimization for real-time inference in object detection and tracking.", "Fine-tune VLMs for context-aware industrial safety monitoring." ]
+
+[[experiences]]
+title = "Research Intern"
+company = "Artificial Intelligence Institute of Seoul National University (AIIS)"
+companyUrl = "https://aiis.snu.ac.kr/eng/"
+dept = "Deep Representation Learning Research Group (DRL)"
+deptUrl = "http://drl.snu.ac.kr"
+period = "Jul 2020 – Sep 2020"
+location = "Seoul, South Korea"
+details = [ { text = "Supervisor: Prof. Wonjong Rhee", url = "http://drl.snu.ac.kr/?p=13209" }, "Research on model interpretability and activation on-off patterns.", "Reproduced CNN visualization methods including Grad-CAM, (C)LRP, etc." ]
+
+[[experiences]]
+title = "Research Intern"
+company = "Electronics and Telecommunications Research Institute (ETRI)"
+companyUrl = "https://etri.re.kr/eng/main/main.etri"
+dept = "Artificial Intelligence Research Laboratory"
+deptUrl = "https://etri.re.kr/eng/sub6/sub6_0101.etri?departCode=10"
+period = "Jan 2020 – Feb 2020"
+location = "Daejeon, South Korea"
+details = [ { text = "Supervisor: Yoo-mi Park", url = "https://kr.linkedin.com/in/yoomipark-etri" }, "Tested and debugged ETRI Deep Learning HPC Platform Dashboard.", "Implemented AlexNet and ResNet models with DL-MDL." ]
+
+[[education]]
+institution = "Korea Advanced Institute of Science and Technology (KAIST)"
+institutionUrl = "https://www.kaist.ac.kr/en/"
+school = "Graduate School of AI"
+schoolUrl = "https://gsai.kaist.ac.kr"
+degree = "M.S. in Artificial Intelligence"
+period = "Mar 2021 – Feb 2023"
+location = "Daejeon, South Korea"
+details = [ { text = "Supervisor: Prof. Juho Lee", url = "https://juho-lee.github.io" }, { text = "Lab: Statistical Inference and Machine Learning Lab (SIML)", url = "https://siml.kaist.ac.kr" }, "Thesis: Traversing Between Modes in Function Space for Fast Ensembling", "Research interests: Loss landscape, Neural processes" ]
+
+[[education]]
+institution = "SungKyunKwan University (SKKU)"
+institutionUrl = "https://www.skku.edu/eng/"
+school = "Department of Computer Science and Engineering"
+schoolUrl = "https://cs.skku.edu/en/college/department/cse_intro"
+degree = "B.S. in Computer Science and Engineering"
+period = "Mar 2017 – Aug 2020"
+location = "Seoul, South Korea"
+details = [ "Total GPA: 4.33 / 4.5", "Major GPA: 4.47 / 4.5" ]
+
+[[publications]]
+type = "conference"
+title = "ELDET: Early-Learning Distillation with Noisy Labels for Object Detection"
+authors = "Dongmin Choi, Sangbin Lee, **EungGu Yun**, Jonghyuk Baek, Frank C. Park"
+venue = "NeurIPS"
+year = 2025
+url = "https://openreview.net/forum?id=IWEc6kpy8O"
+
+[[publications]]
+type = "conference"
+title = "Language-Assisted Feature Transformation for Anomaly Detection"
+authors = "**EungGu Yun**, Heonjin Ha, Yeongwoo Nam, Bryan Dongik Lee"
+venue = "ICLR"
+year = 2025
+url = "https://arxiv.org/abs/2503.01184"
+
+[[publications]]
+type = "conference"
+title = "A Simple Early Exiting Framework for Accelerated Sampling in Diffusion Models"
+authors = "Taehong Moon, Moonseok Choi, **EungGu Yun**, Jongmin Yoon, Gayoung Lee, Jaewoong Cho, Juho Lee"
+venue = "ICML"
+year = 2024
+url = "https://arxiv.org/abs/2408.05927"
+
+[[publications]]
+type = "conference"
+title = "Learning Dynamic Brain Connectome with Graph Transformers for Psychiatric Diagnosis Classification"
+authors = "Byung-Hoon Kim, Jungwon Choi, **EungGu Yun**, Kyungsang Kim, Xiang Li, Juho Lee"
+venue = "IEEE ISBI"
+year = 2024
+url = "https://ieeexplore.ieee.org/abstract/document/10635508/"
+
+[[publications]]
+type = "conference"
+title = "Probabilistic Imputation for Time-series Classification with Missing Data"
+authors = "SeungHyun Kim*, Hyunsu Kim*, **EungGu Yun***, Hwangrae Lee, Jaehun Lee, Juho Lee"
+venue = "ICML"
+year = 2023
+url = "https://arxiv.org/abs/2308.06738"
+note = "*: Equal contribution"
+
+[[publications]]
+type = "conference"
+title = "Traversing Between Modes in Function Space for Fast Ensembling"
+authors = "**EungGu Yun***, Hyungi Lee*, Giung Nam*, Juho Lee"
+venue = "ICML"
+year = 2023
+url = "https://arxiv.org/abs/2306.11304"
+note = "*: Equal contribution"
+
+[[publications]]
+type = "conference"
+title = "Martingale Posterior Neural Processes"
+authors = "Hyungi Lee, **EungGu Yun**, Giung Nam, Edwin Fong, Juho Lee"
+venue = "ICLR"
+year = 2023
+url = "https://arxiv.org/abs/2304.09431"
+note = "Spotlight"
+
+[[publications]]
+type = "conference"
+title = "Scale Mixtures of Neural Network Gaussian Processes"
+authors = "Hyungi Lee, **EungGu Yun**, Hongseok Yang, Juho Lee"
+venue = "ICLR"
+year = 2022
+url = "https://arxiv.org/abs/2107.01408"
+
+[[publications]]
+type = "workshop"
+title = "Large-scale Graph Representation Learning of Dynamic Brain Connectome with Transformers"
+authors = "Byung-Hoon Kim, Jungwon Choi, **EungGu Yun**, Kyungsang Kim, Xiang Li, Juho Lee"
+venue = "TGL @ NeurIPS"
+year = 2023
+url = "https://arxiv.org/abs/2312.14939"
+
+[[publications]]
+type = "workshop"
+title = "A Generative Self-Supervised Framework using Functional Connectivity in fMRI Data"
+authors = "Jungwon Choi, Seongho Keum, **EungGu Yun**, Byung-Hoon Kim, Juho Lee"
+venue = "TGL @ NeurIPS"
+year = 2023
+url = "https://arxiv.org/abs/2312.01994"
+
+[[publications]]
+type = "workshop"
+title = "Early Exiting for Accelerated Inference in Diffusion Models"
+authors = "Taehong Moon, Moonseok Choi, **EungGu Yun**, Jongmin Yoon, Gayoung Lee, Juho Lee"
+venue = "SPIGM @ ICML"
+year = 2023
+url = "https://openreview.net/forum?id=nhGdjo9Xed"
+
+[[publications]]
+type = "journal"
+title = "Recent Advances of Radiative Transfer Emulator in WRF Model"
+authors = "Hwan-Jin Song, Soonyoung Roh, Park Sa Kim, Juho Lee, Giung Nam, **EungGu Yun**, Jongmin Yoon"
+venue = "KOMES"
+year = 2022
+url = "https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE11162111"
+
+[[publications]]
+type = "journal"
+title = "Benefits of Stochastic Weight Averaging in Developing Neural Network Radiation Scheme for Numerical Weather Prediction"
+authors = "Hwan-Jin Song, Soonyoung Roh, Juho Lee, Giung Nam, **EungGu Yun**, Jongmin Yoon, Park Sa Kim"
+venue = "JAMES"
+year = 2022
+url = "https://doi.org/10.1029/2021MS002921"
+
+[[publications]]
+type = "preprint"
+title = "On-Off Pattern Encoding and Path-Count Encoding as Deep Neural Network Representations"
+authors = "Euna Jung, Jaekeol Choi, **EungGu Yun**, Wonjong Rhee"
+venue = "arXiv"
+year = 2020
+url = "https://arxiv.org/abs/2401.09518"
+
+[[projects]]
+title = "Bayesian Inference for Time-series Data with Missing Values"
+org = "Samsung Research"
+orgUrl = "https://research.samsung.com"
+period = "Aug 2022 – Feb 2023"
+details = [ "Developing a Bayesian deep learning method to quantify uncertainty within missing values.", "Proposed multivariate time-series classification model using ObsDropout regularization.", "Validated on PhysioNet 2012, MIMIC-III, and UCI human activity datasets." ]
+
+[[projects]]
+title = "Developing AI-based Emulator for Physics Processes in Numerical Models"
+org = "National Institute of Meteorological Sciences (NIMS)"
+orgUrl = "http://www.nims.go.kr/AE/MA/main.jsp"
+period = "May 2021 – Jul 2022"
+details = [ "Research on alternative techniques of physical processes in numerical weather prediction (NWP) based on AI.", "Goal: reduce computational costs and improve accuracy of NWP." ]
+
+[[awards]]
+title = "The National Scholarship for Science and Engineering"
+org = "Korea Student Aid Foundation (KOSAF)"
+orgUrl = "https://www.kosaf.go.kr/eng/jsp/aid/aid02_01_01.jsp"
+period = "2019 Spring – 2020 Spring"
+detail = "Supports undergraduates with strong academic performance in science and engineering."
+
+[[awards]]
+title = "SungKyun Software Scholarship"
+org = "SungKyunKwan University (SKKU)"
+orgUrl = "https://cs.skku.edu/en/edures/education/view/4137"
+period = "2017 Spring – 2018 Fall"
+detail = "Supports students with an outstanding GPA."
+
+[[awards]]
+title = "Dean's List Award"
+org = "College of Computing, SungKyunKwan University (SKKU)"
+orgUrl = "https://cs.skku.edu/en"
+period = "2017 Spring – 2019 Fall"
+detail = "In recognition of high scholastic achievement. (6 times)"
+
+[[services]]
+venue = "NeurIPS"
+
+[[services.years]]
+year = 2025
+note = "Top 8%"
+url = "https://neurips.cc/Conferences/2025/ProgramCommittee#:~:text=EungGu%20Yun"
+
+[[services.years]]
+year = 2024
+url = "https://neurips.cc/Conferences/2024/ProgramCommittee#:~:text=EungGu%20Yun"
+
+[[services.years]]
+year = 2023
+url = "https://neurips.cc/Conferences/2023/ProgramCommittee#:~:text=EungGu%20Yun"
+
+[[services]]
+venue = "ICML"
+
+[[services.years]]
+year = 2025
+url = "https://icml.cc/Conferences/2025/ProgramCommittee#:~:text=EungGu%20Yun"
+
+[[services]]
+venue = "ICLR"
+
+[[services.years]]
+year = 2025
+url = "https://iclr.cc/Conferences/2025/ProgramCommittee#:~:text=EungGu%20Yun"
+
+[[services.years]]
+year = 2024
+url = "https://iclr.cc/Conferences/2024/Reviewers#:~:text=EungGu%20Yun"
+
+[[services]]
+venue = "AAAI"
+
+[[services.years]]
+year = 2026
+url = "https://aaai.org/conference/aaai/aaai-26/2026-program-committee#:~:text=EungGu%20Yun"
+
+[[services.years]]
+year = 2025
+
+[[services]]
+venue = "Pattern Recognition"
+
+[[services.years]]
+year = 2026
+
+[[skills]]
+category = "Programming"
+items = [ "Python", "JavaScript", "C", "C++", "LaTeX" ]
+
+[[skills]]
+category = "Deep Learning"
+items = [ "PyTorch", "JAX", "TPU" ]
+
+[[skills]]
+category = "Systems"
+items = [ "Linux", "Docker", "Google Cloud" ]
+
+[[skills]]
+category = "Languages"
+items = [ "Korean (native)", "English (intermediate)" ]
+

@@ -1,4 +1,4 @@
-import { awards } from '../data/awards.ts'
+import { awards } from '../content.ts'
 import { Section } from './Section.tsx'
 import { MaybeLink } from './MaybeLink.tsx'
 import { PeriodLabel } from './PeriodLabel.tsx'

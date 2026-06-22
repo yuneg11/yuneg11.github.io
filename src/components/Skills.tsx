@@ -1,4 +1,4 @@
-import { skills } from '../data/skills.ts'
+import { skills } from '../content.ts'
 import { Section } from './Section.tsx'
 
 export function Skills() {

@@ -1,4 +1,4 @@
-import { education } from '../data/education.ts'
+import { education } from '../content.ts'
 import { Section } from './Section.tsx'
 import { Timeline } from './Timeline.tsx'
 
