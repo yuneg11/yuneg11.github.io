@@ -342,7 +342,7 @@ const venueColors: Record<string, string> = {
 }
 
 function VenueBadge({ venue }: { venue: string }) {
-  const base = venueColors[venue] ?? 'bg-gray-100 text-gray-500 border-gray-200'
+  const base = venueColors[venue] ?? 'bg-gray-100 text-gray-700 border-gray-200'
   return (
     <span className={`inline-block px-2 py-0.5 text-xs font-semibold rounded border ${base}`}>
       {venue}
@@ -379,7 +379,7 @@ function Hero() {
           <p className="text-sm font-medium text-gray-900 tracking-widest uppercase mb-4">
             AI Researcher & Engineer
           </p>
-          <h1 className="font-serif text-5xl md:text-7xl text-gray-900 leading-tight mb-6 whitespace-nowrap">
+          <h1 className="font-serif text-5xl md:text-7xl text-gray-900 leading-tight mb-6">
             EungGu Yun
           </h1>
           <p className="text-gray-500 text-base max-w-md leading-relaxed mb-8">
@@ -391,25 +391,25 @@ function Hero() {
           </p>
           <div className="flex flex-wrap gap-3">
             <SocialLink href={`mailto:${personal.email}`} label="Email">
-              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor">
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884zM18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
               </svg>
               Email
             </SocialLink>
             <SocialLink href={personal.github} label="GitHub">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 0C5.37 0 0 5.373 0 12c0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577v-2.165c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
               </svg>
               GitHub
             </SocialLink>
             <SocialLink href={personal.scholar} label="Google Scholar">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 24a7 7 0 110-14 7 7 0 010 14zm0-24L0 9.5l4.838 3.94A8 8 0 0112 10a8 8 0 017.162 3.44L24 9.5z"/>
               </svg>
               Scholar
             </SocialLink>
             <SocialLink href={personal.linkedin} label="LinkedIn">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
               </svg>
               LinkedIn
@@ -421,6 +421,10 @@ function Hero() {
             <img
               src={personal.profileImage}
               alt="EungGu Yun"
+              width={512}
+              height={512}
+              decoding="async"
+              fetchPriority="high"
               className="w-full h-full object-cover"
             />
           </div>
@@ -474,7 +478,7 @@ function Experience() {
             {/* date column */}
             <div className="w-28 sm:w-36 shrink-0 text-right pr-4 pt-1">
               <p className="text-xs font-medium text-gray-500 leading-tight">{e.period}</p>
-              <p className="text-xs text-gray-400 mt-0.5">{e.location}</p>
+              <p className="text-xs text-gray-500 mt-0.5">{e.location}</p>
             </div>
             {/* spine + dot */}
             <div className="relative flex flex-col items-center w-5 shrink-0">
@@ -488,7 +492,7 @@ function Experience() {
                 <MaybeLink href={e.companyUrl} className="text-gray-900 font-medium">{e.company}</MaybeLink>
               </p>
               <p className="text-xs mt-0.5">
-                <MaybeLink href={e.deptUrl} className="text-gray-400">{e.dept}</MaybeLink>
+                <MaybeLink href={e.deptUrl} className="text-gray-500">{e.dept}</MaybeLink>
               </p>
               <ul className="mt-2 space-y-1.5">
                 {e.details.map((d, j) => {
@@ -496,7 +500,7 @@ function Experience() {
                   const url = typeof d === 'string' ? undefined : d.url
                   return (
                     <li key={j} className="text-sm text-gray-600 flex gap-2">
-                      <span className="text-gray-400 mt-0.5 shrink-0">›</span>
+                      <span className="text-gray-500 mt-0.5 shrink-0">›</span>
                       <MaybeLink href={url}>{text}</MaybeLink>
                     </li>
                   )
@@ -521,7 +525,7 @@ function Education() {
             {/* date column */}
             <div className="w-28 sm:w-36 shrink-0 text-right pr-4 pt-1">
               <p className="text-xs font-medium text-gray-500 leading-tight">{e.period}</p>
-              <p className="text-xs text-gray-400 mt-0.5">{e.location}</p>
+              <p className="text-xs text-gray-500 mt-0.5">{e.location}</p>
             </div>
             {/* spine + dot */}
             <div className="relative flex flex-col items-center w-5 shrink-0">
@@ -535,7 +539,7 @@ function Education() {
                 <MaybeLink href={e.institutionUrl} className="text-gray-900 font-medium">{e.institution}</MaybeLink>
               </p>
               <p className="text-xs mt-0.5">
-                <MaybeLink href={e.schoolUrl} className="text-gray-400">{e.school}</MaybeLink>
+                <MaybeLink href={e.schoolUrl} className="text-gray-500">{e.school}</MaybeLink>
               </p>
               <ul className="mt-2 space-y-1.5">
                 {e.details.map((d, j) => {
@@ -543,7 +547,7 @@ function Education() {
                   const url = typeof d === 'string' ? undefined : d.url
                   return (
                     <li key={j} className="text-sm text-gray-600 flex gap-2">
-                      <span className="text-gray-400 mt-0.5 shrink-0">›</span>
+                      <span className="text-gray-500 mt-0.5 shrink-0">›</span>
                       <MaybeLink href={url}>{text}</MaybeLink>
                     </li>
                   )
@@ -599,6 +603,7 @@ function Publications() {
             <button
               key={f.key}
               onClick={() => setFilter(f.key)}
+              aria-pressed={active}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold tracking-wider uppercase transition-all shadow-sm ${
                 active
                   ? 'bg-gray-900 border-gray-900 text-white'
@@ -606,14 +611,14 @@ function Publications() {
               }`}
             >
               <span>{f.label}</span>
-              <span className={active ? 'text-gray-400' : 'text-gray-400'}>{counts[f.key]}</span>
+              <span className={active ? 'text-gray-400' : 'text-gray-500'}>{counts[f.key]}</span>
             </button>
           )
         })}
       </div>
       <ul className="flex flex-col divide-y divide-gray-200">
-        {visiblePubs.map((p, i) => (
-          <li key={i} className="group flex gap-4 sm:gap-6 py-5 first:pt-0 last:pb-0">
+        {visiblePubs.map((p) => (
+          <li key={p.url} className="group flex gap-4 sm:gap-6 py-5 first:pt-0 last:pb-0">
             <div className="w-12 sm:w-14 shrink-0 pt-0.5">
               <p className="text-base sm:text-lg font-semibold text-gray-500 leading-none tabular-nums">{p.year}</p>
             </div>
@@ -635,7 +640,7 @@ function Publications() {
                 {renderAuthors(p.authors)}
               </p>
               {p.note && (
-                <p className="text-xs text-amber-600 font-medium mt-1">{p.note}</p>
+                <p className="text-xs text-amber-700 font-medium mt-1">{p.note}</p>
               )}
             </div>
           </li>
@@ -671,7 +676,7 @@ function Projects() {
               <ul className="mt-2 space-y-1.5">
                 {p.details.map((d, j) => (
                   <li key={j} className="text-sm text-gray-600 flex gap-2">
-                    <span className="text-gray-400 mt-0.5 shrink-0">›</span>
+                    <span className="text-gray-500 mt-0.5 shrink-0">›</span>
                     <span>{d}</span>
                   </li>
                 ))}
@@ -767,7 +772,7 @@ function Skills() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8">
         {skills.map((s, i) => (
           <div key={i}>
-            <p className="text-xs font-medium tracking-[0.18em] text-gray-400 uppercase mb-3">
+            <p className="text-xs font-medium tracking-[0.18em] text-gray-500 uppercase mb-3">
               {s.category}
             </p>
             <div className="flex flex-wrap gap-2">
