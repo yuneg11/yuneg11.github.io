@@ -58,17 +58,19 @@ export function Publications() {
           )
         })}
       </div>
-      <ul className="flex flex-col divide-y divide-gray-200">
+      <ul className="flex flex-col">
         {visiblePubs.map((p, idx) => {
           const showYear = idx === 0 || visiblePubs[idx - 1].year !== p.year
+          const first = idx === 0
+          const last = idx === visiblePubs.length - 1
           return (
-            <li key={p.url} className="group flex gap-4 sm:gap-6 py-5 first:pt-0 last:pb-0">
-              <div className="w-12 sm:w-14 shrink-0 pt-0.5">
+            <li key={p.url} className="group flex gap-4 sm:gap-6">
+              <div className={`w-12 sm:w-14 shrink-0 ${first ? '' : 'pt-5'}`}>
                 {showYear && (
                   <p className="font-serif text-2xl text-gray-400 leading-none tabular-nums">{p.year}</p>
                 )}
               </div>
-              <div className="flex-1 min-w-0">
+              <div className={`flex-1 min-w-0 ${first ? '' : 'border-t border-gray-200 pt-5'} ${last ? '' : 'pb-5'}`}>
                 <div className="flex items-start justify-between gap-3">
                   <a
                     href={p.url}
