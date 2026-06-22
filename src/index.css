@@ -17,6 +17,17 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Offset anchor scrolling so section headings clear the sticky header. */
+html {
+  scroll-padding-top: 4rem;
+}
+
+:where(a, button):focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;

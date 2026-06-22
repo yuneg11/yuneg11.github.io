@@ -70,7 +70,7 @@ export function Publications() {
                   href={p.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="block text-base font-semibold text-gray-900 hover:underline leading-snug"
+                  className="block text-base font-semibold text-gray-900 hover:text-indigo-700 hover:underline leading-snug"
                 >
                   {p.title}
                 </a>

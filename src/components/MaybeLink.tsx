@@ -12,7 +12,7 @@ export function MaybeLink({
 }) {
   if (!href) return <span className={className}>{children}</span>
   return (
-    <a href={href} target="_blank" rel="noreferrer" className={`${className ?? ''} hover:underline`}>
+    <a href={href} target="_blank" rel="noreferrer" className={`${className ?? ''} hover:text-indigo-700 hover:underline`}>
       {children}
     </a>
   )
