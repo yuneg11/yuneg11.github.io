@@ -54,8 +54,8 @@ export function Hero() {
             <img
               src={personal.profileImage}
               alt="EungGu Yun"
-              width={512}
-              height={512}
+              width={460}
+              height={460}
               decoding="async"
               fetchPriority="high"
               className="w-full h-full object-cover"
