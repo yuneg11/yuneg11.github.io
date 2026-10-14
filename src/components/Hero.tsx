@@ -12,12 +12,15 @@ export function Hero() {
           <h1 className="font-serif text-5xl md:text-7xl text-gray-900 leading-tight mb-6">
             EungGu Yun
           </h1>
+          <p className="text-gray-500 text-base max-w-md leading-relaxed mb-4">
+            I am an AI researcher at{' '}
+            <a href="https://www.krafton.com/" target="_blank" rel="noreferrer" className="text-gray-900 hover:text-indigo-700 hover:underline font-medium">KRAFTON</a>, working on the evaluation of large language models and speech models. I assess model capabilities and examine their behavior in conversational and agentic settings.
+          </p>
           <p className="text-gray-500 text-base max-w-md leading-relaxed mb-8">
-            AI Researcher at{' '}
-            <a href={personal.companyUrl} target="_blank" rel="noreferrer" className="text-gray-900 hover:text-indigo-700 hover:underline font-medium">
-              {personal.company}
-            </a>{' '}
-            working on industrial computer vision — image anomaly detection, efficient inference, and language-assisted vision systems. Previously studied loss landscapes at KAIST Graduate School of AI.
+            During my M.S. at{' '}
+            <a href="https://www.kaist.ac.kr/en/" target="_blank" rel="noreferrer" className="text-gray-900 hover:text-indigo-700 hover:underline font-medium">KAIST</a>, I studied the{' '}
+            <a href="https://arxiv.org/abs/2306.11304" target="_blank" rel="noreferrer" className="text-gray-900 hover:text-indigo-700 hover:underline font-medium">loss landscape</a> of neural networks. After graduating, I worked on computer vision at{' '}
+            <a href="https://saige.ai/en/" target="_blank" rel="noreferrer" className="text-gray-900 hover:text-indigo-700 hover:underline font-medium">SAIGE</a>, particularly image anomaly detection and language-assisted vision.
           </p>
           <p className="mb-4 flex items-center gap-1.5 text-sm text-gray-500">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

@@ -6,22 +6,31 @@ scholar = "https://scholar.google.com/citations?user=r7-847MAAAAJ"
 linkedin = "https://www.linkedin.com/in/yuneg"
 website = "https://yuneg11.github.io"
 location = "Seoul, South Korea"
-company = "SAIGE"
-companyUrl = "https://saige.ai/"
+company = "KRAFTON"
+companyUrl = "https://www.krafton.com/"
 profileImage = "/profile.jpg"
 
 # Page metadata — used by the html-meta plugin (vite.config.ts) to generate the
 # document title, description, Open Graph/Twitter tags, and JSON-LD at build time.
 [meta]
 jobTitle = "AI Researcher"
-description = "EungGu Yun is an AI Researcher at SAIGE working on industrial computer vision — image anomaly detection, efficient inference, and language-assisted vision systems. Previously at KAIST Graduate School of AI."
+description = "EungGu Yun is an AI researcher at KRAFTON working on the evaluation of large language models and speech models."
+
+[[experiences]]
+title = "AI Researcher"
+company = "KRAFTON"
+companyUrl = "https://www.krafton.com/"
+dept = ""
+period = "Aug 2026 – Present"
+location = "Seoul, South Korea"
+details = [ "Evaluate large language models and speech models.", "Assess model capabilities and examine their behavior in conversational and agentic settings." ]
 
 [[experiences]]
 title = "AI Researcher"
 company = "SAIGE"
 companyUrl = "https://saige.ai/"
 dept = "AI Lab"
-period = "Mar 2023 – Present"
+period = "Mar 2023 – Jul 2026"
 location = "Seoul, South Korea"
 details = [ "Research on image anomaly detection (IAD) systems for industrial inspection.", "Research language-assisted vision models for data-efficient training.", "Conduct TensorRT-based optimization for real-time inference in object detection and tracking.", "Fine-tune VLMs for context-aware industrial safety monitoring." ]
 
