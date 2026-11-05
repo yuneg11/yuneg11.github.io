@@ -13,11 +13,11 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: oven-sh/setup-bun@v2
-      - uses: wtfjoke/setup-tectonic@v3
+      - uses: wtfjoke/setup-tectonic@v4
       - name: Cache Tectonic bundle
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.cache/Tectonic
           key: tectonic-${{ hashFiles('cv/latex.ts') }}
@@ -31,7 +31,7 @@ jobs:
           cp web/public/cv.pdf "cv-${stamp}.pdf"
           echo "stamp=${stamp}" >> "$GITHUB_OUTPUT"
           echo "date=20${stamp:0:2}-${stamp:2:2}-${stamp:4:2}" >> "$GITHUB_OUTPUT"
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
           name: ${{ github.ref_name }}
           body: Curriculum Vitae updated on ${{ steps.meta.outputs.date }}
