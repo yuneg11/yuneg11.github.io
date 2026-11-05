@@ -258,7 +258,7 @@ text.ko = "전공 평점: 4.47 / 4.5"
 #   arxiv  : optional arXiv ID ("2306.11304"); renderers build the URL
 #   github : optional code repository as "owner/repo"
 #   note   : optional badge ("Spotlight")
-#   image  : optional representative figure served by the website ("/pubs/<id>.png")
+#   image  : optional representative figure served by the website ("/pubs/<id>.webp")
 #   bibtex : optional official BibTeX, verbatim, as a literal '''...''' string
 # -----------------------------------------------------------------------------
 
@@ -271,6 +271,7 @@ equal = [ "person:dongmin-choi", "person:sangbin-lee" ]
 venue = "NeurIPS"
 year = 2025
 url = "https://openreview.net/forum?id=IWEc6kpy8O"
+image = "/pubs/eldet.webp"
 bibtex = '''
 @inproceedings{
 choi2025eldet,
@@ -292,6 +293,7 @@ year = 2025
 url = "https://openreview.net/forum?id=2p03KljxE9"
 arxiv = "2503.01184"
 github = "yuneg11/LAFT"
+image = "/pubs/laft.webp"
 bibtex = '''
 @inproceedings{
 yun2025languageassisted,
@@ -313,6 +315,7 @@ year = 2024
 url = "https://proceedings.mlr.press/v235/moon24a.html"
 arxiv = "2408.05927"
 github = "taehong-moon/ee-diffusion"
+image = "/pubs/early-exit-diffusion.webp"
 bibtex = '''
 @InProceedings{pmlr-v235-moon24a,
   title = 	 {A Simple Early Exiting Framework for Accelerated Sampling in Diffusion Models},
@@ -354,6 +357,7 @@ year = 2023
 url = "https://proceedings.mlr.press/v202/kim23m.html"
 arxiv = "2308.06738"
 github = "yuneg11/SupNotMIWAE-with-ObsDropout"
+image = "/pubs/probabilistic-imputation.webp"
 bibtex = '''
 @InProceedings{pmlr-v202-kim23m,
   title = 	 {Probabilistic Imputation for Time-series Classification with Missing Data},
@@ -383,6 +387,7 @@ year = 2023
 url = "https://proceedings.mlr.press/v202/yun23a.html"
 arxiv = "2306.11304"
 github = "yuneg11/Bridge-Network"
+image = "/pubs/fast-ensembling.webp"
 bibtex = '''
 @InProceedings{pmlr-v202-yun23a,
   title = 	 {Traversing Between Modes in Function Space for Fast Ensembling},
@@ -411,6 +416,7 @@ year = 2023
 url = "https://openreview.net/forum?id=-9PVqZ-IR_"
 arxiv = "2304.09431"
 note = "Spotlight"
+image = "/pubs/martingale-posterior-np.webp"
 bibtex = '''
 @inproceedings{
 lee2023martingale,
@@ -432,6 +438,7 @@ year = 2022
 url = "https://openreview.net/forum?id=YVPBh4k78iZ"
 arxiv = "2107.01408"
 github = "yuneg11/Scale-Mixtures-of-NNGP"
+image = "/pubs/scale-mixture-nngp.webp"
 bibtex = '''
 @inproceedings{
 lee2022scale,
@@ -451,6 +458,7 @@ authors = [ "person:byung-hoon-kim", "person:jungwon-choi", "person:me", "person
 venue = "TGL @ NeurIPS"
 year = 2023
 arxiv = "2312.14939"
+image = "/pubs/dynamic-connectome-workshop.webp"
 bibtex = '''
 @misc{kim2023largescalegraphrepresentationlearning,
       title={Large-scale Graph Representation Learning of Dynamic Brain Connectome with Transformers},
@@ -471,6 +479,7 @@ authors = [ "person:jungwon-choi", "person:seongho-keum", "person:me", "person:b
 venue = "TGL @ NeurIPS"
 year = 2023
 arxiv = "2312.01994"
+image = "/pubs/fmri-self-supervised.webp"
 bibtex = '''
 @misc{choi2023generativeselfsupervisedframeworkusing,
       title={A Generative Self-Supervised Framework using Functional Connectivity in fMRI Data},
@@ -491,6 +500,7 @@ authors = [ "person:taehong-moon", "person:moonseok-choi", "person:me", "person:
 venue = "SPIGM @ ICML"
 year = 2023
 url = "https://openreview.net/forum?id=nhGdjo9Xed"
+image = "/pubs/early-exit-diffusion-workshop.webp"
 bibtex = '''
 @inproceedings{
 moon2023early,
@@ -543,6 +553,7 @@ authors = [ "person:euna-jung", "person:jaekeol-choi", "person:me", "person:wonj
 venue = "arXiv"
 year = 2020
 arxiv = "2401.09518"
+image = "/pubs/on-off-pattern-encoding.webp"
 bibtex = '''
 @misc{jung2024onoffpatternencodingpathcount,
       title={On-Off Pattern Encoding and Path-Count Encoding as Deep Neural Network Representations},

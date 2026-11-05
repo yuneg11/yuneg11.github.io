@@ -186,10 +186,12 @@ const byYear = (y: number) => pubs.filter((p) => p.year === y)
     border-top: 1px solid var(--border);
   }
 
+  /* Figure on the right so titles line up whether or not a paper has one. */
   .pub.has-image {
     display: grid;
-    grid-template-columns: 148px 1fr;
-    gap: 18px;
+    grid-template-columns: minmax(0, 1fr) 200px;
+    gap: 24px;
+    align-items: start;
   }
 
   .pub[hidden] {
@@ -197,17 +199,22 @@ const byYear = (y: number) => pubs.filter((p) => p.year === y)
   }
 
   .thumb {
+    order: 2;
     aspect-ratio: 16 / 10;
-    overflow: hidden;
+    padding: 8px;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    background: var(--bg-subtle);
+    background: #fff; /* paper figures are drawn on white */
+  }
+
+  :global([data-scheme='dark']) .thumb {
+    filter: brightness(0.9);
   }
 
   .thumb img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 
   .body {
@@ -336,6 +343,11 @@ const byYear = (y: number) => pubs.filter((p) => p.year === y)
     .pub.has-image {
       grid-template-columns: 1fr;
       gap: 12px;
+    }
+
+    .thumb {
+      order: 0;
+      max-width: 360px;
     }
 
     .type {
