@@ -137,16 +137,16 @@ export function latex(doc: CvDocument): string {
 % or LaTeX adds an empty line above it.
 \newcommand{\place}[1]{\leavevmode{\fontsize{9}{11}\selectfont\itshape\color{graytext}#1}}
 
-% #1 organization, #2 place, #3 title, #4 period, #5 unit
+% #1 organization, #2 place, #3 title, #4 period, #5 unit (next to the title, to save a line)
 \newcommand{\position}[5]{%
   \par\addvspace{8pt}\noindent
   \begin{tabularx}{\linewidth}{@{}L@{\hspace{10pt}}r@{}}
     {\leavevmode\fontsize{12.5}{15}\selectfont\bfseries\color{darktext}#1} & \place{#2} \\[1pt]
-    {\leavevmode\fontsize{10.5}{13}\selectfont\regular\itshape\color{darktext}#3} & \place{#4}
-  \end{tabularx}\par
-  \if\relax\detokenize{#5}\relax\else
-    {\fontsize{8.5}{11}\selectfont\color{graytext}#5\par}%
-  \fi}
+    {\leavevmode\fontsize{10.5}{13}\selectfont\regular\itshape\color{darktext}#3}%
+    \if\relax\detokenize{#5}\relax\else
+      {\fontsize{9.5}{13}\selectfont\color{graytext}\enspace\textperiodcentered\enspace #5}%
+    \fi & \place{#4}
+  \end{tabularx}\par}
 
 % #1 title, #2 period, #3 organization
 \newcommand{\honor}[3]{%
