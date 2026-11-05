@@ -98,7 +98,7 @@ export function latex(doc: CvDocument): string {
   FontFace = {rg}{n}{*-Regular},
   FontFace = {rg}{it}{*-RegularIt},
 ]
-\newfontfamily\hangulfont{Pretendard}[Path = ${pretendardDir}, Extension = .otf, UprightFont = *-Regular]
+\newfontfamily\hangulfont{Pretendard}[Path = ${pretendardDir}, Extension = .otf, UprightFont = *-Light, LetterSpace = 8]
 \newcommand{\regular}{\fontseries{rg}\selectfont}
 \newfontfamily\headerfont{Roboto}[Extension = .otf, UprightFont = *-Regular]
 \newfontfamily\headerlight{Roboto}[Extension = .otf, UprightFont = *-Light, ItalicFont = *-LightItalic]
@@ -107,10 +107,12 @@ export function latex(doc: CvDocument): string {
 \definecolor{darktext}{HTML}{414141}
 \definecolor{text}{HTML}{333333}
 \definecolor{graytext}{HTML}{5D5D5D}
+\definecolor{lighttext}{HTML}{B5B5B5}
 \color{text}
 
 \hypersetup{pdftitle={${tex(name)} CV}, pdfauthor={${tex(name)}}, pdflang={en}}
 \setlength{\parindent}{0pt}
+\frenchspacing
 \raggedbottom
 \setlength{\emergencystretch}{3em}
 
@@ -189,12 +191,13 @@ export function latex(doc: CvDocument): string {
 \vspace*{-13.5mm}
 {\centering
   {\fontsize{32}{38}\selectfont\color{darktext}{\headerfont ${tex(h.given)}}\ {\headerlight ${tex(h.family)}}\par}
-  \vspace{2pt}
-  {\fontsize{11}{13}\selectfont\hangulfont\color{graytext}${tex(h.altName)}\par}
-  \vspace{6pt}
-  {\fontsize{8}{10}\selectfont\color{text}${h.contacts
-    .map((c) => `\\href{${url(c.url)}}{${ICONS[c.kind]}\\ ${tex(c.text)}}`)
-    .join(String.raw`\quad{\color{graytext}|}\quad `)}\par}
+  \vspace{5pt}
+  {\fontsize{10.5}{13}\selectfont\hangulfont\color{graytext}${tex(h.altName)}\par}
+  \vspace{8pt}
+  % Contacts: gray icons, text, and light separators.
+  {\fontsize{8.5}{10}\selectfont\color{text}${h.contacts
+    .map((c) => `\\href{${url(c.url)}}{{\\color{graytext}${ICONS[c.kind]}}\\hspace{3.5pt}${tex(c.text)}}`)
+    .join(String.raw`\hspace{11pt}{\color{lighttext}|}\hspace{11pt}`)}\par}
 }
 \vspace{10pt}
 {\color{graytext}\hrule height 0.6pt}
