@@ -151,18 +151,31 @@ button {
   border-radius: 4px;
 }
 
-/* Inline prose links: quiet underline that darkens on hover. */
+/* Text links share one hover effect: an underline that grows in from the
+   left. Links inside running text (.prose, .link.rest) also keep a faint
+   resting line so they still read as links. */
+.link,
 .prose a {
-  color: var(--text);
-  text-decoration: underline;
-  text-decoration-color: var(--link-line);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-  transition: text-decoration-color 0.2s var(--ease);
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size 0.3s var(--ease), color 0.2s var(--ease);
 }
 
+.link:hover,
 .prose a:hover {
-  text-decoration-color: var(--text);
+  background-size: 100% 1px;
+}
+
+.link.rest,
+.prose a {
+  color: var(--text);
+  background:
+    linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat,
+    linear-gradient(var(--link-line), var(--link-line)) 0 100% / 100% 1px no-repeat;
+}
+
+.link.rest:hover,
+.prose a:hover {
+  background-size: 100% 1px, 100% 1px;
 }
 
 .mono {

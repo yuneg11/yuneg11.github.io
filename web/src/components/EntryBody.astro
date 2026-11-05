@@ -20,14 +20,14 @@ const ongoing = isOngoing(e)
   <div class="head">
     <div class="what">
       <h3>
-        {url ? <a href={url} target="_blank" rel="noopener">{title}</a> : title}
+        {url ? <a class="link" href={url} target="_blank" rel="noopener">{title}</a> : title}
         {ongoing && <span class="chip now">{s.present}</span>}
       </h3>
       {(org || unit) && (
         <p class="org">
-          {org && (org.url ? <a href={org.url} target="_blank" rel="noopener">{org.text}</a> : <span>{org.text}</span>)}
+          {org && (org.url ? <a class="link" href={org.url} target="_blank" rel="noopener">{org.text}</a> : <span>{org.text}</span>)}
           {org && unit && <span class="sep" aria-hidden="true">·</span>}
-          {unit && (unit.url ? <a href={unit.url} target="_blank" rel="noopener">{unit.text}</a> : <span>{unit.text}</span>)}
+          {unit && (unit.url ? <a class="link" href={unit.url} target="_blank" rel="noopener">{unit.text}</a> : <span>{unit.text}</span>)}
         </p>
       )}
     </div>
@@ -66,16 +66,6 @@ const ongoing = isOngoing(e)
     letter-spacing: -0.015em;
   }
 
-  /* Same as publication titles: the underline grows in on hover. */
-  h3 a {
-    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
-    transition: background-size 0.3s var(--ease);
-  }
-
-  h3 a:hover {
-    background-size: 100% 1px;
-  }
-
   .now {
     height: 20px;
     margin-left: 8px;
@@ -90,15 +80,8 @@ const ongoing = isOngoing(e)
     font-size: 14.5px;
   }
 
-  .org a {
-    transition: color 0.2s var(--ease);
-  }
-
   .org a:hover {
     color: var(--text);
-    text-decoration: underline;
-    text-decoration-color: var(--link-line);
-    text-underline-offset: 3px;
   }
 
   .sep {

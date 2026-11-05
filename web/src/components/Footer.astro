@@ -16,7 +16,7 @@ const updated =
     <p>© {now.getFullYear()} {formatName(loc(data.personal.name, lang), lang)}</p>
     <p class="mono">{s.updated} · {updated}</p>
     <nav aria-label="Links">
-      {socialLinks(lang).map((l) => <a href={l.url} target={l.key === 'email' ? undefined : '_blank'} rel="noopener">{l.label}</a>)}
+      {socialLinks(lang).map((l) => <a class="link" href={l.url} target={l.key === 'email' ? undefined : '_blank'} rel="noopener">{l.label}</a>)}
     </nav>
   </div>
 </footer>

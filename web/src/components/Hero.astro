@@ -32,11 +32,11 @@ const links = socialLinks(lang)
           <p class="role">
             {lang === 'ko' ? (
               <>
-                {employer && (employer.url ? <a href={employer.url} target="_blank" rel="noopener">{employer.text}</a> : employer.text)}{' '}{job}
+                {employer && (employer.url ? <a class="link rest" href={employer.url} target="_blank" rel="noopener">{employer.text}</a> : employer.text)}{' '}{job}
               </>
             ) : (
               <>
-                {job}{employer && <> {s.at} {employer.url ? <a href={employer.url} target="_blank" rel="noopener">{employer.text}</a> : employer.text}</>}
+                {job}{employer && <> {s.at} {employer.url ? <a class="link rest" href={employer.url} target="_blank" rel="noopener">{employer.text}</a> : employer.text}</>}
               </>
             )}
           </p>
@@ -128,16 +128,6 @@ const links = socialLinks(lang)
     color: var(--text-2);
     font-size: 17px;
     font-weight: 500;
-  }
-
-  .role a {
-    color: var(--text);
-    border-bottom: 1px solid var(--link-line);
-    transition: border-color 0.2s var(--ease);
-  }
-
-  .role a:hover {
-    border-color: var(--text);
   }
 
   .place {

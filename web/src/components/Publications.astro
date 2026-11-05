@@ -32,7 +32,7 @@ const yearsOf = (list: Publication[]) => [...new Set(list.map((p) => p.year))].s
                   <article class={`pub reveal${p.image ? ' has-image' : ''}`}>
                     <div class="body">
                       <h4>
-                        {links.title ? <a href={links.title} target="_blank" rel="noopener">{p.title}</a> : p.title}
+                        {links.title ? <a class="link" href={links.title} target="_blank" rel="noopener">{p.title}</a> : p.title}
                       </h4>
                       <p class="authors">
                         {authors(p).map((a, i, all) => (
@@ -40,7 +40,7 @@ const yearsOf = (list: Publication[]) => [...new Set(list.map((p) => p.year))].s
                             {a.me ? (
                               <strong>{a.name}</strong>
                             ) : a.url ? (
-                              <a href={a.url} target="_blank" rel="noopener">{a.name}</a>
+                              <a class="link" href={a.url} target="_blank" rel="noopener">{a.name}</a>
                             ) : (
                               <span>{a.name}</span>
                             )}
@@ -183,15 +183,6 @@ const yearsOf = (list: Publication[]) => [...new Set(list.map((p) => p.year))].s
     letter-spacing: -0.012em;
   }
 
-  h4 a {
-    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
-    transition: background-size 0.3s var(--ease);
-  }
-
-  h4 a:hover {
-    background-size: 100% 1px;
-  }
-
   .authors {
     margin-top: 5px;
     color: var(--text-2);
@@ -206,9 +197,6 @@ const yearsOf = (list: Publication[]) => [...new Set(list.map((p) => p.year))].s
 
   .authors a:hover {
     color: var(--text);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    text-decoration-color: var(--link-line);
   }
 
   .authors sup,
@@ -280,7 +268,7 @@ const yearsOf = (list: Publication[]) => [...new Set(list.map((p) => p.year))].s
     color: var(--text);
   }
 
-  /* Same growing underline as the titles, under the label only. */
+  /* The shared growing underline (.link), drawn under the label only. */
   .links span {
     background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
     transition: background-size 0.3s var(--ease);
