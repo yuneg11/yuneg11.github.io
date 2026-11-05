@@ -23,13 +23,11 @@ const ongoing = isOngoing(e)
         {url ? <a class="link" href={url} target="_blank" rel="noopener">{title}</a> : title}
         {ongoing && <span class="chip now">{s.present}</span>}
       </h3>
-      {(org || unit) && (
+      {[org, unit].filter((o) => o).map((o) => (
         <p class="org">
-          {org && (org.url ? <a class="link" href={org.url} target="_blank" rel="noopener">{org.text}</a> : <span>{org.text}</span>)}
-          {org && unit && <span class="sep" aria-hidden="true">·</span>}
-          {unit && (unit.url ? <a class="link" href={unit.url} target="_blank" rel="noopener">{unit.text}</a> : <span>{unit.text}</span>)}
+          {o!.url ? <a class="link" href={o!.url} target="_blank" rel="noopener">{o!.text}</a> : o!.text}
         </p>
-      )}
+      ))}
     </div>
     {(period || place) && (
       <div class="when">
@@ -74,19 +72,18 @@ const ongoing = isOngoing(e)
     vertical-align: 2px;
   }
 
+  /* Organization and unit each get their own line. */
   .org {
-    margin-top: 2px;
     color: var(--text-2);
     font-size: 14.5px;
   }
 
-  .org a:hover {
-    color: var(--text);
+  h3 + .org {
+    margin-top: 2px;
   }
 
-  .sep {
-    margin: 0 7px;
-    color: var(--text-3);
+  .org a:hover {
+    color: var(--text);
   }
 
   .when {
