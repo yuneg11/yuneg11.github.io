@@ -124,6 +124,7 @@ ko = """
 title.en = "AI Researcher"
 title.ko = "AI 연구원"
 org = "org:krafton"
+unit = "org:krafton-ai"
 start = { year = 2026, month = 8 }
 
 [[experiences.details]]
@@ -768,6 +769,12 @@ name.ko = "크래프톤"
 url.en = "https://www.krafton.com/en/"
 url.ko = "https://www.krafton.com/"
 location = "place:seoul"
+
+[orgs.krafton-ai]
+name.en = "AI Research Div."
+name.ko = "AI Research 본부"
+url.en = "https://krafton.ai/en/"
+url.ko = "https://krafton.ai/"
 
 [orgs.saige]
 name.en = "SAIGE"
