@@ -153,6 +153,15 @@ const links = socialLinks(lang)
     letter-spacing: -0.008em;
   }
 
+  /* Keep linked phrases whole and avoid a lone word on the last line. */
+  .bio p {
+    text-wrap: pretty;
+  }
+
+  .bio :global(a) {
+    white-space: nowrap;
+  }
+
   .bio p + p {
     margin-top: 14px;
   }
