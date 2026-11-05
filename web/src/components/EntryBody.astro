@@ -23,8 +23,8 @@ const ongoing = isOngoing(e)
         {url ? <a class="link" href={url} target="_blank" rel="noopener">{title}</a> : title}
         {ongoing && <span class="chip now">{s.present}</span>}
       </h3>
-      {[org, unit].filter((o) => o).map((o) => (
-        <p class="org">
+      {[org, unit].map((o, i) => o && (
+        <p class:list={['org', { main: i === 0 }]}>
           {o!.url ? <a class="link" href={o!.url} target="_blank" rel="noopener">{o!.text}</a> : o!.text}
         </p>
       ))}
@@ -84,6 +84,12 @@ const ongoing = isOngoing(e)
 
   .org a:hover {
     color: var(--text);
+  }
+
+  /* The organization itself reads darker than the unit under it. */
+  .org.main {
+    color: var(--text);
+    font-weight: 500;
   }
 
   .when {
