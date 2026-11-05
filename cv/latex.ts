@@ -139,7 +139,7 @@ export function latex(doc: CvDocument): string {
 
 % #1 organization, #2 place, #3 title, #4 period, #5 unit (next to the title, to save a line)
 \newcommand{\position}[5]{%
-  \par\addvspace{8pt}\noindent
+  \par\addvspace{10pt}\noindent
   \begin{tabularx}{\linewidth}{@{}L@{\hspace{10pt}}r@{}}
     {\leavevmode\fontsize{12.5}{15}\selectfont\bfseries\color{darktext}#1} & \place{#2} \\[1pt]
     {\leavevmode\fontsize{10.5}{13}\selectfont\regular\itshape\color{darktext}#3}%
@@ -150,14 +150,14 @@ export function latex(doc: CvDocument): string {
 
 % #1 title, #2 period, #3 organization
 \newcommand{\honor}[3]{%
-  \par\addvspace{8pt}\noindent
+  \par\addvspace{10pt}\noindent
   \begin{tabularx}{\linewidth}{@{}L@{\hspace{10pt}}r@{}}
     {\leavevmode\fontsize{11}{14}\selectfont\bfseries\color{darktext}#1} & \place{#2}
   \end{tabularx}\par
   \vspace{2pt}{\fontsize{9.5}{12}\selectfont\regular\color{text}#3\par}}
 
 \newlist{details}{itemize}{1}
-\setlist[details]{label={\textbullet}, leftmargin=10pt, labelsep=5pt, topsep=1pt, partopsep=0pt, itemsep=0.5pt, parsep=0pt}
+\setlist[details]{label={\textbullet}, leftmargin=10pt, labelsep=5pt, topsep=3pt, partopsep=0pt, itemsep=1.5pt, parsep=0pt}
 \AddToHook{env/details/begin}{\fontsize{10}{13.5}\selectfont\color{text}}
 
 % ------------------------------------------------------------ publications
