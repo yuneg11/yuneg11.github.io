@@ -240,7 +240,7 @@ text.ko = "연구 관심사: 손실 지형(loss landscape), 뉴럴 프로세스"
 title.en = "B.S. in Computer Science and Engineering"
 title.ko = "소프트웨어학 학사"
 org = "org:skku"
-unit = "org:skku-cse"
+unit = "org:skku-computing"
 start = { year = 2017, month = 3 }
 end = { year = 2020, month = 8 }
 
@@ -836,12 +836,6 @@ name.ko = "성균관대학교"
 url.en = "https://www.skku.edu/eng/"
 url.ko = "https://www.skku.edu/skku/"
 location = "place:seoul"
-
-[orgs.skku-cse]
-name.en = "Department of Computer Science and Engineering, College of Computing"
-name.ko = "소프트웨어대학 소프트웨어학과"
-url.en = "https://sw.skku.edu/eng_sw/under_sw_intro.do"
-url.ko = "https://sw.skku.edu/sw/under_sw_intro.do"
 
 [orgs.skku-computing]
 name.en = "College of Computing"
