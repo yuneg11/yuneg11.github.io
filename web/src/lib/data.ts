@@ -268,8 +268,8 @@ export function socialLinks(lang: Lang) {
   const p = data.personal
   return [
     { key: 'email', label: lang === 'ko' ? '이메일' : 'Email', url: `mailto:${p.email}` },
-    p.scholar && { key: 'scholar', label: 'Google Scholar', url: `https://scholar.google.com/citations?user=${p.scholar}` },
+    p.scholar && { key: 'scholar', label: 'Google Scholar', short: 'Scholar', url: `https://scholar.google.com/citations?user=${p.scholar}` },
     p.github && { key: 'github', label: 'GitHub', url: `https://github.com/${p.github}` },
     p.linkedin && { key: 'linkedin', label: 'LinkedIn', url: `https://www.linkedin.com/in/${p.linkedin}` },
-  ].filter(Boolean) as { key: string; label: string; url: string }[]
+  ].filter(Boolean) as { key: string; label: string; short?: string; url: string }[]
 }

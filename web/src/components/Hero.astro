@@ -52,14 +52,14 @@ const links = socialLinks(lang)
     </div>
 
     <div class="actions reveal">
+      {links.map((l) => (
+        <a class="btn" href={l.url} target={l.key === 'email' ? undefined : '_blank'} rel="noopener" aria-label={l.label}>
+          <Icon name={l.key} /><span class="label">{l.short ?? l.label}</span>
+        </a>
+      ))}
       <a class="btn primary" href="/cv.pdf" target="_blank" rel="noopener">
         <Icon name="file" />{s.cv}
       </a>
-      {links.map((l) => (
-        <a class="btn" href={l.url} target={l.key === 'email' ? undefined : '_blank'} rel="noopener" aria-label={l.label}>
-          <Icon name={l.key} /><span class="label">{l.label}</span>
-        </a>
-      ))}
     </div>
   </div>
 </section>
