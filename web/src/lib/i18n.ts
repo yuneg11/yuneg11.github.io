@@ -22,7 +22,6 @@ const strings = {
     bibtex: 'BibTeX',
     copied: 'Copied',
     cv: 'CV',
-    reviewerFor: 'Reviewer for',
     toggleTheme: 'Toggle color theme',
     switchLang: '한국어',
     switchLangLabel: '한국어로 보기',
@@ -50,7 +49,6 @@ const strings = {
     bibtex: 'BibTeX',
     copied: '복사됨',
     cv: 'CV',
-    reviewerFor: '리뷰어',
     toggleTheme: '색상 테마 전환',
     switchLang: 'English',
     switchLangLabel: 'View in English',
@@ -59,6 +57,6 @@ const strings = {
   },
 } satisfies Record<Lang, Record<string, string>>
 
-export type Strings = (typeof strings)['en']
+type Strings = (typeof strings)['en']
 export const t = (lang: Lang): Strings => strings[lang]
 export const homePath = (lang: Lang) => (lang === 'en' ? '/' : '/ko/')

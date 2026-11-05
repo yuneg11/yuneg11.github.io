@@ -3,7 +3,6 @@ import { parse } from 'smol-toml'
 import raw from '../../../data.toml?raw'
 
 export type Lang = 'en' | 'ko'
-export const LANGS: Lang[] = ['en', 'ko']
 
 /* ------------------------------------------------------------------ types */
 
@@ -109,7 +108,7 @@ export const onWeb = <T extends Visibility>(xs: T[] = []) => xs.filter((x) => x.
 /* ------------------------------------------------------------- references */
 
 const REF = /^(org|person|pub|place):([a-z0-9-]+)$/
-export const isRef = (s: string) => REF.test(s)
+const isRef = (s: string) => REF.test(s)
 
 const pubsById = new Map(data.publications.map((p) => [p.id, p]))
 
@@ -119,7 +118,7 @@ type Resolved =
   | { kind: 'pub'; id: string; value: Publication }
   | { kind: 'place'; id: string; value: Place }
 
-export function resolve(ref: string): Resolved {
+function resolve(ref: string): Resolved {
   const m = REF.exec(ref)
   if (!m) throw new Error(`Not a reference: ${ref}`)
   const [, kind, id] = m
@@ -141,10 +140,10 @@ export function formatName(n: Name, lang: Lang): string {
   return lang === 'ko' ? `${n.family}${n.given}` : `${n.given} ${n.family}`
 }
 
-export const personName = (p: Person, lang: Lang) => formatName(loc(p.name, lang), lang)
+const personName = (p: Person, lang: Lang) => formatName(loc(p.name, lang), lang)
 
 /** Name with the honorific placed by locale: "Prof. Juho Lee", "이주호 교수". */
-export function personTitled(p: Person, lang: Lang): string {
+function personTitled(p: Person, lang: Lang): string {
   const name = personName(p, lang)
   const h = loc(p.honorific, lang)
   if (!h) return name
@@ -153,7 +152,7 @@ export function personTitled(p: Person, lang: Lang): string {
 
 /* --------------------------------------------------------------- display */
 
-export interface Link { text: string; url?: string }
+interface Link { text: string; url?: string }
 
 /** Label and url of any reference, as shown inside text. */
 export function refLink(ref: string, lang: Lang): Link {
@@ -173,7 +172,7 @@ export function refOrText(v: Localized<string> | undefined, lang: Lang): Link | 
   return isRef(s) ? refLink(s, lang) : { text: s }
 }
 
-export function formatPlace(p: Place, lang: Lang): string {
+function formatPlace(p: Place, lang: Lang): string {
   return lang === 'ko' ? loc(p.city, lang) : `${loc(p.city, lang)}, ${loc(p.country, lang)}`
 }
 
@@ -187,7 +186,7 @@ export function entryLocation(e: Entry, lang: Lang): string | undefined {
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-export function formatDate(d: DatePoint, lang: Lang): string {
+function formatDate(d: DatePoint, lang: Lang): string {
   if (d.term) {
     if (lang === 'ko') return `${d.year}년 ${d.term === 'spring' ? 1 : 2}학기`
     return `${d.term === 'spring' ? 'Spring' : 'Fall'} ${d.year}`
@@ -247,7 +246,7 @@ export const paragraphs = (text: string, lang: Lang) =>
 
 /* ---------------------------------------------------------------- authors */
 
-export interface Author { name: string; url?: string; me: boolean; equal: boolean }
+interface Author { name: string; url?: string; me: boolean; equal: boolean }
 
 /** Author lists always use the English name. */
 export function authors(p: Publication): Author[] {
