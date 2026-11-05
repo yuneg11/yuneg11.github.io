@@ -32,7 +32,7 @@ const has = (id: keyof typeof lists) => onWeb(lists[id]).length > 0
   <Nav lang={lang} />
   <main id="content">
     <Hero lang={lang} />
-    {has('experience') && <Timeline id="experience" title={s.experience} entries={data.experiences} lang={lang} />}
+    {has('experience') && <Timeline id="experience" title={s.experience} entries={data.experiences} lang={lang} orgFirst />}
     {has('education') && <Timeline id="education" title={s.education} entries={data.education} lang={lang} />}
     {has('publications') && <Publications lang={lang} />}
     {has('projects') && <EntryList id="projects" title={s.projects} entries={data.projects} lang={lang} />}

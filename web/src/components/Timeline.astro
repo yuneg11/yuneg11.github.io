@@ -2,8 +2,8 @@
 import EntryBody from './EntryBody.astro'
 import { onWeb, isOngoing, type Entry, type Lang } from '../lib/data'
 
-interface Props { id: string; title: string; entries: Entry[]; lang: Lang }
-const { id, title, entries, lang } = Astro.props
+interface Props { id: string; title: string; entries: Entry[]; lang: Lang; orgFirst?: boolean }
+const { id, title, entries, lang, orgFirst } = Astro.props
 const items = onWeb(entries)
 ---
 <section id={id} class="section">
@@ -15,7 +15,7 @@ const items = onWeb(entries)
       {items.map((e) => (
         <li class={`item reveal${isOngoing(e) ? ' current' : ''}`}>
           <span class="dot" aria-hidden="true"></span>
-          <EntryBody entry={e} lang={lang} />
+          <EntryBody entry={e} lang={lang} orgFirst={orgFirst} />
         </li>
       ))}
     </ol>

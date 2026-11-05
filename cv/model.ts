@@ -1,5 +1,6 @@
 // data.toml -> a CV document that knows nothing about the output format.
-// A renderer (latex.ts) only decides how each piece looks.
+// A renderer (latex.ts) only decides how each piece looks. The CV is English only;
+// `lang` is passed around because the data is localized.
 import {
   data, loc, onCv, refOrText, segments, paragraphTexts, formatName, entryLocation, authors, pubLinks,
   type Entry, type Lang, type Link,
@@ -12,8 +13,8 @@ export type Rich = Run[]
 
 export interface Contact { kind: 'email' | 'website' | 'github' | 'linkedin'; text: string; url: string }
 
-/** `name` is split in display order so the parts can be styled apart ("EungGu" "Yun"). */
-export interface Header { name: [string, string]; altName: string; contacts: Contact[] }
+/** `given` and `family` are styled apart ("EungGu" "Yun"); `altName` is the Korean name. */
+export interface Header { given: string; family: string; altName: string; contacts: Contact[] }
 
 export interface EntryItem {
   kind: 'entry'
@@ -47,7 +48,6 @@ export interface Group { title?: string; items: Item[] }
 export interface Section { id: string; title: string; layout?: 'positions' | 'items'; groups: Group[] }
 
 export interface CvDocument {
-  lang: Lang
   header: Header
   intro: Rich[]
   sections: Section[]
@@ -71,19 +71,16 @@ const link = (l: Link | undefined): Rich => (l ? [{ text: l.text, url: l.url }] 
 
 type DatePoint = NonNullable<Entry['date']>
 
-/** CV dates: "2023. 03" in both languages; semesters "2019 Spring" / "2019년 1학기". */
-function cvDate(d: DatePoint, lang: Lang): string {
-  if (d.term) {
-    if (lang === 'ko') return `${d.year}년 ${d.term === 'spring' ? 1 : 2}학기`
-    return `${d.year} ${d.term === 'spring' ? 'Spring' : 'Fall'}`
-  }
+/** CV dates: "2023. 03", semesters "2019 Spring". */
+function cvDate(d: DatePoint): string {
+  if (d.term) return `${d.year} ${d.term === 'spring' ? 'Spring' : 'Fall'}`
   return d.month ? `${d.year}. ${String(d.month).padStart(2, '0')}` : String(d.year)
 }
 
-function cvPeriod(e: Entry, lang: Lang): string | undefined {
-  if (e.date) return cvDate(e.date, lang)
+function cvPeriod(e: Entry): string | undefined {
+  if (e.date) return cvDate(e.date)
   if (!e.start) return undefined
-  return `${cvDate(e.start, lang)} – ${e.end ? cvDate(e.end, lang) : lang === 'ko' ? '현재' : 'Now'}`
+  return `${cvDate(e.start)} – ${e.end ? cvDate(e.end) : 'Now'}`
 }
 
 /* ---------------------------------------------------------------- pieces */
@@ -91,25 +88,20 @@ function cvPeriod(e: Entry, lang: Lang): string | undefined {
 function header(lang: Lang): Header {
   const p = data.personal
   const name = loc(p.name, lang)
-  const other: Lang = lang === 'en' ? 'ko' : 'en'
   const contacts: Contact[] = [
     { kind: 'email' as const, text: p.email, url: `mailto:${p.email}` },
     p.website ? { kind: 'website' as const, text: p.website, url: `https://${p.website}` } : undefined,
     p.github ? { kind: 'github' as const, text: p.github, url: `https://github.com/${p.github}` } : undefined,
     p.linkedin ? { kind: 'linkedin' as const, text: p.linkedin, url: `https://www.linkedin.com/in/${p.linkedin}` } : undefined,
   ].filter((c) => c !== undefined)
-  return {
-    name: lang === 'ko' ? [name.family, name.given] : [name.given, name.family],
-    altName: formatName(loc(p.name, other), other),
-    contacts,
-  }
+  return { given: name.given, family: name.family, altName: formatName(loc(p.name, 'ko'), 'ko'), contacts }
 }
 
 function entry(e: Entry, lang: Lang): EntryItem {
   return {
     kind: 'entry',
     title: [{ text: loc(e.title, lang), url: loc(e.url, lang) }],
-    period: cvPeriod(e, lang),
+    period: cvPeriod(e),
     org: e.org ? link(refOrText(e.org, lang)) : undefined,
     unit: e.unit ? link(refOrText(e.unit, lang)) : undefined,
     place: entryLocation(e, lang),
@@ -172,7 +164,8 @@ function skills(lang: Lang): Section | undefined {
 
 /* -------------------------------------------------------------- document */
 
-export function cvDocument(lang: Lang, today = new Date()): CvDocument {
+export function cvDocument(today = new Date()): CvDocument {
+  const lang: Lang = 'en'
   const s = t(lang)
   const sections = [
     entries('experience', s.experience, data.experiences, lang, 'positions'),
@@ -185,11 +178,10 @@ export function cvDocument(lang: Lang, today = new Date()): CvDocument {
   ].filter((x) => x !== undefined)
   const pad = (n: number) => String(n).padStart(2, '0')
   return {
-    lang,
     header: header(lang),
     intro: paragraphTexts(loc(data.bio, lang)).map((p) => rich(p, lang)),
     sections,
-    labels: { equal: s.equal, updated: lang === 'ko' ? '최종 수정' : 'Update' },
+    labels: { equal: s.equal, updated: 'Update' },
     updated: `${today.getFullYear()}. ${pad(today.getMonth() + 1)}. ${pad(today.getDate())}`,
   }
 }

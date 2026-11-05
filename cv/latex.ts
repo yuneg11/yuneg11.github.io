@@ -1,5 +1,5 @@
 // CvDocument -> LaTeX source for XeTeX (compiled with tectonic).
-// Look: Source Sans Pro body, Roboto header, FontAwesome icons, Pretendard for Hangul.
+// Look: Source Sans Pro body, Roboto header, FontAwesome icons, Pretendard for the Korean name.
 // No literal non-ASCII inside String.raw templates below: Bun turns it into \uXXXX
 // escapes that String.raw keeps verbatim. Use LaTeX commands (\textbullet, ...) instead.
 import { fileURLToPath } from 'node:url'
@@ -55,9 +55,7 @@ function item(it: Item, layout: Section['layout'], doc: CvDocument): string {
       return `\\pub{${rich(it.title)}}{${venue}}{${rich(it.authors)}${equal}}{${it.year}}`
     }
     case 'service':
-      return doc.lang === 'ko'
-        ? `\\service{\\venue{${tex(it.venue)}} ${tex(it.role)}}{${rich(it.years)}}`
-        : `\\service{${tex(it.role)} for \\venue{${tex(it.venue)}}}{${rich(it.years)}}`
+      return `\\service{${tex(it.role)} for \\venue{${tex(it.venue)}}}{${rich(it.years)}}`
     case 'skill':
       return `\\skill{${tex(it.label)}}{${tex(it.value)}}`
   }
@@ -78,14 +76,10 @@ const section = (s: Section, doc: CvDocument) =>
 
 export function latex(doc: CvDocument): string {
   const h = doc.header
-  const ko = doc.lang === 'ko'
-  const smallcaps = ko ? '' : String.raw`\scshape`
-  // "EungGu Yun" with a space, the Korean name without one.
-  const nameGap = ko ? '' : '\\ '
+  const name = `${h.given} ${h.family}`
   return String.raw`\documentclass[11pt]{article}
-\usepackage[a4paper, top=13mm, bottom=22mm, left=14mm, right=14mm, footskip=7.5mm]{geometry}
+\usepackage[a4paper, top=14.5mm, bottom=22mm, left=14mm, right=14mm, footskip=7.5mm]{geometry}
 \usepackage{fontspec}
-\usepackage{kotex}
 \usepackage{fontawesome5}
 \usepackage{xcolor}
 \usepackage{tabularx}
@@ -104,13 +98,7 @@ export function latex(doc: CvDocument): string {
   FontFace = {rg}{n}{*-Regular},
   FontFace = {rg}{it}{*-RegularIt},
 ]
-\setmainhangulfont{Pretendard}[
-  Path = ${pretendardDir},
-  Extension = .otf,
-  UprightFont = *-Light,
-  BoldFont = *-SemiBold,
-  FontFace = {rg}{n}{*-Regular},
-]
+\newfontfamily\hangulfont{Pretendard}[Path = ${pretendardDir}, Extension = .otf, UprightFont = *-Regular]
 \newcommand{\regular}{\fontseries{rg}\selectfont}
 \newfontfamily\headerfont{Roboto}[Extension = .otf, UprightFont = *-Regular]
 \newfontfamily\headerlight{Roboto}[Extension = .otf, UprightFont = *-Light, ItalicFont = *-LightItalic]
@@ -121,7 +109,7 @@ export function latex(doc: CvDocument): string {
 \definecolor{graytext}{HTML}{5D5D5D}
 \color{text}
 
-\hypersetup{pdftitle={${tex(h.name.join(' '))} CV}, pdfauthor={${tex(h.name.join(' '))}}, pdflang={${doc.lang}}}
+\hypersetup{pdftitle={${tex(name)} CV}, pdfauthor={${tex(name)}}, pdflang={en}}
 \setlength{\parindent}{0pt}
 \raggedbottom
 \setlength{\emergencystretch}{3em}
@@ -135,12 +123,12 @@ export function latex(doc: CvDocument): string {
 
 % --------------------------------------------------------------- sections
 \renewcommand{\section}[1]{%
-  \par\addvspace{14pt}\needspace{5\baselineskip}%
-  {\fontsize{18}{22}\selectfont\bfseries\color{darktext}${smallcaps} #1\par}%
+  \par\addvspace{16pt}\needspace{5\baselineskip}%
+  {\fontsize{18}{22}\selectfont\bfseries\color{darktext}\scshape #1\par}%
   \vspace{3pt}{\color{graytext}\hrule height 0.6pt}\vspace{4pt}\nopagebreak}
 \renewcommand{\subsection}[1]{%
   \par\addvspace{14pt}\needspace{4\baselineskip}%
-  {\fontsize{12}{15}\selectfont\color{darktext}${smallcaps} #1\par}%
+  {\fontsize{12}{15}\selectfont\color{darktext}\scshape #1\par}%
   \vspace{2pt}\nopagebreak}
 
 % ---------------------------------------------------------------- entries
@@ -151,7 +139,7 @@ export function latex(doc: CvDocument): string {
 
 % #1 organization, #2 place, #3 title, #4 period, #5 unit
 \newcommand{\position}[5]{%
-  \par\addvspace{7pt}\noindent
+  \par\addvspace{8pt}\noindent
   \begin{tabularx}{\linewidth}{@{}L@{\hspace{10pt}}r@{}}
     {\leavevmode\fontsize{12.5}{15}\selectfont\bfseries\color{darktext}#1} & \place{#2} \\[1pt]
     {\leavevmode\fontsize{10.5}{13}\selectfont\regular\itshape\color{darktext}#3} & \place{#4}
@@ -198,19 +186,19 @@ export function latex(doc: CvDocument): string {
 % ----------------------------------------------------------------- header
 % Centered without a center environment: its top spacing would undo the
 % negative space that lifts the header above the text block of later pages.
-\vspace*{-4mm}
+\vspace*{-13.5mm}
 {\centering
-  {\fontsize{32}{38}\selectfont\color{darktext}{\headerfont ${tex(h.name[0])}}${nameGap}{\headerlight ${tex(h.name[1])}}\par}
+  {\fontsize{32}{38}\selectfont\color{darktext}{\headerfont ${tex(h.given)}}\ {\headerlight ${tex(h.family)}}\par}
   \vspace{2pt}
-  {\fontsize{11}{13}\selectfont\color{graytext}${tex(h.altName)}\par}
+  {\fontsize{11}{13}\selectfont\hangulfont\color{graytext}${tex(h.altName)}\par}
   \vspace{6pt}
   {\fontsize{8}{10}\selectfont\color{text}${h.contacts
     .map((c) => `\\href{${url(c.url)}}{${ICONS[c.kind]}\\ ${tex(c.text)}}`)
     .join(String.raw`\quad{\color{graytext}|}\quad `)}\par}
 }
-\vspace{2pt}
-{\color{graytext}\hrule height 0.6pt}
 \vspace{10pt}
+{\color{graytext}\hrule height 0.6pt}
+\vspace{12pt}
 {\fontsize{11.5}{16.5}\selectfont\color{text}${doc.intro.map(rich).join('\n\n')}\par}
 
 ${doc.sections.map((s) => section(s, doc)).join('\n\n')}

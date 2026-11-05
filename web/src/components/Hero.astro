@@ -1,7 +1,7 @@
 ---
 import Icon from './Icon.astro'
 import { data, loc, formatName, currentJob, refLink, paragraphs, socialLinks, type Lang } from '../lib/data'
-import { t, homePath } from '../lib/i18n'
+import { t } from '../lib/i18n'
 
 interface Props { lang: Lang }
 const { lang } = Astro.props
@@ -57,7 +57,7 @@ const links = socialLinks(lang)
           <Icon name={l.key} /><span class="label">{l.short ?? l.label}</span>
         </a>
       ))}
-      <a class="btn primary" href={`${homePath(lang)}cv.pdf`} target="_blank" rel="noopener">
+      <a class="btn primary" href="/cv.pdf" target="_blank" rel="noopener">
         <Icon name="file" />{s.cv}
       </a>
     </div>
