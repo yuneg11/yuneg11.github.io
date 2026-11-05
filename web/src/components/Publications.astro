@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro'
-import { data, loc, onWeb, authors, pubLinks, type Lang } from '../lib/data'
+import { data, loc, onWeb, authors, pubLinks, type Lang, type Publication } from '../lib/data'
 import { t } from '../lib/i18n'
 
 interface Props { lang: Lang }
@@ -9,177 +9,137 @@ const s = t(lang)
 
 const pubs = onWeb(data.publications)
 const TYPES = ['conference', 'workshop', 'journal', 'preprint'] as const
-const counts = Object.fromEntries(TYPES.map((k) => [k, pubs.filter((p) => p.type === k).length]))
-const years = [...new Set(pubs.map((p) => p.year))].sort((a, b) => b - a)
-const byYear = (y: number) => pubs.filter((p) => p.year === y)
+const groups = TYPES.map((type) => ({ type, list: pubs.filter((p) => p.type === type) })).filter((g) => g.list.length)
+const yearsOf = (list: Publication[]) => [...new Set(list.map((p) => p.year))].sort((a, b) => b - a)
 ---
 <section id="publications" class="section">
   <div class="container">
     <div class="section-head reveal">
       <h2 class="section-title">{s.publications}<span class="section-count mono">{pubs.length}</span></h2>
-      <div class="filters" role="group" aria-label={s.publications}>
-        <button type="button" class="filter" data-filter="all" aria-pressed="true">
-          {s.all}<span class="mono">{pubs.length}</span>
-        </button>
-        {TYPES.filter((k) => counts[k]).map((k) => (
-          <button type="button" class="filter" data-filter={k} aria-pressed="false">
-            {s[k]}<span class="mono">{counts[k]}</span>
-          </button>
+    </div>
+
+    {groups.map((g) => (
+      <div class="type-group">
+        <h3 class="type-head reveal">{s[g.type]}<span class="mono">{g.list.length}</span></h3>
+        {yearsOf(g.list).map((y) => (
+          <div class="year-group">
+            <div class="year mono">{y}</div>
+            <div>
+              {g.list.filter((p) => p.year === y).map((p) => {
+                const note = loc(p.note, lang)
+                const links = pubLinks(p)
+                return (
+                  <article class={`pub reveal${p.image ? ' has-image' : ''}`}>
+                    <div class="body">
+                      <h4>
+                        {links.title ? <a href={links.title} target="_blank" rel="noopener">{p.title}</a> : p.title}
+                      </h4>
+                      <p class="authors">
+                        {authors(p).map((a, i, all) => (
+                          <>
+                            {a.me ? (
+                              <strong>{a.name}</strong>
+                            ) : a.url ? (
+                              <a href={a.url} target="_blank" rel="noopener">{a.name}</a>
+                            ) : (
+                              <span>{a.name}</span>
+                            )}
+                            {a.equal && <sup>*</sup>}
+                            {i < all.length - 1 && ', '}
+                          </>
+                        ))}
+                      </p>
+                      {p.equal?.length ? <p class="equal-note"><sup>*</sup>{s.equal}</p> : null}
+                      <div class="foot">
+                        <span class="venue mono">{p.venue}</span>
+                        {note && <span class="badge">{note}</span>}
+                        <span class="links">
+                          {links.paper && (
+                            <a href={links.paper} target="_blank" rel="noopener"><Icon name="paper" />{s.paper}</a>
+                          )}
+                          {links.arxiv && (
+                            <a href={links.arxiv} target="_blank" rel="noopener"><Icon name="arxiv" />{s.arxiv}</a>
+                          )}
+                          {links.code && (
+                            <a href={links.code} target="_blank" rel="noopener"><Icon name="github" />{s.code}</a>
+                          )}
+                          {p.bibtex && (
+                            <button
+                              type="button"
+                              data-bibtex={p.bibtex.trim()}
+                              data-label={s.bibtex}
+                              data-copied={s.copied}
+                            >
+                              <Icon name="braces" class="i-copy" /><Icon name="check" class="i-check" /><span>{s.bibtex}</span>
+                            </button>
+                          )}
+                        </span>
+                      </div>
+                    </div>
+                    {p.image && (
+                      <div class="thumb">
+                        <img src={p.image} alt="" loading="lazy" decoding="async" />
+                      </div>
+                    )}
+                  </article>
+                )
+              })}
+            </div>
+          </div>
         ))}
       </div>
-    </div>
-
-    <div class="years">
-      {years.map((y) => (
-        <div class="year-group" data-year={y}>
-          <div class="year mono">{y}</div>
-          <div class="pubs">
-            {byYear(y).map((p) => {
-              const note = loc(p.note, lang)
-              const links = pubLinks(p)
-              return (
-                <article class={`pub reveal${p.image ? ' has-image' : ''}`} data-type={p.type}>
-                  {p.image && (
-                    <div class="thumb">
-                      <img src={p.image} alt="" loading="lazy" decoding="async" />
-                    </div>
-                  )}
-                  <div class="body">
-                    <div class="meta">
-                      <span class="venue mono">{p.venue} {p.year}</span>
-                      {note && <span class="chip solid">{note}</span>}
-                      <span class="type">{s[p.type]}</span>
-                    </div>
-                    <h3>
-                      {links.title ? <a href={links.title} target="_blank" rel="noopener">{p.title}</a> : p.title}
-                    </h3>
-                    <p class="authors">
-                      {authors(p).map((a, i, all) => (
-                        <>
-                          {a.me ? (
-                            <strong>{a.name}</strong>
-                          ) : a.url ? (
-                            <a href={a.url} target="_blank" rel="noopener">{a.name}</a>
-                          ) : (
-                            <span>{a.name}</span>
-                          )}
-                          {a.equal && <sup>*</sup>}
-                          {i < all.length - 1 && ', '}
-                        </>
-                      ))}
-                    </p>
-                    {p.equal?.length ? <p class="equal-note"><sup>*</sup>{s.equal}</p> : null}
-                    <div class="pub-actions">
-                      {links.paper && (
-                        <a class="btn small" href={links.paper} target="_blank" rel="noopener">
-                          {s.paper}<Icon name="arrow" />
-                        </a>
-                      )}
-                      {links.arxiv && (
-                        <a class="btn small" href={links.arxiv} target="_blank" rel="noopener">
-                          <Icon name="arxiv" />{s.arxiv}
-                        </a>
-                      )}
-                      {links.code && (
-                        <a class="btn small" href={links.code} target="_blank" rel="noopener">
-                          <Icon name="github" />{s.code}
-                        </a>
-                      )}
-                      {p.bibtex && (
-                        <button
-                          type="button"
-                          class="btn small"
-                          data-bibtex={p.bibtex.trim()}
-                          data-label={s.bibtex}
-                          data-copied={s.copied}
-                        >
-                          <Icon name="copy" class="i-copy" /><Icon name="check" class="i-check" /><span>{s.bibtex}</span>
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </article>
-              )
-            })}
-          </div>
-        </div>
-      ))}
-    </div>
-
-    <p class="empty-msg" hidden data-empty>{s.noResults}</p>
+    ))}
   </div>
 </section>
 
 <style>
-  .filters {
+  .type-group + .type-group {
+    margin-top: 32px;
+  }
+
+  /* Quiet group label; the first year rule below it does the separating. */
+  .type-head {
     display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    padding: 3px;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    background: var(--bg-subtle);
-  }
-
-  .filter {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    height: 28px;
-    padding: 0 11px;
-    border: 0;
-    border-radius: 999px;
-    background: none;
-    color: var(--text-2);
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s var(--ease), color 0.2s var(--ease), box-shadow 0.2s var(--ease);
-  }
-
-  .filters.instant .filter {
-    transition: none;
-  }
-
-  .filter span {
+    align-items: baseline;
+    gap: 10px;
+    padding-bottom: 10px;
     color: var(--text-3);
-    font-size: 11px;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
-  .filter:hover {
-    color: var(--text);
+  :global(:root[lang='ko']) .type-head {
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
   }
 
-  .filter[aria-pressed='true'] {
-    background: var(--surface);
-    color: var(--text);
-    box-shadow: 0 0 0 1px var(--border), 0 1px 2px rgb(0 0 0 / 0.06);
+  .type-head span {
+    font-weight: 400;
+    letter-spacing: 0;
   }
 
   .year-group {
     display: grid;
-    grid-template-columns: 64px 1fr;
+    grid-template-columns: 56px minmax(0, 1fr);
     gap: 16px;
     border-top: 1px solid var(--border);
   }
 
-  .year-group[hidden] {
-    display: none;
-  }
-
+  /* Same gray as the group label, aligned to the first title line. */
   .year {
     position: sticky;
     top: 72px;
     align-self: start;
-    padding-top: 20px;
+    padding-top: 15px;
+    padding-bottom: 14px; /* stops level with the last row's footer, not the rule below it */
     color: var(--text-3);
     font-size: 13px;
-    font-weight: 500;
   }
 
   .pub {
-    padding: 18px 0;
-    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+    padding: 14px 0;
   }
 
   .pub + .pub {
@@ -189,22 +149,16 @@ const byYear = (y: number) => pubs.filter((p) => p.year === y)
   /* Figure on the right so titles line up whether or not a paper has one. */
   .pub.has-image {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 200px;
+    grid-template-columns: minmax(0, 1fr) 150px;
     gap: 24px;
     align-items: start;
   }
 
-  .pub[hidden] {
-    display: none;
-  }
-
   .thumb {
-    order: 2;
     aspect-ratio: 16 / 10;
-    padding: 8px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
+    border-radius: 4px;
     background: #fff; /* paper figures are drawn on white */
+    overflow: hidden;
   }
 
   :global([data-scheme='dark']) .thumb {
@@ -221,50 +175,25 @@ const byYear = (y: number) => pubs.filter((p) => p.year === y)
     min-width: 0;
   }
 
-  .meta {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 6px;
-  }
-
-  .venue {
-    color: var(--text);
-    font-size: 12px;
-    font-weight: 600;
-  }
-
-  .meta .chip {
-    height: 20px;
-    padding: 0 7px;
-    font-size: 11px;
-  }
-
-  .type {
-    margin-left: auto;
-    color: var(--text-3);
-    font-size: 12px;
-  }
-
-  h3 {
+  h4 {
+    margin: 0;
     font-size: 15.5px;
     font-weight: 600;
     line-height: 1.45;
     letter-spacing: -0.012em;
   }
 
-  h3 a {
+  h4 a {
     background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
     transition: background-size 0.3s var(--ease);
   }
 
-  h3 a:hover {
+  h4 a:hover {
     background-size: 100% 1px;
   }
 
   .authors {
-    margin-top: 6px;
+    margin-top: 5px;
     color: var(--text-2);
     font-size: 13.5px;
     line-height: 1.55;
@@ -289,38 +218,87 @@ const byYear = (y: number) => pubs.filter((p) => p.year === y)
   }
 
   .equal-note {
-    margin-top: 2px;
+    margin-top: 1px;
     color: var(--text-3);
-    font-size: 12px;
+    font-size: 12.5px;
   }
 
   .equal-note sup {
     margin: 0 3px 0 0;
   }
 
-  .pub-actions {
+  .foot {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 10px;
+    align-items: center;
+    gap: 6px 12px;
+    margin-top: 8px;
   }
 
-  .pub-actions :global(.i-check) {
-    display: none;
+  .venue {
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 600;
   }
 
-  .pub-actions :global(.done .i-check) {
-    display: block;
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    padding: 0 7px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    color: var(--text);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
   }
 
-  .pub-actions :global(.done .i-copy) {
-    display: none;
+  .links {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 2px 14px;
   }
 
-  .empty-msg {
-    margin-top: 16px;
+  .links a,
+  .links button {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--text-2);
+    font-size: 13px;
+    cursor: pointer;
+    transition: color 0.2s var(--ease);
+  }
+
+  .links a:hover,
+  .links button:hover {
+    color: var(--text);
+  }
+
+  .links :global(svg) {
+    width: 13px;
+    height: 13px;
     color: var(--text-3);
-    font-size: 12.5px;
+    transition: color 0.2s var(--ease);
+  }
+
+  .links a:hover :global(svg),
+  .links button:hover :global(svg) {
+    color: var(--text);
+  }
+
+  .links :global(.i-check),
+  .links :global(.done .i-copy) {
+    display: none;
+  }
+
+  .links :global(.done .i-check) {
+    display: block;
   }
 
   @media (max-width: 760px) {
@@ -331,11 +309,11 @@ const byYear = (y: number) => pubs.filter((p) => p.year === y)
 
     .year {
       position: static;
-      padding-top: 16px;
+      padding-top: 14px;
     }
 
     .pub:first-child {
-      padding-top: 10px;
+      padding-top: 8px;
     }
   }
 
@@ -346,12 +324,8 @@ const byYear = (y: number) => pubs.filter((p) => p.year === y)
     }
 
     .thumb {
-      order: 0;
-      max-width: 360px;
-    }
-
-    .type {
-      margin-left: 0;
+      order: -1;
+      max-width: 320px;
     }
   }
 </style>

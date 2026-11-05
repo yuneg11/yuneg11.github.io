@@ -78,13 +78,13 @@ const has = (id: keyof typeof lists) => onWeb(lists[id]).length > 0
     })
   }
 
-  /* Language switch keeps the current section and filter. */
+  /* Language switch keeps the current section. */
   const langLink = document.querySelector<HTMLAnchorElement>('[data-lang-switch]')
   const langBase = langLink?.getAttribute('href') ?? '/'
   let activeSection = ''
   const syncLangLink = () => {
     if (!langLink) return
-    langLink.href = langBase + location.search + (activeSection ? `#${activeSection}` : '')
+    langLink.href = langBase + (activeSection ? `#${activeSection}` : '')
   }
 
   /* Nav: show the name after the hero. Track the current section for the language switch. */
@@ -103,30 +103,6 @@ const has = (id: keyof typeof lists) => onWeb(lists[id]).length > 0
     { rootMargin: '-45% 0px -50% 0px' },
   )
   document.querySelectorAll('main > section').forEach((el) => sectionIo.observe(el))
-
-  /* Publication filter, kept in ?type= so it survives reloads and language switches. */
-  const filters = document.querySelectorAll<HTMLButtonElement>('[data-filter]')
-  const pubs = document.querySelectorAll<HTMLElement>('.pub')
-  const groups = document.querySelectorAll<HTMLElement>('.year-group')
-  const empty = document.querySelector<HTMLElement>('[data-empty]')
-  const applyFilter = (type: string) => {
-    if (![...filters].some((b) => b.dataset.filter === type)) type = 'all'
-    filters.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === type)))
-    pubs.forEach((p) => { p.hidden = type !== 'all' && p.dataset.type !== type })
-    groups.forEach((g) => { g.hidden = [...g.querySelectorAll<HTMLElement>('.pub')].every((p) => p.hidden) })
-    if (empty) empty.hidden = [...pubs].some((p) => !p.hidden)
-    const url = new URL(location.href)
-    if (type === 'all') url.searchParams.delete('type')
-    else url.searchParams.set('type', type)
-    history.replaceState(null, '', url)
-    syncLangLink()
-  }
-  filters.forEach((b) => b.addEventListener('click', () => applyFilter(b.dataset.filter!)))
-  // First application without transitions, so a shared ?type= link doesn't animate on load.
-  const filterGroup = document.querySelector<HTMLElement>('.filters')
-  filterGroup?.classList.add('instant')
-  applyFilter(new URLSearchParams(location.search).get('type') ?? 'all')
-  requestAnimationFrame(() => requestAnimationFrame(() => filterGroup?.classList.remove('instant')))
 
   /* BibTeX copy. */
   const copy = async (text: string) => {
