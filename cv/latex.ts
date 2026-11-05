@@ -128,7 +128,7 @@ export function latex(doc: CvDocument): string {
 
 % --------------------------------------------------------------- sections
 \renewcommand{\section}[1]{%
-  \par\addvspace{16pt}\needspace{5\baselineskip}%
+  \par\addvspace{15pt}\needspace{5\baselineskip}%
   {\fontsize{18}{22}\selectfont\bfseries\color{darktext}\scshape #1\par}%
   \vspace{3pt}{\color{graytext}\hrule height 0.6pt}\vspace{4pt}\nopagebreak}
 \renewcommand{\subsection}[1]{%
@@ -176,14 +176,18 @@ export function latex(doc: CvDocument): string {
   \end{tabularx}\par}
 
 % --------------------------------------------------------- services, skills
+% Tables sit on their last row ([b]) and end with a kern, so the next section
+% heading gets the same space as after a list. (A kern, not a skip: the
+% heading's \addvspace would swallow a skip.)
+\newcommand{\afterblock}{\par\kern4.2pt}
 \newcommand{\venue}[1]{{\bfseries\color{darktext}#1}}
 \newenvironment{services}
-  {\par\addvspace{6pt}\noindent\fontsize{10.5}{17.5}\selectfont\color{graytext}\begin{tabular}{@{}l@{\hspace{12pt}}l@{}}}
-  {\end{tabular}\par}
+  {\par\addvspace{6pt}\noindent\fontsize{10.5}{17.5}\selectfont\color{graytext}\begin{tabular}[b]{@{}l@{\hspace{12pt}}l@{}}}
+  {\end{tabular}\afterblock}
 \newcommand{\service}[2]{#1 & {\fontsize{9.5}{17.5}\selectfont#2}}
 \newenvironment{skills}
-  {\par\addvspace{6pt}\noindent\fontsize{10.5}{17.5}\selectfont\color{graytext}\begin{tabular}{@{}r@{\hspace{10pt}}l@{}}}
-  {\end{tabular}\par}
+  {\par\addvspace{6pt}\noindent\fontsize{10.5}{17.5}\selectfont\color{graytext}\begin{tabular}[b]{@{}r@{\hspace{10pt}}l@{}}}
+  {\end{tabular}\afterblock}
 \newcommand{\skill}[2]{\venue{#1} & #2}
 
 \begin{document}
@@ -202,10 +206,11 @@ export function latex(doc: CvDocument): string {
     .map((c) => `\\href{${url(c.url)}}{{\\color{graytext}${ICONS[c.kind]}}\\hspace{3.5pt}${tex(c.text)}}`)
     .join(String.raw`\hspace{11pt}{\color{lighttext}|}\hspace{11pt}`)}\par}
 }
-\vspace{10pt}
+\vspace{9pt}
 {\color{graytext}\hrule height 0.6pt}
-\vspace{12pt}
+\vspace{10pt}
 {\raggedright\fontsize{11.5}{16.5}\selectfont\addfontfeatures{LetterSpace=2.5}\color{text}${doc.intro.map(rich).join('\n\n')}\par}
+\kern4.6pt
 
 ${doc.sections.map((s) => section(s, doc)).join('\n\n')}
 
