@@ -1,0 +1,201 @@
+---
+import Icon from './Icon.astro'
+import { data, loc, formatName, currentJob, refLink, paragraphs, socialLinks, type Lang } from '../lib/data'
+import { t } from '../lib/i18n'
+
+interface Props { lang: Lang }
+const { lang } = Astro.props
+const s = t(lang)
+const other: Lang = lang === 'en' ? 'ko' : 'en'
+
+const name = formatName(loc(data.personal.name, lang), lang)
+const altName = formatName(loc(data.personal.name, other), other)
+const job = currentJob && loc(currentJob.title, lang)
+const employer = currentJob?.org ? refLink(currentJob.org, lang) : undefined
+const city = data.personal.location ? refLink(data.personal.location, lang).text : undefined
+const bio = paragraphs(loc(data.bio, lang), lang)
+const links = socialLinks(lang)
+---
+<section id="about" class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-id reveal">
+      {data.meta.image && (
+        <img class="photo" src={data.meta.image} alt="" width="96" height="96" loading="eager" decoding="async" />
+      )}
+      <div>
+        <h1>
+          {name}
+          <span class="alt-name" lang={other}>{altName}</span>
+        </h1>
+        {job && (
+          <p class="role">
+            {lang === 'ko' ? (
+              <>
+                {employer && (employer.url ? <a href={employer.url} target="_blank" rel="noopener">{employer.text}</a> : employer.text)}{' '}{job}
+              </>
+            ) : (
+              <>
+                {job}{employer && <> {s.at} {employer.url ? <a href={employer.url} target="_blank" rel="noopener">{employer.text}</a> : employer.text}</>}
+              </>
+            )}
+          </p>
+        )}
+        {city && (
+          <p class="place mono"><Icon name="pin" />{city}</p>
+        )}
+      </div>
+    </div>
+
+    <div class="bio prose reveal">
+      {bio.map((p) => <p set:html={p} />)}
+    </div>
+
+    <div class="actions reveal">
+      <a class="btn primary" href="/cv.pdf" target="_blank" rel="noopener">
+        <Icon name="file" />{s.cv}
+      </a>
+      {links.map((l) => (
+        <a class="btn" href={l.url} target={l.key === 'email' ? undefined : '_blank'} rel="noopener" aria-label={l.label}>
+          <Icon name={l.key} /><span class="label">{l.label}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding: 72px 0 40px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: -56px 0 0;
+    z-index: -1;
+    background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
+    background-size: 22px 22px;
+    mask-image: radial-gradient(ellipse 70% 60% at 30% 20%, #000 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 30% 20%, #000 20%, transparent 75%);
+  }
+
+  .hero-id {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .photo {
+    flex: none;
+    width: 96px;
+    height: 96px;
+    border-radius: 24px;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    background: var(--bg-subtle);
+  }
+
+  h1 {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    column-gap: 12px;
+    font-size: clamp(30px, 5vw, 40px);
+    font-weight: 650;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+  }
+
+  .alt-name {
+    color: var(--text-3);
+    font-size: 0.5em;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .role {
+    margin-top: 6px;
+    color: var(--text-2);
+    font-size: 17px;
+    font-weight: 500;
+  }
+
+  .role a {
+    color: var(--text);
+    border-bottom: 1px solid var(--link-line);
+    transition: border-color 0.2s var(--ease);
+  }
+
+  .role a:hover {
+    border-color: var(--text);
+  }
+
+  .place {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 6px;
+    color: var(--text-3);
+    font-size: 12.5px;
+  }
+
+  .place :global(svg) {
+    width: 13px;
+    height: 13px;
+  }
+
+  .bio {
+    max-width: 680px;
+    margin-top: 32px;
+    color: var(--text-2);
+    font-size: 17.5px;
+    line-height: 1.7;
+    letter-spacing: -0.008em;
+  }
+
+  .bio p + p {
+    margin-top: 14px;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 28px;
+  }
+
+  @media (max-width: 560px) {
+    .hero {
+      padding-top: 40px;
+    }
+
+    .hero-id {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .photo {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+    }
+
+    .bio {
+      font-size: 16.5px;
+    }
+
+    .actions .btn:not(.primary) .label {
+      display: none;
+    }
+
+    .actions .btn:not(.primary) {
+      width: 36px;
+      padding: 0;
+      justify-content: center;
+    }
+  }
+</style>

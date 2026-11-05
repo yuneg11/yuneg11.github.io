@@ -1,0 +1,68 @@
+---
+import EntryBody from './EntryBody.astro'
+import { onWeb, isOngoing, type Entry, type Lang } from '../lib/data'
+
+interface Props { id: string; title: string; entries: Entry[]; lang: Lang }
+const { id, title, entries, lang } = Astro.props
+const items = onWeb(entries)
+---
+<section id={id} class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 class="section-title">{title}</h2>
+    </div>
+    <ol class="timeline">
+      {items.map((e) => (
+        <li class={`item reveal${isOngoing(e) ? ' current' : ''}`}>
+          <span class="dot" aria-hidden="true"></span>
+          <EntryBody entry={e} lang={lang} />
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    position: relative;
+    margin: 0;
+    padding: 0 0 0 28px;
+    list-style: none;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 10px;
+    bottom: 10px;
+    width: 1px;
+    background: linear-gradient(var(--border-strong), var(--border) 85%, transparent);
+  }
+
+  .item {
+    position: relative;
+    padding-bottom: 28px;
+  }
+
+  .item:last-child {
+    padding-bottom: 0;
+  }
+
+  .dot {
+    position: absolute;
+    left: -28px;
+    top: 6px;
+    width: 11px;
+    height: 11px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 50%;
+    background: var(--bg);
+  }
+
+  .current .dot {
+    border-color: var(--text);
+    background: var(--text);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--text) 12%, transparent);
+  }
+</style>

@@ -1,0 +1,120 @@
+---
+import Icon from './Icon.astro'
+import { data, loc, formatName, type Lang } from '../lib/data'
+import { t, homePath } from '../lib/i18n'
+
+interface Props { lang: Lang }
+const { lang } = Astro.props
+const s = t(lang)
+const other: Lang = lang === 'en' ? 'ko' : 'en'
+---
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="nav-name" href="#top">{formatName(loc(data.personal.name, lang), lang)}</a>
+    <div class="nav-tools">
+      <a
+        class="tool lang-switch"
+        href={homePath(other)}
+        hreflang={other}
+        lang={other}
+        aria-label={s.switchLangLabel}
+        data-lang-switch
+      >
+        <Icon name="globe" />
+        <span>{s.switchLang}</span>
+      </a>
+      <button class="tool theme-toggle" type="button" aria-label={s.toggleTheme} data-theme-toggle>
+        <Icon name="sun" class="i-sun" />
+        <Icon name="moon" class="i-moon" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid transparent;
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter: saturate(1.6) blur(14px);
+    -webkit-backdrop-filter: saturate(1.6) blur(14px);
+    transition: border-color 0.25s var(--ease);
+  }
+
+  :global(.scrolled) .nav {
+    border-bottom-color: var(--border);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 56px;
+  }
+
+  .nav-name {
+    flex: none;
+    font-size: 14.5px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    opacity: 0;
+    transform: translateY(4px);
+    pointer-events: none;
+    transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  :global(.scrolled) .nav-name {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .nav-tools {
+    display: flex;
+    flex: none;
+    gap: 4px;
+    margin-left: auto;
+  }
+
+  .tool {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 32px;
+    min-width: 32px;
+    padding: 0 8px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: none;
+    color: var(--text-2);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+
+  .tool:hover {
+    color: var(--text);
+    border-color: var(--border);
+  }
+
+  .tool :global(svg) {
+    width: 16px;
+    height: 16px;
+  }
+
+  .theme-toggle :global(.i-moon) {
+    display: none;
+  }
+
+  :global([data-scheme='dark']) .theme-toggle :global(.i-sun) {
+    display: none;
+  }
+
+  :global([data-scheme='dark']) .theme-toggle :global(.i-moon) {
+    display: block;
+  }
+</style>

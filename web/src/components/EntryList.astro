@@ -1,0 +1,29 @@
+---
+import EntryBody from './EntryBody.astro'
+import { onWeb, type Entry, type Lang } from '../lib/data'
+
+interface Props { id: string; title: string; entries: Entry[]; lang: Lang }
+const { id, title, entries, lang } = Astro.props
+const items = onWeb(entries)
+---
+<section id={id} class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 class="section-title">{title}</h2>
+    </div>
+    <ul class="rows reveal">
+      {items.map((e) => (
+        <li class="row">
+          <EntryBody entry={e} lang={lang} showLocation={false} />
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .row {
+    padding: 18px 0;
+    border-top: 1px solid var(--border);
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+import '../styles/global.css'
+import { data, loc, formatName, currentJob, refLink, socialLinks, type Lang } from '../lib/data'
+import { homePath } from '../lib/i18n'
+
+interface Props { lang: Lang }
+const { lang } = Astro.props
+
+const name = formatName(loc(data.personal.name, lang), lang)
+const enName = loc(data.personal.name, 'en')
+const description = loc(data.meta.description, lang)
+const site = Astro.site!
+const canonical = new URL(homePath(lang), site).href
+const image = data.meta.image && new URL(data.meta.image, site).href
+const job = currentJob && loc(currentJob.title, lang)
+const employer = currentJob?.org ? refLink(currentJob.org, lang) : undefined
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name,
+  alternateName: lang === 'ko' ? `${enName.given} ${enName.family}` : formatName(loc(data.personal.name, 'ko'), 'ko'),
+  givenName: loc(data.personal.name, lang).given,
+  familyName: loc(data.personal.name, lang).family,
+  url: canonical,
+  image,
+  email: `mailto:${data.personal.email}`,
+  jobTitle: job,
+  worksFor: employer && { '@type': 'Organization', name: employer.text, url: employer.url },
+  sameAs: socialLinks(lang).filter((l) => l.key !== 'email').map((l) => l.url),
+}
+
+// Applies the saved theme before first paint so there is no flash.
+const themeInit = `(function(){var r=document.documentElement,t=null;try{t=localStorage.getItem('theme')}catch(e){}if(t==='light'||t==='dark')r.dataset.theme=t;r.dataset.scheme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()`
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline set:html={themeInit} />
+    <title>{name}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0c0c0e" media="(prefers-color-scheme: dark)" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={new URL('/', site).href} />
+    <link rel="alternate" hreflang="ko" href={new URL('/ko/', site).href} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/', site).href} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={name} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={lang === 'ko' ? 'ko_KR' : 'en_US'} />
+    {image && <meta property="og:image" content={image} />}
+    <meta property="profile:first_name" content={loc(data.personal.name, lang).given} />
+    <meta property="profile:last_name" content={loc(data.personal.name, lang).family} />
+    <meta name="twitter:card" content="summary" />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

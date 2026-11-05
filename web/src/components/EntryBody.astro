@@ -1,0 +1,163 @@
+---
+// One renderer for every entry (experiences, education, projects, awards).
+import { loc, onWeb, refOrText, entryLocation, formatPeriod, isOngoing, inline, type Entry, type Lang } from '../lib/data'
+import { t } from '../lib/i18n'
+
+interface Props { entry: Entry; lang: Lang; showLocation?: boolean }
+const { entry: e, lang, showLocation = true } = Astro.props
+const s = t(lang)
+
+const title = loc(e.title, lang)
+const url = loc(e.url, lang)
+const org = refOrText(e.org, lang)
+const unit = refOrText(e.unit, lang)
+const period = formatPeriod(e, lang, s.present)
+const place = showLocation ? entryLocation(e, lang) : undefined
+const details = onWeb(e.details).map((d) => inline(loc(d.text, lang), lang))
+const ongoing = isOngoing(e)
+---
+<div class="entry">
+  <div class="head">
+    <div class="what">
+      <h3>
+        {url ? <a href={url} target="_blank" rel="noopener">{title}</a> : title}
+        {ongoing && <span class="chip now">{s.present}</span>}
+      </h3>
+      {(org || unit) && (
+        <p class="org">
+          {org && (org.url ? <a href={org.url} target="_blank" rel="noopener">{org.text}</a> : <span>{org.text}</span>)}
+          {org && unit && <span class="sep" aria-hidden="true">·</span>}
+          {unit && (unit.url ? <a href={unit.url} target="_blank" rel="noopener">{unit.text}</a> : <span>{unit.text}</span>)}
+        </p>
+      )}
+    </div>
+    {(period || place) && (
+      <div class="when">
+        {period && <span class="mono">{period}</span>}
+        {place && <span class="place">{place}</span>}
+      </div>
+    )}
+  </div>
+  {details.length === 1 && <p class="detail prose" set:html={details[0]} />}
+  {details.length > 1 && (
+    <ul class="details prose">
+      {details.map((d) => <li set:html={d} />)}
+    </ul>
+  )}
+</div>
+
+<style>
+  .head {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px 20px;
+    flex-wrap: wrap;
+  }
+
+  .what {
+    min-width: 0;
+    flex: 1 1 320px;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.015em;
+  }
+
+  h3 a {
+    text-decoration: underline;
+    text-decoration-color: var(--link-line);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.2s var(--ease);
+  }
+
+  h3 a:hover {
+    text-decoration-color: var(--text);
+  }
+
+  .now {
+    height: 20px;
+    margin-left: 8px;
+    padding: 0 8px;
+    font-size: 11px;
+    vertical-align: 2px;
+  }
+
+  .org {
+    margin-top: 2px;
+    color: var(--text-2);
+    font-size: 14.5px;
+  }
+
+  .org a {
+    transition: color 0.2s var(--ease);
+  }
+
+  .org a:hover {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--link-line);
+    text-underline-offset: 3px;
+  }
+
+  .sep {
+    margin: 0 7px;
+    color: var(--text-3);
+  }
+
+  .when {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    padding-top: 2px;
+    color: var(--text-3);
+    font-size: 12.5px;
+    white-space: nowrap;
+  }
+
+  .detail {
+    margin-top: 6px;
+    color: var(--text-3);
+    font-size: 14px;
+  }
+
+  .details {
+    display: grid;
+    gap: 4px;
+    margin-top: 10px;
+    color: var(--text-2);
+    font-size: 14.5px;
+  }
+
+  .details li {
+    position: relative;
+    padding-left: 16px;
+  }
+
+  .details li::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 0.78em;
+    width: 5px;
+    height: 1px;
+    background: var(--text-3);
+  }
+
+  @media (max-width: 560px) {
+    .when {
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .when .place::before {
+      content: '·';
+      margin-right: 10px;
+    }
+  }
+</style>

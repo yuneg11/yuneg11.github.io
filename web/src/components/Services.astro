@@ -1,0 +1,106 @@
+---
+import { data, loc, onWeb, type Lang } from '../lib/data'
+import { t } from '../lib/i18n'
+
+interface Props { lang: Lang }
+const { lang } = Astro.props
+const s = t(lang)
+const services = onWeb(data.services)
+---
+<section id="services" class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 class="section-title">{s.services}</h2>
+    </div>
+    <ul class="rows reveal">
+      {services.map((sv) => (
+        <li class="row">
+          <div class="venue">
+            <span class="name">{sv.venue}</span>
+            <span class="role">{loc(sv.role, lang)}</span>
+          </div>
+          <div class="years">
+            {sv.years.map((y) => {
+              const note = loc(y.note, lang)
+              const label = (
+                <>
+                  <span class="mono">{y.year}</span>
+                  {note && <span class="note">{note}</span>}
+                </>
+              )
+              return y.url ? (
+                <a class={`chip${note ? ' solid' : ''}`} href={y.url} target="_blank" rel="noopener">{label}</a>
+              ) : (
+                <span class={`chip${note ? ' solid' : ''}`}>{label}</span>
+              )
+            })}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 20px;
+    flex-wrap: wrap;
+    padding: 14px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .venue {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .name {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .role {
+    color: var(--text-3);
+    font-size: 13px;
+  }
+
+  .years {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .chip {
+    height: 26px;
+    font-size: 12px;
+  }
+
+  a.chip {
+    transition: border-color 0.2s var(--ease), color 0.2s var(--ease), opacity 0.2s var(--ease);
+  }
+
+  a.chip:not(.solid):hover {
+    border-color: var(--border-strong);
+    color: var(--text);
+  }
+
+  a.chip.solid:hover {
+    opacity: 0.85;
+  }
+
+  .note {
+    font-weight: 500;
+  }
+
+  .note::before {
+    content: '·';
+    margin-right: 6px;
+    opacity: 0.6;
+  }
+
+</style>

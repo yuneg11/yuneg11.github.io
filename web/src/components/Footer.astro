@@ -1,0 +1,61 @@
+---
+import { data, loc, formatName, socialLinks, type Lang } from '../lib/data'
+import { t } from '../lib/i18n'
+
+interface Props { lang: Lang }
+const { lang } = Astro.props
+const s = t(lang)
+const now = new Date()
+const updated =
+  lang === 'ko'
+    ? `${now.getFullYear()}. ${String(now.getMonth() + 1).padStart(2, '0')}`
+    : now.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+---
+<footer class="footer">
+  <div class="container inner">
+    <p>© {now.getFullYear()} {formatName(loc(data.personal.name, lang), lang)}</p>
+    <p class="mono">{s.updated} · {updated}</p>
+    <nav aria-label="Links">
+      {socialLinks(lang).map((l) => <a href={l.url} target={l.key === 'email' ? undefined : '_blank'} rel="noopener">{l.label}</a>)}
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: 72px;
+    border-top: 1px solid var(--border);
+  }
+
+  .inner {
+    display: flex;
+    align-items: center;
+    gap: 8px 20px;
+    flex-wrap: wrap;
+    padding-top: 24px;
+    padding-bottom: 40px;
+    color: var(--text-3);
+    font-size: 13px;
+  }
+
+  .mono {
+    font-size: 12px;
+  }
+
+  nav {
+    display: flex;
+    gap: 16px;
+    margin-left: auto;
+  }
+
+  a:hover {
+    color: var(--text);
+  }
+
+  @media (max-width: 560px) {
+    nav {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+</style>

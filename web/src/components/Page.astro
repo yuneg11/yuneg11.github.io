@@ -1,0 +1,159 @@
+---
+import Base from '../layouts/Base.astro'
+import Nav from './Nav.astro'
+import Hero from './Hero.astro'
+import Publications from './Publications.astro'
+import Timeline from './Timeline.astro'
+import EntryList from './EntryList.astro'
+import Services from './Services.astro'
+import Skills from './Skills.astro'
+import Footer from './Footer.astro'
+import { data, onWeb, type Lang } from '../lib/data'
+import { t } from '../lib/i18n'
+
+interface Props { lang: Lang }
+const { lang } = Astro.props
+const s = t(lang)
+
+const lists = {
+  publications: data.publications,
+  experience: data.experiences,
+  education: data.education,
+  projects: data.projects,
+  awards: data.awards,
+  services: data.services,
+  skills: data.skills,
+}
+const has = (id: keyof typeof lists) => onWeb(lists[id]).length > 0
+---
+<Base lang={lang}>
+  <a class="skip" href="#publications">{s.skip}</a>
+  <div id="top"></div>
+  <Nav lang={lang} />
+  <main>
+    <Hero lang={lang} />
+    {has('publications') && <Publications lang={lang} />}
+    {has('experience') && <Timeline id="experience" title={s.experience} entries={data.experiences} lang={lang} />}
+    {has('education') && <Timeline id="education" title={s.education} entries={data.education} lang={lang} />}
+    {has('projects') && <EntryList id="projects" title={s.projects} entries={data.projects} lang={lang} />}
+    {has('awards') && <EntryList id="awards" title={s.awards} entries={data.awards} lang={lang} />}
+    {has('services') && <Services lang={lang} />}
+    {has('skills') && <Skills lang={lang} />}
+  </main>
+  <Footer lang={lang} />
+</Base>
+
+<script>
+  const root = document.documentElement
+  const store = {
+    get: (k: string) => { try { return localStorage.getItem(k) } catch { return null } },
+    set: (k: string, v: string) => { try { localStorage.setItem(k, v) } catch {} },
+  }
+
+  /* Theme: system by default, the toggle stores an explicit choice. */
+  const media = matchMedia('(prefers-color-scheme: dark)')
+  const scheme = () => root.dataset.theme ?? (media.matches ? 'dark' : 'light')
+  const syncScheme = () => { root.dataset.scheme = scheme() }
+  media.addEventListener('change', syncScheme)
+  document.querySelector('[data-theme-toggle]')?.addEventListener('click', () => {
+    const next = scheme() === 'dark' ? 'light' : 'dark'
+    root.dataset.theme = next
+    store.set('theme', next)
+    syncScheme()
+  })
+  syncScheme()
+
+  /* Reveal on scroll. */
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.remove('pending'); io.unobserve(e.target) }
+      }),
+      { rootMargin: '0px 0px -6% 0px' },
+    )
+    document.querySelectorAll<HTMLElement>('.reveal').forEach((el) => {
+      if (el.getBoundingClientRect().top < innerHeight) return
+      el.classList.add('pending')
+      io.observe(el)
+    })
+  }
+
+  /* Language switch keeps the current section and filter. */
+  const langLink = document.querySelector<HTMLAnchorElement>('[data-lang-switch]')
+  const langBase = langLink?.getAttribute('href') ?? '/'
+  let activeSection = ''
+  const syncLangLink = () => {
+    if (!langLink) return
+    langLink.href = langBase + location.search + (activeSection ? `#${activeSection}` : '')
+  }
+
+  /* Nav: show the name after the hero. Track the current section for the language switch. */
+  const heading = document.querySelector('.hero h1')
+  if (heading) {
+    new IntersectionObserver(([e]) => root.classList.toggle('scrolled', !e.isIntersecting), {
+      rootMargin: '-56px 0px 0px 0px',
+    }).observe(heading)
+  }
+  const sectionIo = new IntersectionObserver(
+    (entries) => entries.forEach((e) => {
+      if (!e.isIntersecting) return
+      activeSection = e.target.id === 'about' ? '' : e.target.id
+      syncLangLink()
+    }),
+    { rootMargin: '-45% 0px -50% 0px' },
+  )
+  document.querySelectorAll('main > section').forEach((el) => sectionIo.observe(el))
+
+  /* Publication filter, kept in ?type= so it survives reloads and language switches. */
+  const filters = document.querySelectorAll<HTMLButtonElement>('[data-filter]')
+  const pubs = document.querySelectorAll<HTMLElement>('.pub')
+  const groups = document.querySelectorAll<HTMLElement>('.year-group')
+  const empty = document.querySelector<HTMLElement>('[data-empty]')
+  const applyFilter = (type: string) => {
+    if (![...filters].some((b) => b.dataset.filter === type)) type = 'all'
+    filters.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === type)))
+    pubs.forEach((p) => { p.hidden = type !== 'all' && p.dataset.type !== type })
+    groups.forEach((g) => { g.hidden = [...g.querySelectorAll<HTMLElement>('.pub')].every((p) => p.hidden) })
+    if (empty) empty.hidden = [...pubs].some((p) => !p.hidden)
+    const url = new URL(location.href)
+    if (type === 'all') url.searchParams.delete('type')
+    else url.searchParams.set('type', type)
+    history.replaceState(null, '', url)
+    syncLangLink()
+  }
+  filters.forEach((b) => b.addEventListener('click', () => applyFilter(b.dataset.filter!)))
+  // First application without transitions, so a shared ?type= link doesn't animate on load.
+  const filterGroup = document.querySelector<HTMLElement>('.filters')
+  filterGroup?.classList.add('instant')
+  applyFilter(new URLSearchParams(location.search).get('type') ?? 'all')
+  requestAnimationFrame(() => requestAnimationFrame(() => filterGroup?.classList.remove('instant')))
+
+  /* BibTeX copy. */
+  const copy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+    } catch {
+      const ta = Object.assign(document.createElement('textarea'), { value: text })
+      ta.style.position = 'fixed'
+      ta.style.opacity = '0'
+      document.body.append(ta)
+      ta.select()
+      document.execCommand('copy')
+      ta.remove()
+    }
+  }
+  document.querySelectorAll<HTMLButtonElement>('[data-bibtex]').forEach((b) => {
+    let timer = 0
+    b.addEventListener('click', async () => {
+      await copy(b.dataset.bibtex!)
+      const label = b.querySelector('span')!
+      b.classList.add('done')
+      label.textContent = b.dataset.copied!
+      clearTimeout(timer)
+      timer = window.setTimeout(() => {
+        b.classList.remove('done')
+        label.textContent = b.dataset.label!
+      }, 1600)
+    })
+  })
+</script>

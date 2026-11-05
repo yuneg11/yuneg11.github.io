@@ -1,0 +1,336 @@
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/geist-mono';
+@import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+
+/* ------------------------------------------------------------------ tokens */
+
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --bg-subtle: #f7f7f8;
+  --surface: #ffffff;
+  --surface-hover: #fafafa;
+  --border: #e8e8eb;
+  --border-strong: #d4d4d8;
+  --text: #17171a;
+  --text-2: #55555d;
+  --text-3: #8a8a93;
+  --accent: #17171a;
+  --accent-fg: #ffffff;
+  --link-line: #c4c4ca;
+  --mark-me: #17171a;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 4px 16px -8px rgb(0 0 0 / 0.08);
+  --grid-dot: rgb(0 0 0 / 0.07);
+
+  --font-sans: 'Geist Variable', 'Pretendard Variable', Pretendard, system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --max: 920px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #0c0c0e;
+    --bg-subtle: #131316;
+    --surface: #121215;
+    --surface-hover: #17171b;
+    --border: #232328;
+    --border-strong: #34343b;
+    --text: #ececef;
+    --text-2: #a3a3ad;
+    --text-3: #6f6f79;
+    --accent: #ececef;
+    --accent-fg: #0c0c0e;
+    --link-line: #4a4a52;
+    --mark-me: #ffffff;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+    --grid-dot: rgb(255 255 255 / 0.06);
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0c0c0e;
+  --bg-subtle: #131316;
+  --surface: #121215;
+  --surface-hover: #17171b;
+  --border: #232328;
+  --border-strong: #34343b;
+  --text: #ececef;
+  --text-2: #a3a3ad;
+  --text-3: #6f6f79;
+  --accent: #ececef;
+  --accent-fg: #0c0c0e;
+  --link-line: #4a4a52;
+  --mark-me: #ffffff;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+  --grid-dot: rgb(255 255 255 / 0.06);
+}
+
+/* Korean pages: Pretendard first so Latin and Hangul share metrics. */
+:root[lang='ko'] {
+  --font-sans: 'Pretendard Variable', Pretendard, 'Geist Variable', system-ui, -apple-system, sans-serif;
+}
+
+/* -------------------------------------------------------------------- base */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 15.5px;
+  line-height: 1.6;
+  font-feature-settings: 'ss01', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+:root[lang='ko'] body {
+  word-break: keep-all;
+  line-height: 1.7;
+}
+
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--text);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Inline prose links: quiet underline that darkens on hover. */
+.prose a {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--link-line);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s var(--ease);
+}
+
+.prose a:hover {
+  text-decoration-color: var(--text);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-feature-settings: normal;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  z-index: 100;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-size: 14px;
+}
+
+.skip:focus {
+  top: 12px;
+}
+
+/* ---------------------------------------------------------------- sections */
+
+.section {
+  padding: 56px 0 8px;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.section-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.section-count {
+  color: var(--text-3);
+  font-size: 13px;
+  font-weight: 450;
+}
+
+/* ------------------------------------------------------------------ chips */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 9px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-subtle);
+  color: var(--text-2);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.chip.solid {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+/* --------------------------------------------------------------- buttons */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.btn:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-hover);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn.primary {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+.btn.primary:hover {
+  opacity: 0.88;
+}
+
+.btn svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+.btn.small {
+  height: 28px;
+  padding: 0 10px;
+  gap: 5px;
+  font-size: 12.5px;
+}
+
+.btn.small svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* --------------------------------------------------------------- reveal */
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+
+  /* Set by the page script only on elements below the fold, so content
+     stays visible if the script never runs. */
+  .reveal.pending {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

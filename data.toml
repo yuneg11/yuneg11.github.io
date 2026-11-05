@@ -1,0 +1,1005 @@
+# =============================================================================
+# Single source of truth for the website (yuneg11.github.io) and the CV (LaTeX).
+#
+# Conventions
+# -----------
+# Localized value  : either ONE shared value, or BOTH languages — never mixed.
+#                      unit = "AI Lab"              (same in every language)
+#                      title.en = "AI Researcher"
+#                      title.ko = "AI 연구원"
+#                    An empty string means "nothing to show in that language".
+# Names            : a name is a string, or a { given, family } table when the
+#                    parts are needed separately (CV header, Open Graph):
+#                      name.en = { given = "EungGu", family = "Yun" }
+#                    Renderers join the parts per locale: "EungGu Yun", "윤응구".
+# References       : "<kind>:<id>" strings, resolved anywhere they appear.
+#                      "org:krafton"         -> [orgs.krafton]
+#                      "person:juho-lee"     -> [people.juho-lee]
+#                      "pub:fast-ensembling" -> the publication with that id
+#                      "place:seoul"         -> [places.seoul]
+#                      "person:me"           -> [personal]
+#                    A string that does not match this pattern is plain text,
+#                    so authors may mix references and plain names.
+# Text             : plain text, plus two Markdown link forms (nothing else):
+#                      <person:juho-lee>                 -> the target's name, linked
+#                      [loss landscapes](pub:fast-ensembling)  -> custom link text
+#                    Link targets are references or plain https URLs. Renderers
+#                    resolve the url for the current language and style links.
+#                    <person:x> includes the honorific ("Prof. Juho Lee",
+#                    "이주호 교수"); <pub:x> shows the publication title.
+#                    In multi-line strings a blank line starts a new paragraph;
+#                    end other lines with "\" so they join with a space.
+#                    No output-specific markup: renderers escape characters
+#                    themselves (e.g. "~", "%", "#" for LaTeX).
+# Entries          : experiences / education / projects / awards share one shape:
+#                      title, url, org, unit, location, date | start, end, details
+#                    (all optional except title). url links the title.
+#                    location falls back to the org's location, so it is
+#                    written only when it differs.
+# Details          : [[<section>.details]] sub-tables with text.en / text.ko.
+#                    Sub-tables must come AFTER all scalar fields of the parent.
+# Authors          : authors lists people in order (references or plain names);
+#                    equal repeats the equal-contribution entries verbatim.
+#                    Renderers bold "person:me", add the "*" marks and the
+#                    "*: Equal contribution" note.
+# Dates            : date / start / end are tables:
+#                      { year = 2023, month = 3 }       month precision
+#                      { year = 2019, term = "spring" } semester ("spring" / "fall")
+#                    The keys present decide the meaning:
+#                      date          a single point in time
+#                      start + end   a period
+#                      start only    ongoing ("Present" / "현재"); the current
+#                                    job title comes from this experience
+#                    Renderers format per locale ("Mar 2023", "2023. 03",
+#                    "2019 Spring", "2019년 1학기"). Publication and service years
+#                    stay plain integers.
+# Order            : entries are written in display order (newest first) and
+#                    renderers keep it. Year lists (services.years) are written
+#                    newest first; a renderer may sort them for its output (the
+#                    CV lists them in ascending order).
+# Visibility       : cv = false / web = false on any table (entry or detail)
+#                    hides it from that output only (default true). Used e.g.
+#                    to keep the CV within its page layout.
+#
+# Renderer-owned
+# --------------
+# Not stored here: section headings and UI labels ("Reviewer for", "Present",
+# "*: Equal contribution", publication type labels), the URLs built from the
+# handles in [personal], and the formats below.
+#   Places         : entries "Seoul, Korea" / "서울",
+#                    header  "Seoul, Korea" / "대한민국 서울".
+#   Author lists   : always the English name, in every language.
+#   Person in text : honorific placed by locale ("Prof. Juho Lee", "이주호 교수").
+#
+# Validation
+# ----------
+#   ids match [a-z0-9-]+; publication ids are unique; every reference resolves;
+#   every "equal" entry appears in "authors" (and "equal" has 2+ entries);
+#   date excludes start / end; end needs start and is not before it;
+#   month is 1-12; term is "spring" | "fall";
+#   type is "conference" | "workshop" | "journal" | "preprint".
+# =============================================================================
+
+[personal]
+name.en = { given = "EungGu", family = "Yun" }
+name.ko = { given = "응구", family = "윤" }
+email = "yuneg11@gmail.com"
+# Handles and hosts only; renderers build the URLs.
+github = "yuneg11"
+linkedin = "yuneg"
+scholar = "r7-847MAAAAJ"
+website = "yuneg11.github.io"
+location = "place:seoul"
+
+[meta]
+# Website only: <meta description>, Open Graph, and the profile image.
+# The job title is taken from the current experience (start without end).
+image = "/profile.jpg"
+description.en = "AI researcher at KRAFTON, working on the evaluation of large language models and speech models."
+description.ko = "크래프톤에서 대규모 언어 모델과 음성 모델의 평가를 연구하는 AI 연구원"
+
+[bio]
+# Used as the CV intro paragraph and the website hero.
+en = """
+I am an AI researcher at [KRAFTON](org:krafton), \
+working on the evaluation of large language models and speech models. \
+My background includes research on neural-network \
+[loss landscapes](pub:fast-ensembling) at [KAIST](org:kaist) \
+and on image anomaly detection and \
+[language-assisted vision](pub:laft) at [SAIGE](org:saige).\
+"""
+ko = """
+[크래프톤](org:krafton)에서 대규모 언어 모델과 음성 모델의 평가를 연구하는 AI 연구원입니다. \
+[KAIST](org:kaist)에서 신경망의 \
+[손실 지형(loss landscape)](pub:fast-ensembling)을, \
+[세이지](org:saige)에서 이미지 이상 탐지와 \
+[언어 정보를 활용한 비전 모델](pub:laft)을 연구했습니다.\
+"""
+
+# -----------------------------------------------------------------------------
+# Experience
+# -----------------------------------------------------------------------------
+
+[[experiences]]
+title.en = "AI Researcher"
+title.ko = "AI 연구원"
+org = "org:krafton"
+start = { year = 2026, month = 8 }
+
+[[experiences.details]]
+text.en = "Evaluate large language models and speech models."
+text.ko = "대규모 언어 모델과 음성 모델을 평가합니다."
+
+[[experiences.details]]
+text.en = "Assess model capabilities and examine their behavior in conversational and agentic settings."
+text.ko = "모델의 역량을 평가하고 대화형 및 에이전트 환경에서의 동작을 분석합니다."
+
+
+[[experiences]]
+title.en = "AI Researcher"
+title.ko = "AI 연구원"
+org = "org:saige"
+unit = "AI Lab"
+start = { year = 2023, month = 3 }
+end = { year = 2026, month = 7 }
+
+[[experiences.details]]
+text.en = "Research on image anomaly detection (IAD) systems for industrial inspection."
+text.ko = "산업용 검사를 위한 이미지 이상 탐지(IAD) 시스템을 연구했습니다."
+
+[[experiences.details]]
+text.en = "Research language-assisted vision models for data-efficient training."
+text.ko = "데이터 효율적인 학습을 위해 언어 정보를 활용한 비전 모델을 연구했습니다."
+
+[[experiences.details]]
+text.en = "Conduct TensorRT-based optimization for real-time inference in object detection and tracking."
+text.ko = "객체 탐지 및 추적의 실시간 추론을 위해 TensorRT 기반 최적화를 수행했습니다."
+
+[[experiences.details]]
+text.en = "Fine-tune VLMs for context-aware industrial safety monitoring."
+text.ko = "맥락을 고려한 산업 안전 모니터링을 위해 VLM을 파인튜닝했습니다."
+cv = false
+
+
+[[experiences]]
+title.en = "Research Intern"
+title.ko = "연구 인턴"
+org = "org:snu"
+unit = "org:snu-aiis"
+start = { year = 2020, month = 7 }
+end = { year = 2020, month = 9 }
+
+[[experiences.details]]
+text.en = "Supervisor: <person:wonjong-rhee>"
+text.ko = "지도: <person:wonjong-rhee>"
+
+[[experiences.details]]
+text.en = "Lab: <org:snu-drl>"
+text.ko = "연구실: <org:snu-drl>"
+
+[[experiences.details]]
+text.en = "Research on model interpretability and activation on-off patterns."
+text.ko = "활성화 on-off 패턴을 분석하여 모델의 해석 가능성을 연구했습니다."
+
+[[experiences.details]]
+text.en = "Reproduced CNN visualization methods including Grad-CAM, (C)LRP, etc."
+text.ko = "Grad-CAM, (C)LRP 등 CNN 시각화 기법을 재현했습니다."
+
+
+[[experiences]]
+title.en = "Research Intern"
+title.ko = "연구 인턴"
+org = "org:etri"
+unit = "org:etri-ai-lab"
+start = { year = 2020, month = 1 }
+end = { year = 2020, month = 2 }
+
+[[experiences.details]]
+text.en = "Supervisor: <person:yoomi-park>"
+text.ko = "지도: <person:yoomi-park>"
+
+[[experiences.details]]
+text.en = "Tested and debugged ETRI Deep Learning HPC Platform Dashboard."
+text.ko = "ETRI 딥러닝 HPC 플랫폼 대시보드를 테스트하고 디버깅했습니다."
+
+[[experiences.details]]
+text.en = "Implemented AlexNet and ResNet models with DL-MDL."
+text.ko = "DL-MDL로 AlexNet과 ResNet 모델을 구현했습니다."
+
+# -----------------------------------------------------------------------------
+# Education
+# -----------------------------------------------------------------------------
+
+[[education]]
+title.en = "M.S. in Artificial Intelligence"
+title.ko = "인공지능 석사"
+org = "org:kaist"
+unit = "org:kaist-gsai"
+start = { year = 2021, month = 3 }
+end = { year = 2023, month = 2 }
+
+[[education.details]]
+text.en = "Supervisor: <person:juho-lee>"
+text.ko = "지도: <person:juho-lee>"
+
+[[education.details]]
+text.en = "Lab: <org:kaist-siml>"
+text.ko = "연구실: <org:kaist-siml>"
+
+[[education.details]]
+text.en = "Thesis: <pub:fast-ensembling>"
+text.ko = "학위논문: <pub:fast-ensembling>"
+
+[[education.details]]
+text.en = "Research interests: Loss landscape, Neural processes"
+text.ko = "연구 관심사: 손실 지형(loss landscape), 뉴럴 프로세스"
+
+
+[[education]]
+title.en = "B.S. in Computer Science and Engineering"
+title.ko = "소프트웨어학 학사"
+org = "org:skku"
+unit = "org:skku-cse"
+start = { year = 2017, month = 3 }
+end = { year = 2020, month = 8 }
+
+[[education.details]]
+text.en = "Total GPA: 4.33 / 4.5"
+text.ko = "전체 평점: 4.33 / 4.5"
+
+[[education.details]]
+text.en = "Major GPA: 4.47 / 4.5"
+text.ko = "전공 평점: 4.47 / 4.5"
+
+# -----------------------------------------------------------------------------
+# Publications (titles are not translated; authors reference [people])
+#   type   : conference | workshop | journal | preprint
+#   url    : official venue page (proceedings, OpenReview, DOI); omit if arXiv-only
+#   arxiv  : optional arXiv ID ("2306.11304"); renderers build the URL
+#   github : optional code repository as "owner/repo"
+#   note   : optional badge ("Spotlight")
+#   image  : optional representative figure served by the website ("/pubs/<id>.png")
+#   bibtex : optional official BibTeX, verbatim, as a literal '''...''' string
+# -----------------------------------------------------------------------------
+
+[[publications]]
+id = "eldet"
+type = "conference"
+title = "ELDET: Early-Learning Distillation with Noisy Labels for Object Detection"
+authors = [ "person:dongmin-choi", "person:sangbin-lee", "person:me", "person:jonghyuk-baek", "person:frank-c-park" ]
+equal = [ "person:dongmin-choi", "person:sangbin-lee" ]
+venue = "NeurIPS"
+year = 2025
+url = "https://openreview.net/forum?id=IWEc6kpy8O"
+bibtex = '''
+@inproceedings{
+choi2025eldet,
+title={{ELDET}: Early-Learning Distillation with Noisy Labels for Object Detection},
+author={Dongmin Choi and Sangbin Lee and EungGu Yun and Jonghyuk Baek and Frank C. Park},
+booktitle={The Thirty-ninth Annual Conference on Neural Information Processing Systems},
+year={2025},
+url={https://openreview.net/forum?id=IWEc6kpy8O}
+}
+'''
+
+[[publications]]
+id = "laft"
+type = "conference"
+title = "Language-Assisted Feature Transformation for Anomaly Detection"
+authors = [ "person:me", "person:heonjin-ha", "person:yeongwoo-nam", "person:bryan-dongik-lee" ]
+venue = "ICLR"
+year = 2025
+url = "https://openreview.net/forum?id=2p03KljxE9"
+arxiv = "2503.01184"
+github = "yuneg11/LAFT"
+bibtex = '''
+@inproceedings{
+yun2025languageassisted,
+title={Language-Assisted Feature Transformation for Anomaly Detection},
+author={EungGu Yun and Heonjin Ha and Yeongwoo Nam and Bryan Dongik Lee},
+booktitle={The Thirteenth International Conference on Learning Representations},
+year={2025},
+url={https://openreview.net/forum?id=2p03KljxE9}
+}
+'''
+
+[[publications]]
+id = "early-exit-diffusion"
+type = "conference"
+title = "A Simple Early Exiting Framework for Accelerated Sampling in Diffusion Models"
+authors = [ "person:taehong-moon", "person:moonseok-choi", "person:me", "person:jongmin-yoon", "person:gayoung-lee", "person:jaewoong-cho", "person:juho-lee" ]
+venue = "ICML"
+year = 2024
+url = "https://proceedings.mlr.press/v235/moon24a.html"
+arxiv = "2408.05927"
+github = "taehong-moon/ee-diffusion"
+bibtex = '''
+@InProceedings{pmlr-v235-moon24a,
+  title = 	 {A Simple Early Exiting Framework for Accelerated Sampling in Diffusion Models},
+  author =       {Moon, Taehong and Choi, Moonseok and Yun, Eunggu and Yoon, Jongmin and Lee, Gayoung and Cho, Jaewoong and Lee, Juho},
+  booktitle = 	 {Proceedings of the 41st International Conference on Machine Learning},
+  pages = 	 {36212--36228},
+  year = 	 {2024},
+  editor = 	 {Salakhutdinov, Ruslan and Kolter, Zico and Heller, Katherine and Weller, Adrian and Oliver, Nuria and Scarlett, Jonathan and Berkenkamp, Felix},
+  volume = 	 {235},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {21--27 Jul},
+  publisher =    {PMLR},
+  pdf = 	 {https://raw.githubusercontent.com/mlresearch/v235/main/assets/moon24a/moon24a.pdf},
+  url = 	 {https://proceedings.mlr.press/v235/moon24a.html},
+  abstract = 	 {Diffusion models have shown remarkable performance in generation problems over various domains including images, videos, text, and audio. A practical bottleneck of diffusion models is their sampling speed, due to the repeated evaluation of score estimation networks during the inference. In this work, we propose a novel framework capable of adaptively allocating compute required for the score estimation, thereby reducing the overall sampling time of diffusion models. We observe that the amount of computation required for the score estimation may vary along the time step for which the score is estimated. Based on this observation, we propose an early-exiting scheme, where we skip the subset of parameters in the score estimation network during the inference, based on a time-dependent exit schedule. Using the diffusion models for image synthesis, we show that our method could significantly improve the sampling throughput of the diffusion models without compromising image quality. Furthermore, we also demonstrate that our method seamlessly integrates with various types of solvers for faster sampling, capitalizing on their compatibility to enhance overall efficiency.}
+}
+'''
+
+[[publications]]
+id = "dynamic-connectome"
+type = "conference"
+title = "Learning Dynamic Brain Connectome with Graph Transformers for Psychiatric Diagnosis Classification"
+authors = [ "person:byung-hoon-kim", "person:jungwon-choi", "person:me", "person:kyungsang-kim", "person:xiang-li", "person:juho-lee" ]
+venue = "IEEE ISBI"
+year = 2024
+url = "https://doi.org/10.1109/ISBI56570.2024.10635508"
+bibtex = '''
+@inproceedings{Kim_2024, title={Learning Dynamic Brain Connectome with Graph Transformers for Psychiatric Diagnosis Classification}, url={http://dx.doi.org/10.1109/ISBI56570.2024.10635508}, DOI={10.1109/isbi56570.2024.10635508}, booktitle={2024 IEEE International Symposium on Biomedical Imaging (ISBI)}, publisher={IEEE}, author={Kim, Byung-Hoon and Choi, Jungwon and Yun, EungGu and Kim, Kyungsang and Li, Xiang and Lee, Juho}, year={2024}, month=May, pages={1–5} }
+'''
+
+[[publications]]
+id = "probabilistic-imputation"
+type = "conference"
+title = "Probabilistic Imputation for Time-series Classification with Missing Data"
+authors = [ "person:seunghyun-kim", "person:hyunsu-kim", "person:me", "Hwangrae Lee", "Jaehun Lee", "person:juho-lee" ]
+equal = [ "person:seunghyun-kim", "person:hyunsu-kim", "person:me" ]
+venue = "ICML"
+year = 2023
+url = "https://proceedings.mlr.press/v202/kim23m.html"
+arxiv = "2308.06738"
+github = "yuneg11/SupNotMIWAE-with-ObsDropout"
+bibtex = '''
+@InProceedings{pmlr-v202-kim23m,
+  title = 	 {Probabilistic Imputation for Time-series Classification with Missing Data},
+  author =       {Kim, Seunghyun and Kim, Hyunsu and Yun, Eunggu and Lee, Hwangrae and Lee, Jaehun and Lee, Juho},
+  booktitle = 	 {Proceedings of the 40th International Conference on Machine Learning},
+  pages = 	 {16654--16667},
+  year = 	 {2023},
+  editor = 	 {Krause, Andreas and Brunskill, Emma and Cho, Kyunghyun and Engelhardt, Barbara and Sabato, Sivan and Scarlett, Jonathan},
+  volume = 	 {202},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {23--29 Jul},
+  publisher =    {PMLR},
+  pdf = 	 {https://proceedings.mlr.press/v202/kim23m/kim23m.pdf},
+  url = 	 {https://proceedings.mlr.press/v202/kim23m.html},
+  abstract = 	 {Multivariate time series data for real-world applications typically contain a significant amount of missing values. The dominant approach for classification with such missing values is to impute them heuristically with specific values (zero, mean, values of adjacent time-steps) or learnable parameters. However, these simple strategies do not take the data generative process into account, and more importantly, do not effectively capture the uncertainty in prediction due to the multiple possibilities for the missing values. In this paper, we propose a novel probabilistic framework for classification with multivariate time series data with missing values. Our model consists of two parts; a deep generative model for missing value imputation and a classifier. Extending the existing deep generative models to better capture structures of time-series data, our deep generative model part is trained to impute the missing values in multiple plausible ways, effectively modeling the uncertainty of the imputation. The classifier part takes the time series data along with the imputed missing values and classifies signals, and is trained to capture the predictive uncertainty due to the multiple possibilities of imputations. Importantly, we show that naïvely combining the generative model and the classifier could result in trivial solutions where the generative model does not produce meaningful imputations. To resolve this, we present a novel regularization technique that can promote the model to produce useful imputation values that help classification. Through extensive experiments on real-world time series data with missing values, we demonstrate the effectiveness of our method.}
+}
+'''
+
+[[publications]]
+id = "fast-ensembling"
+type = "conference"
+title = "Traversing Between Modes in Function Space for Fast Ensembling"
+authors = [ "person:me", "person:hyungi-lee", "person:giung-nam", "person:juho-lee" ]
+equal = [ "person:me", "person:hyungi-lee", "person:giung-nam" ]
+venue = "ICML"
+year = 2023
+url = "https://proceedings.mlr.press/v202/yun23a.html"
+arxiv = "2306.11304"
+github = "yuneg11/Bridge-Network"
+bibtex = '''
+@InProceedings{pmlr-v202-yun23a,
+  title = 	 {Traversing Between Modes in Function Space for Fast Ensembling},
+  author =       {Yun, Eunggu and Lee, Hyungi and Nam, Giung and Lee, Juho},
+  booktitle = 	 {Proceedings of the 40th International Conference on Machine Learning},
+  pages = 	 {40555--40577},
+  year = 	 {2023},
+  editor = 	 {Krause, Andreas and Brunskill, Emma and Cho, Kyunghyun and Engelhardt, Barbara and Sabato, Sivan and Scarlett, Jonathan},
+  volume = 	 {202},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {23--29 Jul},
+  publisher =    {PMLR},
+  pdf = 	 {https://proceedings.mlr.press/v202/yun23a/yun23a.pdf},
+  url = 	 {https://proceedings.mlr.press/v202/yun23a.html},
+  abstract = 	 {Deep ensemble is a simple yet powerful way to improve the performance of deep neural networks. Under this motivation, recent works on mode connectivity have shown that parameters of ensembles are connected by low-loss subspaces, and one can efficiently collect ensemble parameters in those subspaces. While this provides a way to efficiently train ensembles, for inference, multiple forward passes should still be executed using all the ensemble parameters, which often becomes a serious bottleneck for real-world deployment. In this work, we propose a novel framework to reduce such costs. Given a low-loss subspace connecting two modes of a neural network, we build an additional neural network that predicts the output of the original neural network evaluated at a certain point in the low-loss subspace. The additional neural network, which we call a “bridge”, is a lightweight network that takes minimal features from the original network and predicts outputs for the low-loss subspace without forward passes through the original network. We empirically demonstrate that we can indeed train such bridge networks and significantly reduce inference costs with the help of bridge networks.}
+}
+'''
+
+[[publications]]
+id = "martingale-posterior-np"
+type = "conference"
+title = "Martingale Posterior Neural Processes"
+authors = [ "person:hyungi-lee", "person:me", "person:giung-nam", "person:edwin-fong", "person:juho-lee" ]
+venue = "ICLR"
+year = 2023
+url = "https://openreview.net/forum?id=-9PVqZ-IR_"
+arxiv = "2304.09431"
+note = "Spotlight"
+bibtex = '''
+@inproceedings{
+lee2023martingale,
+title={Martingale Posterior Neural Processes},
+author={Hyungi Lee and Eunggu Yun and Giung Nam and Edwin Fong and Juho Lee},
+booktitle={The Eleventh International Conference on Learning Representations },
+year={2023},
+url={https://openreview.net/forum?id=-9PVqZ-IR_}
+}
+'''
+
+[[publications]]
+id = "scale-mixture-nngp"
+type = "conference"
+title = "Scale Mixtures of Neural Network Gaussian Processes"
+authors = [ "person:hyungi-lee", "person:me", "person:hongseok-yang", "person:juho-lee" ]
+venue = "ICLR"
+year = 2022
+url = "https://openreview.net/forum?id=YVPBh4k78iZ"
+arxiv = "2107.01408"
+github = "yuneg11/Scale-Mixtures-of-NNGP"
+bibtex = '''
+@inproceedings{
+lee2022scale,
+title={Scale Mixtures of Neural Network Gaussian Processes},
+author={Hyungi Lee and Eunggu Yun and Hongseok Yang and Juho Lee},
+booktitle={International Conference on Learning Representations},
+year={2022},
+url={https://openreview.net/forum?id=YVPBh4k78iZ}
+}
+'''
+
+[[publications]]
+id = "dynamic-connectome-workshop"
+type = "workshop"
+title = "Large-scale Graph Representation Learning of Dynamic Brain Connectome with Transformers"
+authors = [ "person:byung-hoon-kim", "person:jungwon-choi", "person:me", "person:kyungsang-kim", "person:xiang-li", "person:juho-lee" ]
+venue = "TGL @ NeurIPS"
+year = 2023
+arxiv = "2312.14939"
+bibtex = '''
+@misc{kim2023largescalegraphrepresentationlearning,
+      title={Large-scale Graph Representation Learning of Dynamic Brain Connectome with Transformers},
+      author={Byung-Hoon Kim and Jungwon Choi and EungGu Yun and Kyungsang Kim and Xiang Li and Juho Lee},
+      year={2023},
+      eprint={2312.14939},
+      archivePrefix={arXiv},
+      primaryClass={q-bio.NC},
+      url={https://arxiv.org/abs/2312.14939},
+}
+'''
+
+[[publications]]
+id = "fmri-self-supervised"
+type = "workshop"
+title = "A Generative Self-Supervised Framework using Functional Connectivity in fMRI Data"
+authors = [ "person:jungwon-choi", "person:seongho-keum", "person:me", "person:byung-hoon-kim", "person:juho-lee" ]
+venue = "TGL @ NeurIPS"
+year = 2023
+arxiv = "2312.01994"
+bibtex = '''
+@misc{choi2023generativeselfsupervisedframeworkusing,
+      title={A Generative Self-Supervised Framework using Functional Connectivity in fMRI Data},
+      author={Jungwon Choi and Seongho Keum and EungGu Yun and Byung-Hoon Kim and Juho Lee},
+      year={2023},
+      eprint={2312.01994},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2312.01994},
+}
+'''
+
+[[publications]]
+id = "early-exit-diffusion-workshop"
+type = "workshop"
+title = "Early Exiting for Accelerated Inference in Diffusion Models"
+authors = [ "person:taehong-moon", "person:moonseok-choi", "person:me", "person:jongmin-yoon", "person:gayoung-lee", "person:juho-lee" ]
+venue = "SPIGM @ ICML"
+year = 2023
+url = "https://openreview.net/forum?id=nhGdjo9Xed"
+bibtex = '''
+@inproceedings{
+moon2023early,
+title={Early Exiting for Accelerated Inference in Diffusion Models},
+author={Taehong Moon and Moonseok Choi and EungGu Yun and Jongmin Yoon and Gayoung Lee and Juho Lee},
+booktitle={ICML 2023 Workshop on Structured Probabilistic Inference {\&} Generative Modeling},
+year={2023},
+url={https://openreview.net/forum?id=nhGdjo9Xed}
+}
+'''
+
+[[publications]]
+id = "radiative-transfer-emulator"
+type = "journal"
+title = "Recent Advances of Radiative Transfer Emulator in WRF Model"
+authors = [ "person:hwan-jin-song", "person:soonyoung-roh", "person:park-sa-kim", "person:juho-lee", "person:giung-nam", "person:me", "person:jongmin-yoon" ]
+venue = "KOMES"
+year = 2022
+url = "https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE11162111"
+bibtex = '''
+@inproceedings{song2022recent,
+  title = {Recent advances of radiative transfer emulator in WRF model},
+  author = {Song, Hwan-Jin and Roh, Soonyoung and Kim, Park Sa and Lee, Juho and Nam, Giung and Yun, Eunggu and Yoon, Jongmin},
+  booktitle = {2022년 한국기상학회 가을학술대회 초록집 (한국기상학회 학술대회 논문집)},
+  publisher = {한국기상학회},
+  pages = {244},
+  year = {2022},
+  month = oct,
+  url = {https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE11162111}
+}
+'''
+
+[[publications]]
+id = "swa-radiation-scheme"
+type = "journal"
+title = "Benefits of Stochastic Weight Averaging in Developing Neural Network Radiation Scheme for Numerical Weather Prediction"
+authors = [ "person:hwan-jin-song", "person:soonyoung-roh", "person:juho-lee", "person:giung-nam", "person:me", "person:jongmin-yoon", "person:park-sa-kim" ]
+venue = "JAMES"
+year = 2022
+url = "https://doi.org/10.1029/2021MS002921"
+bibtex = '''
+@article{Song_2022, title={Benefits of Stochastic Weight Averaging in Developing Neural Network Radiation Scheme for Numerical Weather Prediction}, volume={14}, ISSN={1942-2466}, url={http://dx.doi.org/10.1029/2021MS002921}, DOI={10.1029/2021ms002921}, number={10}, journal={Journal of Advances in Modeling Earth Systems}, publisher={American Geophysical Union (AGU)}, author={Song, Hwan‐Jin and Roh, Soonyoung and Lee, Juho and Nam, Giung and Yun, Eunggu and Yoon, Jongmin and Kim, Park Sa}, year={2022}, month=Oct }
+'''
+
+[[publications]]
+id = "on-off-pattern-encoding"
+type = "preprint"
+title = "On-Off Pattern Encoding and Path-Count Encoding as Deep Neural Network Representations"
+authors = [ "person:euna-jung", "person:jaekeol-choi", "person:me", "person:wonjong-rhee" ]
+venue = "arXiv"
+year = 2020
+arxiv = "2401.09518"
+bibtex = '''
+@misc{jung2024onoffpatternencodingpathcount,
+      title={On-Off Pattern Encoding and Path-Count Encoding as Deep Neural Network Representations},
+      author={Euna Jung and Jaekeol Choi and EungGu Yun and Wonjong Rhee},
+      year={2024},
+      eprint={2401.09518},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2401.09518},
+}
+'''
+
+# -----------------------------------------------------------------------------
+# Projects
+# -----------------------------------------------------------------------------
+
+[[projects]]
+title.en = "Bayesian Inference for Time-series Data with Missing Values"
+title.ko = "결측값이 있는 시계열 데이터의 베이지안 추론"
+org = "org:samsung-research"
+start = { year = 2022, month = 8 }
+end = { year = 2023, month = 2 }
+
+[[projects.details]]
+text.en = "Developed a Bayesian deep learning method to quantify uncertainty within missing values."
+text.ko = "결측값의 불확실성을 정량화하는 베이지안 딥러닝 기법을 개발했습니다."
+
+[[projects.details]]
+text.en = "Proposed a multivariate time-series classification model using ObsDropout regularization."
+text.ko = "ObsDropout 정규화를 사용하는 다변량 시계열 분류 모델을 제안했습니다."
+
+[[projects.details]]
+text.en = "Validated on PhysioNet 2012, MIMIC-III, and UCI human activity datasets."
+text.ko = "PhysioNet 2012, MIMIC-III, UCI Human Activity 데이터셋에서 검증했습니다."
+
+
+[[projects]]
+title.en = "Developing AI-based Emulator for Physics Processes in Numerical Models"
+title.ko = "수치 모델 물리 과정의 AI 기반 에뮬레이터 개발"
+org = "org:nims"
+start = { year = 2021, month = 5 }
+end = { year = 2022, month = 7 }
+
+[[projects.details]]
+text.en = "Researched alternative AI-based techniques for physical processes in numerical weather prediction (NWP) models."
+text.ko = "수치예보(NWP) 모델의 물리 과정을 대체하는 AI 기반 기법을 연구했습니다."
+
+[[projects.details]]
+text.en = "Goal: reduce computational costs and improve accuracy of NWP."
+text.ko = "목표: 수치예보의 계산 비용 절감과 정확도 향상."
+
+# -----------------------------------------------------------------------------
+# Awards & Honors
+# -----------------------------------------------------------------------------
+
+[[awards]]
+title.en = "The National Scholarship for Science and Engineering"
+title.ko = "국가우수장학금(이공계)"
+url = "https://www.kosaf.go.kr/eng/jsp/aid/aid02_01_01.jsp"
+org = "org:kosaf"
+start = { year = 2019, term = "spring" }
+end = { year = 2020, term = "spring" }
+
+[[awards.details]]
+text.en = "Supports undergraduates with strong academic performance in science and engineering."
+text.ko = "이공계 분야에서 학업 성취가 우수한 학부생을 지원합니다."
+
+
+[[awards]]
+title.en = "SungKyun Software Scholarship"
+title.ko = "성균소프트웨어장학금"
+org = "org:skku"
+start = { year = 2017, term = "spring" }
+end = { year = 2018, term = "fall" }
+
+[[awards.details]]
+text.en = "Supports students with an outstanding GPA."
+text.ko = "학업 성적이 우수한 학생을 지원합니다."
+
+
+[[awards]]
+title.en = "Dean's List Award"
+title.ko = "성적우수상 (Dean's List)"
+org = "org:skku"
+unit = "org:skku-computing"
+start = { year = 2017, term = "spring" }
+end = { year = 2019, term = "fall" }
+
+[[awards.details]]
+text.en = "In recognition of high scholastic achievement. (6 times)"
+text.ko = "우수한 학업 성취를 인정받아 수상했습니다. (6회)"
+
+# -----------------------------------------------------------------------------
+# Academic Services
+# -----------------------------------------------------------------------------
+
+[[services]]
+role.en = "Reviewer"
+role.ko = "리뷰어"
+venue = "NeurIPS"
+
+[[services.years]]
+year = 2025
+note.en = "Top reviewer (~8%)"
+note.ko = "우수 리뷰어 (상위 약 8%)"
+url = "https://neurips.cc/Conferences/2025/ProgramCommittee#:~:text=EungGu%20Yun"
+
+[[services.years]]
+year = 2024
+url = "https://neurips.cc/Conferences/2024/ProgramCommittee#:~:text=EungGu%20Yun"
+
+[[services.years]]
+year = 2023
+url = "https://neurips.cc/Conferences/2023/ProgramCommittee#:~:text=EungGu%20Yun"
+
+
+[[services]]
+role.en = "Reviewer"
+role.ko = "리뷰어"
+venue = "ICML"
+
+[[services.years]]
+year = 2025
+url = "https://icml.cc/Conferences/2025/ProgramCommittee#:~:text=EungGu%20Yun"
+
+
+[[services]]
+role.en = "Reviewer"
+role.ko = "리뷰어"
+venue = "ICLR"
+
+[[services.years]]
+year = 2025
+url = "https://iclr.cc/Conferences/2025/ProgramCommittee#:~:text=EungGu%20Yun"
+
+[[services.years]]
+year = 2024
+url = "https://iclr.cc/Conferences/2024/Reviewers#:~:text=EungGu%20Yun"
+
+
+[[services]]
+role.en = "Reviewer"
+role.ko = "리뷰어"
+venue = "AAAI"
+
+[[services.years]]
+year = 2026
+url = "https://aaai.org/conference/aaai/aaai-26/2026-program-committee#:~:text=EungGu%20Yun"
+
+[[services.years]]
+year = 2025
+
+
+[[services]]
+role.en = "Reviewer"
+role.ko = "리뷰어"
+venue = "Pattern Recognition"
+
+[[services.years]]
+year = 2026
+
+# -----------------------------------------------------------------------------
+# Skills
+# -----------------------------------------------------------------------------
+
+[[skills]]
+category.en = "Programming"
+category.ko = "프로그래밍"
+items = [ "Python", "JavaScript", "C", "C++", "LaTeX" ]
+
+[[skills]]
+category.en = "Deep Learning"
+category.ko = "딥러닝"
+items = [ "PyTorch", "JAX", "TPU" ]
+
+[[skills]]
+category.en = "Systems"
+category.ko = "시스템"
+items = [ "Linux", "Docker", "Google Cloud" ]
+
+[[skills]]
+category.en = "Languages"
+category.ko = "언어"
+items = [
+  { en = "Korean (native)", ko = "한국어 (모국어)" },
+  { en = "English (intermediate)", ko = "영어 (중급)" },
+]
+
+# =============================================================================
+# Places (referenced as "place:<id>"; formats are renderer-owned)
+# =============================================================================
+
+[places.seoul]
+city.en = "Seoul"
+city.ko = "서울"
+country.en = "Korea"
+country.ko = "대한민국"
+
+[places.daejeon]
+city.en = "Daejeon"
+city.ko = "대전"
+country.en = "Korea"
+country.ko = "대한민국"
+
+# =============================================================================
+# Organizations (referenced as "org:<id>")
+# =============================================================================
+
+[orgs.krafton]
+name.en = "KRAFTON"
+name.ko = "크래프톤"
+url.en = "https://www.krafton.com/en/"
+url.ko = "https://www.krafton.com/"
+location = "place:seoul"
+
+[orgs.saige]
+name.en = "SAIGE"
+name.ko = "세이지"
+url.en = "https://saige.ai/en/"
+url.ko = "https://saige.ai/"
+location = "place:seoul"
+
+[orgs.snu]
+name.en = "Seoul National University (SNU)"
+name.ko = "서울대학교"
+url.en = "https://en.snu.ac.kr/"
+url.ko = "https://www.snu.ac.kr/"
+location = "place:seoul"
+
+[orgs.snu-aiis]
+name.en = "Artificial Intelligence Institute (AIIS)"
+name.ko = "AI연구원"
+url.en = "https://aiis.snu.ac.kr/eng/"
+url.ko = "https://aiis.snu.ac.kr/"
+
+[orgs.snu-drl]
+name = "Deep Representation Learning Research Group (DRL)"
+url = "https://drl.snu.ac.kr/"
+
+[orgs.etri]
+name.en = "Electronics and Telecommunications Research Institute (ETRI)"
+name.ko = "한국전자통신연구원 (ETRI)"
+url.en = "https://etri.re.kr/eng/main/main.etri"
+url.ko = "https://etri.re.kr/kor/main/main.etri"
+location = "place:daejeon"
+
+[orgs.etri-ai-lab]
+name.en = "Artificial Intelligence Research Laboratory"
+name.ko = "인공지능연구소"
+url.en = "https://etri.re.kr/eng/sub6/sub6_0101.etri?departCode=10"
+url.ko = "https://etri.re.kr/kor/sub6/sub6_0101.etri?departCode=10"
+
+[orgs.kaist]
+name.en = "Korea Advanced Institute of Science and Technology (KAIST)"
+name.ko = "한국과학기술원 (KAIST)"
+url.en = "https://www.kaist.ac.kr/en/"
+url.ko = "https://www.kaist.ac.kr/kr/"
+location = "place:daejeon"
+
+[orgs.kaist-gsai]
+name.en = "Graduate School of AI"
+name.ko = "AI대학원"
+url.en = "https://gsai.kaist.ac.kr/"
+url.ko = "https://gsai.kaist.ac.kr/?lang=ko"
+
+[orgs.kaist-siml]
+name = "Statistical Inference and Machine Learning Lab (SIML)"
+url = "https://siml.kaist.ac.kr"
+
+[orgs.skku]
+name.en = "SungKyunKwan University (SKKU)"
+name.ko = "성균관대학교"
+url.en = "https://www.skku.edu/eng/"
+url.ko = "https://www.skku.edu/skku/"
+location = "place:seoul"
+
+[orgs.skku-cse]
+name.en = "Department of Computer Science and Engineering, College of Computing"
+name.ko = "소프트웨어대학 소프트웨어학과"
+url.en = "https://sw.skku.edu/eng_sw/under_sw_intro.do"
+url.ko = "https://sw.skku.edu/sw/under_sw_intro.do"
+
+[orgs.skku-computing]
+name.en = "College of Computing"
+name.ko = "소프트웨어대학"
+url.en = "https://sw.skku.edu/eng_sw/index.do"
+url.ko = "https://sw.skku.edu/sw/index.do"
+
+[orgs.samsung-research]
+name.en = "Samsung Research"
+name.ko = "삼성리서치"
+url = "https://research.samsung.com"
+
+[orgs.nims]
+name.en = "National Institute of Meteorological Sciences (NIMS)"
+name.ko = "국립기상과학원"
+url.en = "http://www.nims.go.kr/AE/MA/main.jsp"
+url.ko = "http://www.nims.go.kr/"
+
+[orgs.kosaf]
+name.en = "Korea Student Aid Foundation (KOSAF)"
+name.ko = "한국장학재단"
+url.en = "https://www.kosaf.go.kr/eng/jsp/main.jsp"
+url.ko = "https://www.kosaf.go.kr/ko/main.do"
+
+# =============================================================================
+# People (referenced as "person:<id>")
+#   name      : localized name (see Names)
+#   honorific : optional ("Prof." / "교수"); used in text, not in author lists
+#   url       : optional; personal homepage if any, otherwise LinkedIn
+# =============================================================================
+
+# --- Supervisors -------------------------------------------------------------
+
+[people.juho-lee]
+name.en = "Juho Lee"
+name.ko = "이주호"
+honorific.en = "Prof."
+honorific.ko = "교수"
+url = "https://juho-lee.github.io"
+
+[people.wonjong-rhee]
+name.en = "Wonjong Rhee"
+name.ko = "이원종"
+honorific.en = "Prof."
+honorific.ko = "교수"
+url = "https://drl.snu.ac.kr/people/professor"
+
+[people.yoomi-park]
+name.en = "Yoo-mi Park"
+name.ko = "박유미"
+honorific.en = ""
+honorific.ko = "책임연구원"
+url = "https://kr.linkedin.com/in/yoomipark-etri"
+
+# --- Co-authors --------------------------------------------------------------
+# Co-authors with no link or Korean name are written as plain names in
+# the author lists instead of being listed here.
+
+[people.bryan-dongik-lee]
+name.en = "Bryan Dongik Lee"
+name.ko = "이동익"
+
+[people.byung-hoon-kim]
+name = "Byung-Hoon Kim"
+url = "http://byunghoon.kim/"
+
+[people.dongmin-choi]
+name.en = "Dongmin Choi"
+name.ko = "최동민"
+url = "https://kr.linkedin.com/in/dmchoi98"
+
+[people.edwin-fong]
+name = "Edwin Fong"
+url = "https://edfong.github.io/"
+
+[people.euna-jung]
+name = "Euna Jung"
+url = "https://www.linkedin.com/in/euna-jung-b12608120/"
+
+[people.frank-c-park]
+name.en = "Frank C. Park"
+name.ko = "박종우"
+url = "https://sites.google.com/robotics.snu.ac.kr/fcp/"
+
+[people.gayoung-lee]
+name = "Gayoung Lee"
+url = "https://sites.google.com/site/gylee1103"
+
+[people.giung-nam]
+name.en = "Giung Nam"
+name.ko = "남기웅"
+url = "https://cs-giung.github.io/"
+
+[people.heonjin-ha]
+name.en = "Heonjin Ha"
+name.ko = "하헌진"
+
+[people.hongseok-yang]
+name.en = "Hongseok Yang"
+name.ko = "양홍석"
+url = "https://sites.google.com/view/hongseokyang"
+
+[people.hwan-jin-song]
+name.en = "Hwan-Jin Song"
+name.ko = "송환진"
+url = "https://research.knu.ac.kr/en/persons/hwan-jin-song/"
+
+[people.hyungi-lee]
+name.en = "Hyungi Lee"
+name.ko = "이현기"
+url = "https://hyungi-lee.github.io/"
+
+[people.hyunsu-kim]
+name.en = "Hyunsu Kim"
+name.ko = "김현수"
+url = "https://kim-hyunsu.github.io/"
+
+[people.jaekeol-choi]
+name = "Jaekeol Choi"
+url = "https://maygodwithu.github.io"
+
+[people.jaewoong-cho]
+name.en = "Jaewoong Cho"
+name.ko = "조제웅"
+url = "https://sites.google.com/view/jaewoongcho"
+
+[people.jonghyuk-baek]
+name.en = "Jonghyuk Baek"
+name.ko = "백종혁"
+
+[people.jongmin-yoon]
+name = "Jongmin Yoon"
+url = "https://www.linkedin.com/in/jongmin-yoon-9915469a/"
+
+[people.jungwon-choi]
+name.en = "Jungwon Choi"
+name.ko = "최중원"
+url = "https://jungwon-choi.github.io/"
+
+[people.kyungsang-kim]
+name = "Kyungsang Kim"
+url = "https://researchers.mgh.harvard.edu/profile/14176504/Kyungsang-Kim"
+
+[people.moonseok-choi]
+name.en = "Moonseok Choi"
+name.ko = "최문석"
+url = "https://moon4sake.github.io/"
+
+[people.park-sa-kim]
+name = "Park Sa Kim"
+
+[people.sangbin-lee]
+name.en = "Sangbin Lee"
+name.ko = "이상빈"
+
+[people.seongho-keum]
+name = "Seongho Keum"
+url = "https://www.linkedin.com/in/seongho-keum-b0086b267/"
+
+[people.seunghyun-kim]
+name.en = "SeungHyun Kim"
+name.ko = "김승현"
+url = "https://www.linkedin.com/in/robin-kim-05347b219/"
+
+[people.soonyoung-roh]
+name = "Soonyoung Roh"
+
+[people.taehong-moon]
+name.en = "Taehong Moon"
+name.ko = "문태홍"
+url = "https://taehong-moon.github.io/"
+
+[people.xiang-li]
+name = "Xiang Li"
+url = "https://xiangli-shaun.github.io/"
+
+[people.yeongwoo-nam]
+name.en = "Yeongwoo Nam"
+name.ko = "남영우"

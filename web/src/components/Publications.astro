@@ -1,0 +1,345 @@
+---
+import Icon from './Icon.astro'
+import { data, loc, onWeb, authors, pubLinks, type Lang } from '../lib/data'
+import { t } from '../lib/i18n'
+
+interface Props { lang: Lang }
+const { lang } = Astro.props
+const s = t(lang)
+
+const pubs = onWeb(data.publications)
+const TYPES = ['conference', 'workshop', 'journal', 'preprint'] as const
+const counts = Object.fromEntries(TYPES.map((k) => [k, pubs.filter((p) => p.type === k).length]))
+const years = [...new Set(pubs.map((p) => p.year))].sort((a, b) => b - a)
+const byYear = (y: number) => pubs.filter((p) => p.year === y)
+---
+<section id="publications" class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 class="section-title">{s.publications}<span class="section-count mono">{pubs.length}</span></h2>
+      <div class="filters" role="group" aria-label={s.publications}>
+        <button type="button" class="filter" data-filter="all" aria-pressed="true">
+          {s.all}<span class="mono">{pubs.length}</span>
+        </button>
+        {TYPES.filter((k) => counts[k]).map((k) => (
+          <button type="button" class="filter" data-filter={k} aria-pressed="false">
+            {s[k]}<span class="mono">{counts[k]}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <div class="years">
+      {years.map((y) => (
+        <div class="year-group" data-year={y}>
+          <div class="year mono">{y}</div>
+          <div class="pubs">
+            {byYear(y).map((p) => {
+              const note = loc(p.note, lang)
+              const links = pubLinks(p)
+              return (
+                <article class={`pub reveal${p.image ? ' has-image' : ''}`} data-type={p.type}>
+                  {p.image && (
+                    <div class="thumb">
+                      <img src={p.image} alt="" loading="lazy" decoding="async" />
+                    </div>
+                  )}
+                  <div class="body">
+                    <div class="meta">
+                      <span class="venue mono">{p.venue} {p.year}</span>
+                      {note && <span class="chip solid">{note}</span>}
+                      <span class="type">{s[p.type]}</span>
+                    </div>
+                    <h3>
+                      {links.title ? <a href={links.title} target="_blank" rel="noopener">{p.title}</a> : p.title}
+                    </h3>
+                    <p class="authors">
+                      {authors(p).map((a, i, all) => (
+                        <>
+                          {a.me ? (
+                            <strong>{a.name}</strong>
+                          ) : a.url ? (
+                            <a href={a.url} target="_blank" rel="noopener">{a.name}</a>
+                          ) : (
+                            <span>{a.name}</span>
+                          )}
+                          {a.equal && <sup>*</sup>}
+                          {i < all.length - 1 && ', '}
+                        </>
+                      ))}
+                    </p>
+                    {p.equal?.length ? <p class="equal-note"><sup>*</sup>{s.equal}</p> : null}
+                    <div class="pub-actions">
+                      {links.paper && (
+                        <a class="btn small" href={links.paper} target="_blank" rel="noopener">
+                          {s.paper}<Icon name="arrow" />
+                        </a>
+                      )}
+                      {links.arxiv && (
+                        <a class="btn small" href={links.arxiv} target="_blank" rel="noopener">
+                          <Icon name="arxiv" />{s.arxiv}
+                        </a>
+                      )}
+                      {links.code && (
+                        <a class="btn small" href={links.code} target="_blank" rel="noopener">
+                          <Icon name="github" />{s.code}
+                        </a>
+                      )}
+                      {p.bibtex && (
+                        <button
+                          type="button"
+                          class="btn small"
+                          data-bibtex={p.bibtex.trim()}
+                          data-label={s.bibtex}
+                          data-copied={s.copied}
+                        >
+                          <Icon name="copy" class="i-copy" /><Icon name="check" class="i-check" /><span>{s.bibtex}</span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <p class="empty-msg" hidden data-empty>{s.noResults}</p>
+  </div>
+</section>
+
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 3px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg-subtle);
+  }
+
+  .filter {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 28px;
+    padding: 0 11px;
+    border: 0;
+    border-radius: 999px;
+    background: none;
+    color: var(--text-2);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s var(--ease), color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  }
+
+  .filters.instant .filter {
+    transition: none;
+  }
+
+  .filter span {
+    color: var(--text-3);
+    font-size: 11px;
+  }
+
+  .filter:hover {
+    color: var(--text);
+  }
+
+  .filter[aria-pressed='true'] {
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 0 0 1px var(--border), 0 1px 2px rgb(0 0 0 / 0.06);
+  }
+
+  .year-group {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .year-group[hidden] {
+    display: none;
+  }
+
+  .year {
+    position: sticky;
+    top: 72px;
+    align-self: start;
+    padding-top: 20px;
+    color: var(--text-3);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .pub {
+    padding: 18px 0;
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+
+  .pub + .pub {
+    border-top: 1px solid var(--border);
+  }
+
+  .pub.has-image {
+    display: grid;
+    grid-template-columns: 148px 1fr;
+    gap: 18px;
+  }
+
+  .pub[hidden] {
+    display: none;
+  }
+
+  .thumb {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-subtle);
+  }
+
+  .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .body {
+    min-width: 0;
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .venue {
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .meta .chip {
+    height: 20px;
+    padding: 0 7px;
+    font-size: 11px;
+  }
+
+  .type {
+    margin-left: auto;
+    color: var(--text-3);
+    font-size: 12px;
+  }
+
+  h3 {
+    font-size: 15.5px;
+    font-weight: 600;
+    line-height: 1.45;
+    letter-spacing: -0.012em;
+  }
+
+  h3 a {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size 0.3s var(--ease);
+  }
+
+  h3 a:hover {
+    background-size: 100% 1px;
+  }
+
+  .authors {
+    margin-top: 6px;
+    color: var(--text-2);
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+
+  .authors strong {
+    color: var(--mark-me);
+    font-weight: 600;
+  }
+
+  .authors a:hover {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: var(--link-line);
+  }
+
+  .authors sup,
+  .equal-note sup {
+    margin-left: 1px;
+    font-size: 0.75em;
+  }
+
+  .equal-note {
+    margin-top: 2px;
+    color: var(--text-3);
+    font-size: 12px;
+  }
+
+  .equal-note sup {
+    margin: 0 3px 0 0;
+  }
+
+  .pub-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .pub-actions :global(.i-check) {
+    display: none;
+  }
+
+  .pub-actions :global(.done .i-check) {
+    display: block;
+  }
+
+  .pub-actions :global(.done .i-copy) {
+    display: none;
+  }
+
+  .empty-msg {
+    margin-top: 16px;
+    color: var(--text-3);
+    font-size: 12.5px;
+  }
+
+  @media (max-width: 760px) {
+    .year-group {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .year {
+      position: static;
+      padding-top: 16px;
+    }
+
+    .pub:first-child {
+      padding-top: 10px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .pub.has-image {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .type {
+      margin-left: 0;
+    }
+  }
+</style>
