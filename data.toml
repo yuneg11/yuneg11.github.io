@@ -140,7 +140,7 @@ text.ko = "모델의 역량을 평가하고 대화형 및 에이전트 환경에
 title.en = "AI Researcher"
 title.ko = "AI 연구원"
 org = "org:saige"
-unit = "AI Lab"
+unit = "AI Laboratory"
 start = { year = 2023, month = 3 }
 end = { year = 2026, month = 7 }
 
@@ -771,7 +771,7 @@ url.ko = "https://www.krafton.com/"
 location = "place:seoul"
 
 [orgs.krafton-ai]
-name.en = "AI Research Div."
+name.en = "AI Research Division"
 name.ko = "AI Research 본부"
 url.en = "https://krafton.ai/en/"
 url.ko = "https://krafton.ai/"
