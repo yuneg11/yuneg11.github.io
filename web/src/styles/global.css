@@ -8,7 +8,6 @@
   color-scheme: light;
   --bg: #ffffff;
   --bg-subtle: #f7f7f8;
-  --bg-hero: #eef1f6;
   --bg-band: #f3f3f5;
   --surface: #ffffff;
   --surface-hover: #fafafa;
@@ -38,7 +37,6 @@
     color-scheme: dark;
     --bg: #0c0c0e;
     --bg-subtle: #131316;
-    --bg-hero: #11141b;
     --bg-band: #151518;
     --surface: #121215;
     --surface-hover: #17171b;
@@ -60,7 +58,6 @@
   color-scheme: dark;
   --bg: #0c0c0e;
   --bg-subtle: #131316;
-  --bg-hero: #11141b;
   --bg-band: #151518;
   --surface: #121215;
   --surface-hover: #17171b;
