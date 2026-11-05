@@ -65,16 +65,23 @@ const links = socialLinks(lang)
 </section>
 
 <style>
+  /* Tinted band that starts under the transparent nav and fades into the page. */
   .hero {
     position: relative;
-    padding: 72px 0 40px;
+    margin-top: -56px;
+    padding: 128px 0 48px;
     overflow: hidden;
+    background: linear-gradient(var(--bg-hero) 50%, var(--bg));
+  }
+
+  .hero > .container {
+    position: relative;
   }
 
   .hero-bg {
     position: absolute;
-    inset: -56px 0 0;
-    z-index: -1;
+    inset: 0;
+    z-index: 0;
     background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
     background-size: 22px 22px;
     mask-image: radial-gradient(ellipse 70% 60% at 30% 20%, #000 20%, transparent 75%);

@@ -8,6 +8,8 @@
   color-scheme: light;
   --bg: #ffffff;
   --bg-subtle: #f7f7f8;
+  --bg-hero: #eef1f6;
+  --bg-band: #f3f3f5;
   --surface: #ffffff;
   --surface-hover: #fafafa;
   --border: #e8e8eb;
@@ -36,6 +38,8 @@
     color-scheme: dark;
     --bg: #0c0c0e;
     --bg-subtle: #131316;
+    --bg-hero: #11141b;
+    --bg-band: #151518;
     --surface: #121215;
     --surface-hover: #17171b;
     --border: #232328;
@@ -56,6 +60,8 @@
   color-scheme: dark;
   --bg: #0c0c0e;
   --bg-subtle: #131316;
+  --bg-hero: #11141b;
+  --bg-band: #151518;
   --surface: #121215;
   --surface-hover: #17171b;
   --border: #232328;
@@ -204,20 +210,13 @@ button {
 .section {
   --section-bg: var(--bg);
   padding: 56px 0;
-  background: var(--section-bg);
-  transition: background-color 0.25s var(--ease);
 }
 
-/* Alternate backgrounds so neighbouring sections read as separate bands.
-   The hero is the first section, so even sections get the tint. */
-main > .section:nth-of-type(even) {
-  --section-bg: var(--bg-subtle);
-  border-block: 1px solid var(--border);
-}
-
-/* The footer draws its own top rule. */
-main > .section:nth-of-type(even):last-child {
-  border-bottom: 0;
+/* Bands: from Education on, every other section fades into a soft gray and
+   back out, so neighbouring sections separate without hard rules. */
+main > .section:nth-of-type(odd) {
+  --section-bg: var(--bg-band);
+  background: linear-gradient(var(--bg), var(--bg-band) 56px calc(100% - 56px), var(--bg));
 }
 
 .section-head {
