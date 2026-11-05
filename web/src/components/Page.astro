@@ -27,14 +27,14 @@ const lists = {
 const has = (id: keyof typeof lists) => onWeb(lists[id]).length > 0
 ---
 <Base lang={lang}>
-  <a class="skip" href="#publications">{s.skip}</a>
+  <a class="skip" href="#content">{s.skip}</a>
   <div id="top"></div>
   <Nav lang={lang} />
-  <main>
+  <main id="content">
     <Hero lang={lang} />
-    {has('publications') && <Publications lang={lang} />}
     {has('experience') && <Timeline id="experience" title={s.experience} entries={data.experiences} lang={lang} />}
     {has('education') && <Timeline id="education" title={s.education} entries={data.education} lang={lang} />}
+    {has('publications') && <Publications lang={lang} />}
     {has('projects') && <EntryList id="projects" title={s.projects} entries={data.projects} lang={lang} />}
     {has('awards') && <EntryList id="awards" title={s.awards} entries={data.awards} lang={lang} />}
     {has('services') && <Services lang={lang} />}

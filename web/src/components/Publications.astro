@@ -55,13 +55,13 @@ const yearsOf = (list: Publication[]) => [...new Set(list.map((p) => p.year))].s
                         {note && <span class="badge">{note}</span>}
                         <span class="links">
                           {links.paper && (
-                            <a href={links.paper} target="_blank" rel="noopener"><Icon name="paper" />{s.paper}</a>
+                            <a href={links.paper} target="_blank" rel="noopener"><Icon name="paper" /><span>{s.paper}</span></a>
                           )}
                           {links.arxiv && (
-                            <a href={links.arxiv} target="_blank" rel="noopener"><Icon name="arxiv" />{s.arxiv}</a>
+                            <a href={links.arxiv} target="_blank" rel="noopener"><Icon name="arxiv" /><span>{s.arxiv}</span></a>
                           )}
                           {links.code && (
-                            <a href={links.code} target="_blank" rel="noopener"><Icon name="github" />{s.code}</a>
+                            <a href={links.code} target="_blank" rel="noopener"><Icon name="github" /><span>{s.code}</span></a>
                           )}
                           {p.bibtex && (
                             <button
@@ -278,6 +278,17 @@ const yearsOf = (list: Publication[]) => [...new Set(list.map((p) => p.year))].s
   .links a:hover,
   .links button:hover {
     color: var(--text);
+  }
+
+  /* Same growing underline as the titles, under the label only. */
+  .links span {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size 0.3s var(--ease);
+  }
+
+  .links a:hover span,
+  .links button:hover span {
+    background-size: 100% 1px;
   }
 
   .links :global(svg) {
