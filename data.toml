@@ -791,7 +791,7 @@ url.ko = "https://www.snu.ac.kr/"
 location = "place:seoul"
 
 [orgs.snu-aiis]
-name.en = "Artificial Intelligence Institute (AIIS)"
+name.en = "AI Institute (AIIS)"
 name.ko = "AI연구원"
 url.en = "https://aiis.snu.ac.kr/eng/"
 url.ko = "https://aiis.snu.ac.kr/"
@@ -808,7 +808,7 @@ url.ko = "https://etri.re.kr/kor/main/main.etri"
 location = "place:daejeon"
 
 [orgs.etri-ai-lab]
-name.en = "Artificial Intelligence Research Laboratory"
+name.en = "AI Research Laboratory"
 name.ko = "인공지능연구소"
 url.en = "https://etri.re.kr/eng/sub6/sub6_0101.etri?departCode=10"
 url.ko = "https://etri.re.kr/kor/sub6/sub6_0101.etri?departCode=10"
