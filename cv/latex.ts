@@ -132,7 +132,7 @@ export function latex(doc: CvDocument): string {
   {\fontsize{18}{22}\selectfont\bfseries\color{darktext}\scshape #1\par}%
   \vspace{3pt}{\color{graytext}\hrule height 0.6pt}\vspace{4pt}\nopagebreak}
 \renewcommand{\subsection}[1]{%
-  \par\addvspace{14pt}\needspace{4\baselineskip}%
+  \par\addvspace{18pt}\needspace{4\baselineskip}%
   {\fontsize{12}{15}\selectfont\color{darktext}\scshape #1\par}%
   \vspace{2pt}\nopagebreak}
 
@@ -169,7 +169,7 @@ export function latex(doc: CvDocument): string {
 % #1 title, #2 venue (with note), #3 authors, #4 year
 \newcommand{\pubnote}[1]{{\itshape\color{graytext}#1}}
 \newcommand{\pub}[4]{%
-  \par\addvspace{9pt}\needspace{3\baselineskip}\noindent
+  \par\addvspace{11pt}\needspace{3\baselineskip}\noindent
   \begin{tabularx}{\linewidth}{@{}L@{\hspace{10pt}}r@{}}
     {\leavevmode\fontsize{10.5}{13}\selectfont\bfseries\color{darktext}#1} & {\leavevmode\fontsize{10.5}{13}\selectfont\regular\color{darktext}#2} \\[1pt]
     {\leavevmode\fontsize{8.5}{11}\selectfont\color{text}#3} & \place{#4}
