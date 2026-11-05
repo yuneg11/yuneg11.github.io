@@ -14,7 +14,7 @@ Personal website and CV, both generated from a single [`data.toml`](data.toml).
 | `lib/` | Shared loader: parses `data.toml`, resolves references, formats names, dates and links. Also the UI strings (`i18n.ts`). |
 | `web/` | The website (Astro). |
 | `cv/` | The CV: `model.ts` turns the data into a format-neutral document, `latex.ts` renders it for XeTeX. |
-| `.github/workflows/` | `deploy.yml` publishes the site on every push to `main`; `release.yml` publishes the CV for a `vYYMMDD` tag. |
+| `.github/workflows/` | `deploy.yml` publishes the site on every push to `v5` (the default branch; earlier site versions live on `v0`–`v4`); `release.yml` publishes the CV for a `vYYMMDD` tag. |
 
 ## Commands
 
