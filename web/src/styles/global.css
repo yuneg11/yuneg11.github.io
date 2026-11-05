@@ -202,7 +202,22 @@ button {
 /* ---------------------------------------------------------------- sections */
 
 .section {
-  padding: 56px 0 8px;
+  --section-bg: var(--bg);
+  padding: 56px 0;
+  background: var(--section-bg);
+  transition: background-color 0.25s var(--ease);
+}
+
+/* Alternate backgrounds so neighbouring sections read as separate bands.
+   The hero is the first section, so even sections get the tint. */
+main > .section:nth-of-type(even) {
+  --section-bg: var(--bg-subtle);
+  border-block: 1px solid var(--border);
+}
+
+/* The footer draws its own top rule. */
+main > .section:nth-of-type(even):last-child {
+  border-bottom: 0;
 }
 
 .section-head {
