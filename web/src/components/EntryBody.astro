@@ -66,16 +66,14 @@ const ongoing = isOngoing(e)
     letter-spacing: -0.015em;
   }
 
+  /* Same as publication titles: the underline grows in on hover. */
   h3 a {
-    text-decoration: underline;
-    text-decoration-color: var(--link-line);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
-    transition: text-decoration-color 0.2s var(--ease);
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size 0.3s var(--ease);
   }
 
   h3 a:hover {
-    text-decoration-color: var(--text);
+    background-size: 100% 1px;
   }
 
   .now {
