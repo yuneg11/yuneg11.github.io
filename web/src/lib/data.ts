@@ -102,8 +102,9 @@ export function loc<T>(v: Localized<T> | undefined, lang: Lang): T | undefined {
   return isLocalized(v) ? (v as { en: T; ko: T })[lang] : (v as T)
 }
 
-/** Visible on the website (default true). */
+/** Visible on the website / in the CV (default true). */
 export const onWeb = <T extends Visibility>(xs: T[] = []) => xs.filter((x) => x.web !== false)
+export const onCv = <T extends Visibility>(xs: T[] = []) => xs.filter((x) => x.cv !== false)
 
 /* ------------------------------------------------------------- references */
 
@@ -118,7 +119,7 @@ type Resolved =
   | { kind: 'pub'; id: string; value: Publication }
   | { kind: 'place'; id: string; value: Place }
 
-function resolve(ref: string): Resolved {
+export function resolve(ref: string): Resolved {
   const m = REF.exec(ref)
   if (!m) throw new Error(`Not a reference: ${ref}`)
   const [, kind, id] = m
@@ -152,7 +153,9 @@ function personTitled(p: Person, lang: Lang): string {
 
 /* --------------------------------------------------------------- display */
 
-interface Link { text: string; url?: string }
+/** Text with an optional url. `ref` is the reference kind when the text came from one;
+ *  `own` is true when the text is the target's own name or title (`<kind:id>` form). */
+export interface Link { text: string; url?: string; ref?: Resolved['kind']; own?: boolean }
 
 /** Label and url of any reference, as shown inside text. */
 export function refLink(ref: string, lang: Lang): Link {
@@ -208,41 +211,41 @@ export function formatPeriod(e: Entry, lang: Lang, present: string): string | un
 
 /* ------------------------------------------------------------------- text */
 
+const LINK = /<((?:org|person|pub|place):[a-z0-9-]+)>|\[([^\]]+)\]\(([^)\s]+)\)/g
+
+/** Text with the two allowed Markdown link forms -> plain and linked runs. */
+export function segments(text: string, lang: Lang): Link[] {
+  const out: Link[] = []
+  let last = 0
+  for (const m of text.matchAll(LINK)) {
+    if (m.index > last) out.push({ text: text.slice(last, m.index) })
+    if (m[1]) out.push({ ...refLink(m[1], lang), ref: resolve(m[1]).kind, own: true })
+    else if (isRef(m[3])) out.push({ text: m[2], url: refLink(m[3], lang).url, ref: resolve(m[3]).kind })
+    else out.push({ text: m[2], url: m[3] })
+    last = m.index + m[0].length
+  }
+  if (last < text.length) out.push({ text: text.slice(last) })
+  return out
+}
+
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
-function anchor(text: string, url: string | undefined): string {
+function anchor({ text, url }: Link): string {
   if (!url) return esc(text)
   const external = /^https?:/.test(url)
   return `<a href="${esc(url)}"${external ? ' target="_blank" rel="noopener"' : ''}>${esc(text)}</a>`
 }
 
-function linkTarget(target: string, lang: Lang): string | undefined {
-  return isRef(target) ? refLink(target, lang).url : target
-}
-
-const LINK = /<((?:org|person|pub|place):[a-z0-9-]+)>|\[([^\]]+)\]\(([^)\s]+)\)/g
-
 /** Text with the two allowed Markdown link forms -> inline HTML. */
-export function inline(text: string, lang: Lang): string {
-  let out = ''
-  let last = 0
-  for (const m of text.matchAll(LINK)) {
-    out += esc(text.slice(last, m.index))
-    if (m[1]) {
-      const l = refLink(m[1], lang)
-      out += anchor(l.text, l.url)
-    } else {
-      out += anchor(m[2], linkTarget(m[3], lang))
-    }
-    last = m.index! + m[0].length
-  }
-  return out + esc(text.slice(last))
-}
+export const inline = (text: string, lang: Lang) => segments(text, lang).map(anchor).join('')
 
-/** Multi-line text: a blank line starts a new paragraph. */
-export const paragraphs = (text: string, lang: Lang) =>
-  text.trim().split(/\n\s*\n/).map((p) => inline(p.replace(/\s*\n\s*/g, ' '), lang))
+/** Multi-line text joined into paragraphs (a blank line starts a new one). */
+export const paragraphTexts = (text: string) =>
+  text.trim().split(/\n\s*\n/).map((p) => p.replace(/\s*\n\s*/g, ' '))
+
+/** Multi-line text -> one inline-HTML string per paragraph. */
+export const paragraphs = (text: string, lang: Lang) => paragraphTexts(text).map((p) => inline(p, lang))
 
 /* ---------------------------------------------------------------- authors */
 
