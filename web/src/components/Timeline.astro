@@ -1,6 +1,6 @@
 ---
 import EntryBody from './EntryBody.astro'
-import { onWeb, isOngoing, type Entry, type Lang } from '../lib/data'
+import { onWeb, isOngoing, type Entry, type Lang } from '@site/lib/data'
 
 interface Props { id: string; title: string; entries: Entry[]; lang: Lang; orgFirst?: boolean }
 const { id, title, entries, lang, orgFirst } = Astro.props

@@ -4,8 +4,8 @@
 import {
   data, loc, onCv, refOrText, segments, paragraphTexts, formatName, entryLocation, authors, pubLinks,
   type Entry, type Lang, type Link,
-} from '../web/src/lib/data'
-import { t } from '../web/src/lib/i18n'
+} from '@site/lib/data'
+import { t } from '@site/lib/i18n'
 
 /** A run of text, optionally linked or emphasized. */
 export interface Run { text: string; url?: string; strong?: boolean; em?: boolean }

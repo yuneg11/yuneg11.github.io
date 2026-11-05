@@ -1,11 +1,12 @@
 {
-  "name": "yuneg11-cv",
+  "name": "@site/cv",
   "type": "module",
   "private": true,
   "scripts": {
     "build": "bun build.ts"
   },
   "dependencies": {
+    "@site/lib": "workspace:*",
     "pretendard": "^1.3.9"
   }
 }

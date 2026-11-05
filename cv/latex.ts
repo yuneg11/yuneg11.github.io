@@ -5,7 +5,7 @@
 import { fileURLToPath } from 'node:url'
 import type { CvDocument, EntryItem, Group, Item, Rich, Run, Section } from './model'
 
-const pretendardDir = fileURLToPath(new URL('./node_modules/pretendard/dist/public/static/', import.meta.url))
+const pretendardDir = fileURLToPath(new URL('dist/public/static/', import.meta.resolve('pretendard/package.json')))
 
 /** Escape plain text for LaTeX. */
 const tex = (s: string) =>

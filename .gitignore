@@ -1,4 +1,14 @@
+.DS_Store
+node_modules/
+
+# Build output
+web/dist/
+web/.astro/
+cv/out/
+# Built by `bun run cv` (and in CI); published with the site and on releases.
+web/public/cv.pdf
+
+# Local only
+.claude/
 # Reference copies of the old homepage and CV repositories (each has its own .git).
 refs/
-
-.DS_Store

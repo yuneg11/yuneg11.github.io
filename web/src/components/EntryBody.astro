@@ -1,7 +1,7 @@
 ---
 // One renderer for every entry (experiences, education, projects, awards).
-import { loc, onWeb, refOrText, entryLocation, formatPeriod, isOngoing, inline, type Entry, type Lang } from '../lib/data'
-import { t } from '../lib/i18n'
+import { loc, onWeb, refOrText, entryLocation, formatPeriod, isOngoing, inline, type Entry, type Lang } from '@site/lib/data'
+import { t } from '@site/lib/i18n'
 
 /** `orgFirst`: the organization is the heading and the title moves under it (experience). */
 interface Props { entry: Entry; lang: Lang; showLocation?: boolean; orgFirst?: boolean }

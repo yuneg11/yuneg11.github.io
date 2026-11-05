@@ -1,6 +1,6 @@
-// Loads ../data.toml and resolves its conventions (see the header of that file).
+// Loads data.toml (repository root) and resolves its conventions (see the header of that file).
 import { parse } from 'smol-toml'
-import raw from '../../../data.toml?raw'
+import raw from '../data.toml?raw'
 
 export type Lang = 'en' | 'ko'
 

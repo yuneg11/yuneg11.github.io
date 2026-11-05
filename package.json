@@ -1,0 +1,12 @@
+{
+  "name": "yuneg11.github.io",
+  "type": "module",
+  "private": true,
+  "workspaces": ["lib", "web", "cv"],
+  "scripts": {
+    "dev": "bun run --filter @site/web dev",
+    "cv": "bun run --filter @site/cv build",
+    "build": "bun run cv && bun run --filter @site/web build",
+    "preview": "bun run --filter @site/web preview"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@site/lib",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./data": "./data.ts",
+    "./i18n": "./i18n.ts"
+  },
+  "dependencies": {
+    "smol-toml": "^1.9.1"
+  }
+}
