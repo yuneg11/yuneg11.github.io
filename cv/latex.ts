@@ -113,6 +113,9 @@ export function latex(doc: CvDocument): string {
 \hypersetup{pdftitle={${tex(name)} CV}, pdfauthor={${tex(name)}}, pdflang={en}}
 \setlength{\parindent}{0pt}
 \frenchspacing
+% No hyphenation anywhere.
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
 \raggedbottom
 \setlength{\emergencystretch}{3em}
 
@@ -141,7 +144,7 @@ export function latex(doc: CvDocument): string {
 
 % #1 organization, #2 place, #3 title, #4 period, #5 unit (next to the title, to save a line)
 \newcommand{\position}[5]{%
-  \par\addvspace{10pt}\noindent
+  \par\addvspace{11pt}\noindent
   \begin{tabularx}{\linewidth}{@{}L@{\hspace{10pt}}r@{}}
     {\leavevmode\fontsize{12.5}{15}\selectfont\bfseries\color{darktext}#1} & \place{#2} \\[1pt]
     {\leavevmode\fontsize{10.5}{13}\selectfont\regular\itshape\color{darktext}#3}%
@@ -152,21 +155,21 @@ export function latex(doc: CvDocument): string {
 
 % #1 title, #2 period, #3 organization
 \newcommand{\honor}[3]{%
-  \par\addvspace{10pt}\noindent
+  \par\addvspace{11pt}\noindent
   \begin{tabularx}{\linewidth}{@{}L@{\hspace{10pt}}r@{}}
     {\leavevmode\fontsize{11}{14}\selectfont\bfseries\color{darktext}#1} & \place{#2}
   \end{tabularx}\par
   \vspace{2pt}{\fontsize{9.5}{12}\selectfont\regular\color{text}#3\par}}
 
 \newlist{details}{itemize}{1}
-\setlist[details]{label={\textbullet}, leftmargin=10pt, labelsep=5pt, topsep=3pt, partopsep=0pt, itemsep=1.5pt, parsep=0pt}
+\setlist[details]{label={\textbullet}, leftmargin=10pt, labelsep=5pt, topsep=3.5pt, partopsep=0pt, itemsep=2pt, parsep=0pt}
 \AddToHook{env/details/begin}{\fontsize{10}{13.5}\selectfont\color{text}}
 
 % ------------------------------------------------------------ publications
 % #1 title, #2 venue (with note), #3 authors, #4 year
 \newcommand{\pubnote}[1]{{\itshape\color{graytext}#1}}
 \newcommand{\pub}[4]{%
-  \par\addvspace{8pt}\needspace{3\baselineskip}\noindent
+  \par\addvspace{9pt}\needspace{3\baselineskip}\noindent
   \begin{tabularx}{\linewidth}{@{}L@{\hspace{10pt}}r@{}}
     {\leavevmode\fontsize{10.5}{13}\selectfont\bfseries\color{darktext}#1} & {\leavevmode\fontsize{10.5}{13}\selectfont\regular\color{darktext}#2} \\[1pt]
     {\leavevmode\fontsize{8.5}{11}\selectfont\color{text}#3} & \place{#4}
@@ -175,11 +178,11 @@ export function latex(doc: CvDocument): string {
 % --------------------------------------------------------- services, skills
 \newcommand{\venue}[1]{{\bfseries\color{darktext}#1}}
 \newenvironment{services}
-  {\par\addvspace{6pt}\noindent\fontsize{10.5}{16}\selectfont\color{graytext}\begin{tabular}{@{}l@{\hspace{12pt}}l@{}}}
+  {\par\addvspace{6pt}\noindent\fontsize{10.5}{17.5}\selectfont\color{graytext}\begin{tabular}{@{}l@{\hspace{12pt}}l@{}}}
   {\end{tabular}\par}
-\newcommand{\service}[2]{#1 & {\fontsize{9.5}{16}\selectfont#2}}
+\newcommand{\service}[2]{#1 & {\fontsize{9.5}{17.5}\selectfont#2}}
 \newenvironment{skills}
-  {\par\addvspace{6pt}\noindent\fontsize{10.5}{16}\selectfont\color{graytext}\begin{tabular}{@{}r@{\hspace{10pt}}l@{}}}
+  {\par\addvspace{6pt}\noindent\fontsize{10.5}{17.5}\selectfont\color{graytext}\begin{tabular}{@{}r@{\hspace{10pt}}l@{}}}
   {\end{tabular}\par}
 \newcommand{\skill}[2]{\venue{#1} & #2}
 
@@ -202,7 +205,7 @@ export function latex(doc: CvDocument): string {
 \vspace{10pt}
 {\color{graytext}\hrule height 0.6pt}
 \vspace{12pt}
-{\fontsize{11.5}{16.5}\selectfont\color{text}${doc.intro.map(rich).join('\n\n')}\par}
+{\raggedright\fontsize{11.5}{16.5}\selectfont\addfontfeatures{LetterSpace=2.5}\color{text}${doc.intro.map(rich).join('\n\n')}\par}
 
 ${doc.sections.map((s) => section(s, doc)).join('\n\n')}
 
