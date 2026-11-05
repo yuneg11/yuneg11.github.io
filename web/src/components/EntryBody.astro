@@ -3,7 +3,7 @@
 import { loc, onWeb, refOrText, entryLocation, formatPeriod, isOngoing, inline, type Entry, type Lang } from '../lib/data'
 import { t } from '../lib/i18n'
 
-/** `orgFirst`: the organization is the heading, then the unit, then the title (experience). */
+/** `orgFirst`: the organization is the heading and the title moves under it (experience). */
 interface Props { entry: Entry; lang: Lang; showLocation?: boolean; orgFirst?: boolean }
 const { entry: e, lang, showLocation = true, orgFirst = false } = Astro.props
 const s = t(lang)
@@ -11,10 +11,7 @@ const s = t(lang)
 const title = { text: loc(e.title, lang), url: loc(e.url, lang) }
 const org = refOrText(e.org, lang)
 const unit = refOrText(e.unit, lang)
-// The heading, then the lines under it; `main` marks the darker one.
-const [head, lines] = orgFirst && org
-  ? [org, [{ link: unit }, { link: title, main: true }]]
-  : [title, [{ link: org, main: true }, { link: unit }]]
+const [head, ...lines] = orgFirst && org ? [org, title, unit] : [title, org, unit]
 const period = formatPeriod(e, lang, s.present)
 const place = showLocation ? entryLocation(e, lang) : undefined
 const details = onWeb(e.details).map((d) => inline(loc(d.text, lang), lang))
@@ -27,9 +24,9 @@ const ongoing = isOngoing(e)
         {head.url ? <a class="link" href={head.url} target="_blank" rel="noopener">{head.text}</a> : head.text}
         {ongoing && <span class="chip now">{s.present}</span>}
       </h3>
-      {lines.map(({ link: o, main }) => o && (
-        <p class:list={['org', { main }]}>
-          {o.url ? <a class="link" href={o.url} target="_blank" rel="noopener">{o.text}</a> : o.text}
+      {lines.map((o, i) => o && (
+        <p class:list={['org', { main: i === 0 }]}>
+          {o!.url ? <a class="link" href={o!.url} target="_blank" rel="noopener">{o!.text}</a> : o!.text}
         </p>
       ))}
     </div>
