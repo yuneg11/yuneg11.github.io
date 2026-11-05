@@ -152,8 +152,8 @@ button {
 }
 
 /* Text links share one hover effect: an underline that grows in from the
-   left. Links inside running text (.prose, .link.rest) also keep a faint
-   resting line so they still read as links. */
+   left. Links in running text (.prose, .link.strong) use the full text color
+   so they stand out from the surrounding gray. */
 .link,
 .prose a {
   background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
@@ -165,17 +165,9 @@ button {
   background-size: 100% 1px;
 }
 
-.link.rest,
+.link.strong,
 .prose a {
   color: var(--text);
-  background:
-    linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat,
-    linear-gradient(var(--link-line), var(--link-line)) 0 100% / 100% 1px no-repeat;
-}
-
-.link.rest:hover,
-.prose a:hover {
-  background-size: 100% 1px, 100% 1px;
 }
 
 .mono {
