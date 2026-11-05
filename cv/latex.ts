@@ -146,7 +146,7 @@ export function latex(doc: CvDocument): string {
 \newcommand{\position}[5]{%
   \par\addvspace{11pt}\noindent
   \begin{tabularx}{\linewidth}{@{}L@{\hspace{10pt}}r@{}}
-    {\leavevmode\fontsize{12.5}{15}\selectfont\bfseries\color{darktext}#1} & \place{#2} \\[1pt]
+    {\leavevmode\fontsize{12.5}{15}\selectfont\bfseries\color{darktext}#1} & \place{#2} \\[1.5pt]
     {\leavevmode\fontsize{10.5}{13}\selectfont\regular\itshape\color{darktext}#3}%
     \if\relax\detokenize{#5}\relax\else
       {\fontsize{9.5}{13}\selectfont\color{graytext}\enspace\textperiodcentered\enspace #5}%
@@ -162,7 +162,7 @@ export function latex(doc: CvDocument): string {
   \vspace{2pt}{\fontsize{9.5}{12}\selectfont\regular\color{text}#3\par}}
 
 \newlist{details}{itemize}{1}
-\setlist[details]{label={\textbullet}, leftmargin=10pt, labelsep=5pt, topsep=3.5pt, partopsep=0pt, itemsep=2pt, parsep=0pt}
+\setlist[details]{label={\textbullet}, leftmargin=10pt, labelsep=5pt, topsep=4pt, partopsep=0pt, itemsep=2pt, parsep=0pt}
 \AddToHook{env/details/begin}{\fontsize{10}{13.5}\selectfont\color{text}}
 
 % ------------------------------------------------------------ publications
